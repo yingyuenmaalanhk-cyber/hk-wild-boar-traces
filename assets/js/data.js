@@ -4,7 +4,7 @@
  * analytics and home pages. All data is read-only; nothing here writes back.
  */
 
-import { loadJSON, daysSince } from "./site.js";
+import { loadJSON, daysSince } from "./i18n.js";
 
 let cachePromise = null;
 
@@ -55,10 +55,15 @@ export function levelOf(record, meta) {
 export function applyFilters(records, filters, meta) {
   const { from, to, district, level, minCount, q } = filters;
   const query = (q || "").trim();
+  const isUnzoned = district === "__unzoned__";
   return records.filter((r) => {
     if (from && r.date < from) return false;
     if (to && r.date > to) return false;
-    if (district && r.district !== district) return false;
+    if (isUnzoned) {
+      if (r.district) return false;
+    } else if (district && r.district !== district) {
+      return false;
+    }
     if (minCount && r.count < minCount) return false;
     if (level && levelOf(r, meta).key !== level) return false;
     if (query && !(r.location || "").includes(query)) return false;

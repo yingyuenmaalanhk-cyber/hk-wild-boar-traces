@@ -85,6 +85,7 @@ ACTIVITY_LEVELS = [
         "color": "#c0392b",
         "max_days": 30,
         "description": "最近 30 天內曾有行動紀錄",
+        "description_en": "Captured within the last 30 days",
     },
     {
         "key": "medium",
@@ -93,6 +94,7 @@ ACTIVITY_LEVELS = [
         "color": "#e67e22",
         "max_days": 90,
         "description": "最近 31–90 天內曾有行動紀錄",
+        "description_en": "Captured 31–90 days ago",
     },
     {
         "key": "low",
@@ -101,6 +103,7 @@ ACTIVITY_LEVELS = [
         "color": "#f1c40f",
         "max_days": 180,
         "description": "最近 91–180 天內曾有行動紀錄",
+        "description_en": "Captured 91–180 days ago",
     },
     {
         "key": "past",
@@ -109,6 +112,7 @@ ACTIVITY_LEVELS = [
         "color": "#909497",
         "max_days": None,
         "description": "最近一次行動已超過 180 天",
+        "description_en": "Last capture more than 180 days ago",
     },
 ]
 
@@ -510,13 +514,26 @@ def build_outputs(records: list[dict], historical: dict | None) -> None:
         "site_name_en": "HK Wild Boar Traces",
         "data_source": {
             "name": "漁農自然護理署「野豬滋擾」網頁公佈之野豬捕捉行動紀錄",
+            "name_en": (
+                "Wild boar capture-action records published on the "
+                "Agriculture, Fisheries and Conservation Department "
+                "(AFCD) \"Wild Pig Nuisance\" webpage"
+            ),
             "publisher": "香港特別行政區政府漁農自然護理署",
+            "publisher_en": (
+                "Agriculture, Fisheries and Conservation Department, "
+                "The Government of the Hong Kong SAR"
+            ),
             "url": AFCD_URL,
             "retrieved_at": datetime.now().strftime("%Y-%m-%d"),
             "processing": (
-                "以程式擷取官方網頁公佈的逐項行動紀錄，經 OpenStreetMap Nominatim "
-                "將地點名稱轉換為 WGS84 座標及所屬分區後，整理為靜態 JSON / GeoJSON。"
-                "座標僅代表行動地點的近似位置。"
+                "本網站資料整理自政府公開發佈的捕捉行動資訊，並以地圖及圖表形式呈現，"
+                "方便公眾查閱。"
+            ),
+            "processing_en": (
+                "The information on this website is compiled from publicly "
+                "available government data and presented in a map-based "
+                "visualisation for easier public reference."
             ),
         },
         "coverage": {
@@ -528,6 +545,14 @@ def build_outputs(records: list[dict], historical: dict | None) -> None:
                 "官方網頁僅逐項列出最近期的行動，更早的行動只有匯總數字。"
                 "因此本網站並非完整的歷史資料庫，不同時段之間可能存在空檔。"
             ),
+            "note_en": (
+                "This website includes the itemised action records currently "
+                "published on the official webpage; the official webpage only "
+                "lists recent actions item by item, while earlier actions are "
+                "published as totals only. The website is therefore not a "
+                "complete historical database and there may be gaps between "
+                "periods."
+            ),
         },
         "historical_context": historical,
         "totals": statistics["totals"],
@@ -537,11 +562,24 @@ def build_outputs(records: list[dict], historical: dict | None) -> None:
             "亦非全港野豬數量普查。",
             "官方網頁只逐項公佈最近期的行動，較早行動僅有匯總數字，"
             "故本網站的時間序列不連續。",
-            "地點座標由地點名稱經地理編碼取得，屬近似位置，"
-            "不代表實際行動的精確地點。",
+            "地點位置由地點名稱推算，屬近似位置，不代表實際行動的精確地點。",
             "活動指標只反映「紀錄時間新近度」，並非風險預測，"
             "亦不代表某地點現時是否危險。",
             "資料為靜態快照，更新頻率視乎資料整理進度，並非即時資料。",
+        ],
+        "limitations_en": [
+            "The data are AFCD capture-action records, not public sighting "
+            "reports, and not a territory-wide wild boar population survey.",
+            "The official webpage itemises only recent actions; earlier "
+            "actions are published as totals only, so the time series on "
+            "this website is not continuous.",
+            "Locations are estimated from place names and are approximate; "
+            "they do not represent the exact spot of each operation.",
+            "The activity indicator only reflects how recent the records are. "
+            "It is not a risk forecast and does not indicate whether a "
+            "location is currently dangerous.",
+            "The data are a static snapshot, refreshed periodically rather "
+            "than in real time.",
         ],
     }
 

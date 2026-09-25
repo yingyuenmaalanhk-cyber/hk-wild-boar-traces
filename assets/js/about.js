@@ -1,16 +1,23 @@
+import "./site.js";
+
 /**
  * 豬絲馬跡 — about page
- * Renders the data limitations list from data/meta.json so the site copy and
- * the pipeline always agree.
+ * Renders the data limitations lists from data/meta.json in both languages;
+ * which list is visible is decided purely by the html[lang] CSS rules, so a
+ * language switch needs no re-render here.
  */
 
-import { loadJSON } from "./site.js";
+import { esc, loadJSON } from "./i18n.js";
 
 async function init() {
   const meta = await loadJSON("data/meta.json");
-  const list = document.querySelector("[data-limitations]");
-  if (list && meta.limitations?.length) {
-    list.innerHTML = meta.limitations.map((item) => `<li>${item}</li>`).join("");
+  const zh = document.querySelector("[data-limitations]");
+  const en = document.querySelector("[data-limitations-en]");
+  if (zh && meta.limitations?.length) {
+    zh.innerHTML = meta.limitations.map((item) => `<li>${esc(item)}</li>`).join("");
+  }
+  if (en && meta.limitations_en?.length) {
+    en.innerHTML = meta.limitations_en.map((item) => `<li>${esc(item)}</li>`).join("");
   }
 }
 

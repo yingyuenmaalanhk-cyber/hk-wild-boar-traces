@@ -1,7 +1,11 @@
+import "./site.js";
+
 /**
  * 豬絲馬跡 — activity map page
  * Leaflet map with clustered action records, a location activity overlay and
  * an optional heatmap. Filters are view-only: they never modify the datasets.
+ * Fully bilingual: switching language re-renders labels, popups and lists
+ * while preserving the current map view and filters.
  */
 
 import {
@@ -10,20 +14,27 @@ import {
   summarise,
   filtersFromURL,
   filtersToURL,
-  levelOf,
 } from "./data.js";
-import { esc, formatDate, daysSince } from "./site.js";
+import {
+  currentLang,
+  daysSince,
+  districtName,
+  esc,
+  formatDate,
+  metaField,
+  t,
+} from "./i18n.js";
 
 const HK_CENTER = [22.35, 114.15];
 const RESULT_LIST_CAP = 200;
 
 let meta;
 let records;          // all record properties
-let statistics;
 let map;
 let cluster;          // L.markerClusterGroup
-let heat = null;      // L.heatLayer or null
+let heat = null;      // L.heatLayer
 let activityLayer;    // L.layerGroup
+let layerControl = null;
 let markersById = new Map();
 let current = [];
 let filters = {};
@@ -35,36 +46,44 @@ const els = {
 
 /* ------------------------------------------------------------------ map -- */
 
-function baseLayers() {
-  // Single first-party-friendly basemap: OpenStreetMap standard raster tiles.
-  // (CARTO's light tiles now require an API key, so they are not used.)
-  const standard = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+function baseLayer() {
+  return L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   });
-  return { standard };
 }
 
-function popupHTML(record, level) {
+/** Activity level metadata for a record (recency-based). */
+function levelOf(record) {
   const days = daysSince(record.date, meta.coverage.reference_date);
-  const when =
-    days === 0 ? "資料截止日當天" : days > 0 ? `${days} 天前` : "";
+  for (const level of meta.activity_levels) {
+    if (level.max_days === null || days <= level.max_days) return level;
+  }
+  return meta.activity_levels[meta.activity_levels.length - 1];
+}
+
+function popupHTML(record) {
+  const days = daysSince(record.date, meta.coverage.reference_date);
+  const when = days === 0
+    ? t("popup.when.today")
+    : t("popup.when.days", { days });
+  const level = levelOf(record);
   return `<div class="popup">
     <div class="popup-date">${formatDate(record.date)}${when ? ` · ${when}` : ""}</div>
     <h3>${esc(record.location)}</h3>
     <dl>
-      <dt>野豬數目</dt><dd>${record.count} 頭</dd>
-      <dt>所屬地區</dt><dd>${esc(record.district || "未分區")}</dd>
-      ${record.action_number ? `<dt>行動編號</dt><dd>#${esc(record.action_number)}</dd>` : ""}
-      <dt>最近程度</dt><dd>${esc(level.label)}</dd>
+      <dt>${t("popup.count")}</dt><dd>${t("popup.count.value", { n: record.count })}</dd>
+      <dt>${t("popup.district")}</dt><dd>${esc(districtName(record.district, record.district_en))}</dd>
+      ${record.action_number ? `<dt>${t("popup.actionno")}</dt><dd>#${esc(record.action_number)}</dd>` : ""}
+      <dt>${t("popup.level")}</dt><dd>${esc(metaField(level, "label"))}</dd>
     </dl>
-    <p class="popup-src">資料來源：漁護署公佈之捕捉行動 · 位置為近似地點</p>
+    <p class="popup-src">${t("popup.source")}</p>
   </div>`;
 }
 
 function markerStyle(record) {
-  const level = levelOf(record, meta);
+  const level = levelOf(record);
   return {
     radius: 5 + Math.sqrt(Math.max(record.count, 1)) * 1.6,
     color: "#ffffff",
@@ -80,8 +99,7 @@ function buildMarkers() {
   for (const record of current) {
     if (record.lat == null) continue;
     const marker = L.circleMarker([record.lat, record.lon], markerStyle(record));
-    const level = levelOf(record, meta);
-    marker.bindPopup(popupHTML(record, level), { maxWidth: 280 });
+    marker.bindPopup(popupHTML(record), { maxWidth: 280 });
     cluster.addLayer(marker);
     markersById.set(record, marker);
   }
@@ -91,9 +109,7 @@ function buildHeat() {
   const points = current
     .filter((r) => r.lat != null)
     .map((r) => [r.lat, r.lon, Math.min(r.count, 8)]);
-  if (heat) {
-    heat.setLatLngs(points);
-  }
+  if (heat) heat.setLatLngs(points);
 }
 
 function buildActivity() {
@@ -107,8 +123,7 @@ function buildActivity() {
   }
   for (const [name, list] of byLocation) {
     const last = list.reduce((a, b) => (a.date > b.date ? a : b));
-    const days = daysSince(last.date, meta.coverage.reference_date);
-    const level = levelOf(last, meta);
+    const level = levelOf(last);
     const boars = list.reduce((s, r) => s + r.count, 0);
     const circle = L.circle([last.lat, last.lon], {
       radius: 140 + Math.min(list.length, 8) * 45,
@@ -119,15 +134,15 @@ function buildActivity() {
     });
     circle.bindPopup(
       `<div class="popup">
-        <div class="popup-date">活動指標 · 地點汇总</div>
+        <div class="popup-date">${t("popup.activity.title")}</div>
         <h3>${esc(name)}</h3>
         <dl>
-          <dt>目前程度</dt><dd>${esc(level.label)}</dd>
-          <dt>紀錄次數</dt><dd>${list.length} 次</dd>
-          <dt>野豬數目</dt><dd>${boars} 頭</dd>
-          <dt>最近行動</dt><dd>${formatDate(last.date)}</dd>
+          <dt>${t("popup.activity.level")}</dt><dd>${esc(metaField(level, "label"))}</dd>
+          <dt>${t("popup.activity.records")}</dt><dd>${t("popup.activity.records_value", { n: list.length })}</dd>
+          <dt>${t("popup.activity.boars")}</dt><dd>${t("popup.count.value", { n: boars })}</dd>
+          <dt>${t("popup.activity.last")}</dt><dd>${formatDate(last.date)}</dd>
         </dl>
-        <p class="popup-src">程度按最近一次行動時間劃分（${esc(level.description)}），並非風險預測。</p>
+        <p class="popup-src">${t("popup.activity.note", { description: metaField(level, "description") })}</p>
       </div>`,
       { maxWidth: 280 }
     );
@@ -139,10 +154,11 @@ function buildActivity() {
 
 function renderCount() {
   const s = summarise(current);
-  els.count.innerHTML =
-    `符合 <strong>${s.records}</strong> 筆紀錄 · ` +
-    `共 <strong>${s.boars}</strong> 頭野豬 · ` +
-    `<strong>${s.locations}</strong> 個地點`;
+  els.count.textContent = t("map.summary", {
+    records: s.records,
+    boars: s.boars,
+    locations: s.locations,
+  });
 }
 
 function renderList() {
@@ -150,16 +166,19 @@ function renderList() {
   const shown = sorted.slice(0, RESULT_LIST_CAP);
   const colors = Object.fromEntries(meta.activity_levels.map((l) => [l.key, l.color]));
   els.list.innerHTML = shown
-    .map((r, index) => {
-      const level = levelOf(r, meta);
+    .map((r) => {
+      const level = levelOf(r);
       return `<li>
         <button type="button" class="result-item" data-index="${sorted.indexOf(r)}">
           <span class="dot" style="background:${colors[level.key]}" aria-hidden="true"></span>
           <span class="meta">
             <span class="loc">${esc(r.location)}</span>
-            <span class="sub">${formatDate(r.date)} · ${esc(r.district || "未分區")}</span>
+            <span class="sub">${formatDate(r.date)} · ${esc(districtName(r.district, r.district_en))}</span>
           </span>
-          <span class="badge badge-${level.key}">${r.count} 頭</span>
+          <span class="badge badge-${level.key}">
+            <span class="dot" style="background:${colors[level.key]}" aria-hidden="true"></span>
+            ${r.count} · ${esc(metaField(level, "label"))}
+          </span>
         </button>
       </li>`;
     })
@@ -167,7 +186,7 @@ function renderList() {
   if (sorted.length > RESULT_LIST_CAP) {
     const li = document.createElement("li");
     li.style.cssText = "font-size:.8rem;color:var(--c-ink-faint);padding:8px 4px;";
-    li.textContent = `僅顯示最近 ${RESULT_LIST_CAP} 筆，合共 ${sorted.length} 筆，請善用篩選收窄範圍。`;
+    li.textContent = t("map.list.cap", { cap: RESULT_LIST_CAP, total: sorted.length });
     els.list.appendChild(li);
   }
 }
@@ -227,13 +246,45 @@ function onFilterInput() {
 function buildLegend() {
   els.legend.innerHTML = meta.activity_levels
     .map(
-      (l) => `<li><span class="swatch" style="background:${l.color}"></span>${esc(l.label)} · ${esc(l.description)}</li>`
+      (l) => `<li><span class="swatch" style="background:${l.color}"></span>${esc(metaField(l, "label"))} · ${esc(metaField(l, "description"))}</li>`
     )
     .join("");
 }
 
+function populateDistricts(districts) {
+  const previous = els.district.value;
+  // Remove everything except the "all districts" option, then rebuild.
+  for (const option of [...els.district.options]) {
+    if (option.value !== "") option.remove();
+  }
+  for (const d of districts.districts) {
+    const name = currentLang() === "en" ? d.en : d.zh;
+    const label = d.records > 0
+      ? `${name}${t("map2.districtcount", { n: d.records })}`
+      : `${name}${t("map.district.none")}`;
+    const el = document.createElement("option");
+    el.value = d.zh;
+    el.textContent = label;
+    els.district.appendChild(el);
+  }
+  els.district.value = previous;
+}
+
+function buildLayerControl() {
+  if (layerControl) map.removeControl(layerControl);
+  layerControl = L.control.layers(
+    {},
+    {
+      [t("map.layer.records")]: cluster,
+      [t("map.layer.activity")]: activityLayer,
+      [t("map.layer.heat")]: heat,
+    },
+    { collapsed: window.innerWidth < 720 }
+  );
+  layerControl.addTo(map);
+}
+
 function initMap() {
-  const { standard } = baseLayers();
   map = L.map("map", {
     center: HK_CENTER,
     zoom: 10,
@@ -243,7 +294,7 @@ function initMap() {
     maxBoundsViscosity: 0.8,
     zoomControl: true,
   });
-  standard.addTo(map);
+  baseLayer().addTo(map);
 
   cluster = L.markerClusterGroup({
     showCoverageOnHover: false,
@@ -259,8 +310,8 @@ function initMap() {
 
   activityLayer = L.layerGroup();
 
-  // Heat layer is created up front (empty) so the layers control can bind it;
-  // it stays unchecked until the visitor enables it.
+  // Created up front (empty) so the layers control can bind it; unchecked
+  // until the visitor enables it.
   heat = L.heatLayer([], {
     radius: 28,
     blur: 20,
@@ -269,29 +320,12 @@ function initMap() {
     gradient: { 0.2: "#f6d55c", 0.5: "#ed9a45", 0.8: "#d64541" },
   });
 
-  L.control
-    .layers(
-      {},
-      { 行動紀錄: cluster, 活動指標範圍: activityLayer, 熱力圖: heat },
-      { collapsed: window.innerWidth < 720 }
-    )
-    .addTo(map);
-
+  buildLayerControl();
   map.addLayer(activityLayer);
 
   window.addEventListener("resize", () => {
     map.invalidateSize();
   });
-}
-
-function populateDistricts(districts) {
-  for (const d of districts.districts) {
-    const label = d.records > 0 ? `${d.zh}（${d.records}）` : `${d.zh}（無紀錄）`;
-    const option = document.createElement("option");
-    option.value = d.zh;
-    option.textContent = label;
-    els.district.appendChild(option);
-  }
 }
 
 async function init() {
@@ -310,7 +344,6 @@ async function init() {
   const data = await loadDatasets();
   meta = data.meta;
   records = data.records.filter((r) => r.lat != null);
-  statistics = data.statistics;
 
   buildLegend();
   populateDistricts(data.districts);
@@ -339,10 +372,18 @@ async function init() {
     const record = current[Number(button.dataset.index)];
     if (record) focusRecord(record);
   });
+
+  // Language switch: keep the view, filters and map state; re-render text.
+  document.addEventListener("langchange", () => {
+    buildLegend();
+    populateDistricts(data.districts);
+    buildLayerControl();
+    render();
+  });
 }
 
 init().catch((error) => {
   console.error(error);
   const counter = document.querySelector("[data-results-count]");
-  if (counter) counter.textContent = "資料載入失敗，請重新整理頁面。";
+  if (counter) counter.textContent = t("map.loadfail");
 });

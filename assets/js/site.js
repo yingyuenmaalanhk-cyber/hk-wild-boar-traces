@@ -1,45 +1,16 @@
 /**
  * 豬絲馬跡 — shared site behaviour
- * Nav toggle, small helpers, and filling the site-wide data snapshot banner
- * from data/meta.json.
+ * Language initialisation, nav toggle, and the site-wide data snapshot
+ * banner filled from data/meta.json.
  */
 
-export const SITE = {
-  name: "豬絲馬跡",
-  nameEn: "HK Wild Boar Traces",
-  /** Public repository URL — shown as the footer source-code link. */
-  repoUrl: "https://github.com/yingyuenmaalanhk-cyber/hk-wild-boar-traces",
-  sourceName: "漁農自然護理署",
-};
+import { currentLang, initI18n, loadJSON, metaField } from "./i18n.js";
 
-/** Fetch a JSON file from /data with a helpful error message. */
-export async function loadJSON(path) {
-  const resp = await fetch(path);
-  if (!resp.ok) {
-    throw new Error(`無法載入 ${path}（HTTP ${resp.status}）`);
-  }
-  return resp.json();
-}
+/* --- language ------------------------------------------------------------- */
 
-/** Format an ISO date (2026-08-12) as 2026年8月12日. */
-export function formatDate(iso) {
-  const [y, m, d] = iso.split("-").map(Number);
-  return `${y}年${m}月${d}日`;
-}
+initI18n();
 
-/** Escape untrusted strings before inserting into HTML. */
-export function esc(value) {
-  return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-  })[ch]);
-}
-
-/** Days between an ISO date and the dataset reference date. */
-export function daysSince(iso, referenceIso) {
-  return Math.round((new Date(referenceIso) - new Date(iso)) / 86400000);
-}
-
-/* --- navigation ---------------------------------------------------------- */
+/* --- navigation ----------------------------------------------------------- */
 
 function initNav() {
   const header = document.querySelector(".site-header");
@@ -51,36 +22,35 @@ function initNav() {
   });
 }
 
-/* --- data snapshot banner ------------------------------------------------ */
+/* --- data snapshot banner -------------------------------------------------- */
 
 async function initDataBanner() {
   const banner = document.querySelector("[data-banner]");
   if (!banner) return;
+
+  const render = (meta) => {
+    const lang = currentLang();
+    const publisher =
+      lang === "en" ? meta.data_source.publisher_en : meta.data_source.publisher;
+    const publisherShort = publisher.includes("漁農") || publisher.includes("Agriculture")
+      ? (lang === "en" ? "AFCD" : "漁農自然護理署")
+      : publisher;
+    const snapshot = banner.querySelector("[data-banner-date]");
+    const source = banner.querySelector("[data-banner-source]");
+    if (snapshot) snapshot.textContent = meta.coverage.reference_date;
+    if (source) source.textContent = publisherShort;
+  };
+
   try {
     const meta = await loadJSON("data/meta.json");
-    const parts = banner.querySelectorAll("[data-banner-part]");
-    for (const part of parts) {
-      const key = part.dataset.bannerPart;
-      if (key === "date") part.textContent = meta.coverage.reference_date;
-      if (key === "source") part.textContent = meta.data_source.publisher;
-    }
+    render(meta);
     banner.hidden = false;
+    document.addEventListener("langchange", () => render(meta));
   } catch (error) {
     console.error(error);
     banner.hidden = false;
   }
 }
 
-/* --- footer repo link ---------------------------------------------------- */
-
-function initRepoLink() {
-  const link = document.querySelector("[data-repo-link]");
-  if (link && SITE.repoUrl) {
-    link.href = SITE.repoUrl;
-    link.hidden = false;
-  }
-}
-
 initNav();
 initDataBanner();
-initRepoLink();

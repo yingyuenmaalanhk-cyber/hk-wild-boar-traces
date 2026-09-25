@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" data-title-i18n="doc.title.analytics">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>數據分析 — 豬絲馬跡</title>
-  <meta name="description" content="香港野豬捕捉行動數據分析：月度趨勢、地區分佈、行動規模與活動指標統計，由實際資料即時運算。">
-  <meta property="og:title" content="數據分析 — 豬絲馬跡">
+  <meta name="description" content="香港野豬捕捉行動數據分析：月度趨勢、地區分佈、行動規模與活動指標統計，由實際資料即時運算。 Analytics of wild boar capture actions in Hong Kong: monthly trends, district distribution and the activity indicator.">
+  <meta property="og:title" content="數據分析 Data Analytics — 豬絲馬跡 HK Wild Boar Traces">
   <meta property="og:description" content="香港野豬捕捉行動的月度趨勢、地區分佈與活動指標統計。">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_HK">
+  <meta property="og:locale:alternate" content="en_GB">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e6b4e'/%3E%3Cg fill='%23fff'%3E%3Cellipse cx='22' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='42' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='12' cy='34' rx='5.5' ry='7'/%3E%3Cellipse cx='52' cy='34' rx='5.5' ry='7'/%3E%3Cpath d='M32 31c8 0 15 6.5 15 13.5 0 4.5-3.5 7.5-8 7.5-3 0-5-1.5-7-1.5s-4 1.5-7 1.5c-4.5 0-8-3-8-7.5C17 37.5 24 31 32 31z'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">跳至主要內容</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
 
   <header class="site-header">
     <div class="inner">
@@ -23,13 +24,17 @@
         </span>
         <span>豬絲馬跡<small>HK WILD BOAR TRACES</small></span>
       </a>
-      <nav class="main-nav" aria-label="主導覽">
-        <a href="index.html">主頁</a>
-        <a href="map.html">活動地圖</a>
-        <a href="analytics.html" aria-current="page">數據分析</a>
-        <a href="about.html">關於計劃</a>
+      <nav class="main-nav" aria-label="" data-i18n-aria="a11y.nav">
+        <a href="index.html" data-i18n="nav.home"></a>
+        <a href="map.html" data-i18n="nav.map"></a>
+        <a href="analytics.html" aria-current="page" data-i18n="nav.analytics"></a>
+        <a href="about.html" data-i18n="nav.about"></a>
       </nav>
-      <button class="nav-toggle" aria-expanded="false" aria-label="開啟或關閉選單">
+      <div class="lang-switch" role="group" aria-label="" data-i18n-aria="a11y.lang.group">
+        <button type="button" data-lang-btn="zh" aria-pressed="true" aria-label="" data-i18n-aria="a11y.lang.zh">中文</button>
+        <button type="button" data-lang-btn="en" aria-pressed="false" aria-label="" data-i18n-aria="a11y.lang.en">EN</button>
+      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-label="" data-i18n-aria="a11y.menu">
         <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
         <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></svg>
       </button>
@@ -39,8 +44,8 @@
   <div class="data-banner" data-banner hidden>
     <div class="inner">
       <span aria-hidden="true">ⓘ</span>
-      <span>資料快照：<strong data-banner-part="date">載入中…</strong> · 來源：<span data-banner-part="source">—</span> · 非即時統計</span>
-      <a href="about.html#limitations">了解資料限制</a>
+      <span><span data-i18n="banner.snapshot"></span>: <strong data-banner-date>—</strong> · <span data-i18n="banner.source"></span>: <span data-banner-source>—</span> · <span data-i18n="banner.nonrealtime"></span></span>
+      <a href="about.html#limitations" data-i18n="banner.learn"></a>
     </div>
   </div>
 
@@ -48,89 +53,110 @@
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Data &amp; Analytics</span>
-        <h2>數據分析</h2>
-        <p>以下圖表由本站收錄的行動紀錄即時運算而成；可按日期與地區篩選查看不同切面。</p>
+        <h2 data-i18n="nav.analytics"></h2>
+        <p data-i18n="analytics.subtitle"></p>
       </div>
 
-      <form class="card filter-bar" id="filter-form" aria-label="分析篩選">
+      <form class="card filter-bar" id="filter-form" aria-label="" data-i18n-aria="map.title">
         <div class="field">
-          <label for="a-from">開始日期</label>
+          <label for="a-from" data-i18n="analytics.from"></label>
           <input type="date" id="a-from" name="from">
         </div>
         <div class="field">
-          <label for="a-to">結束日期</label>
+          <label for="a-to" data-i18n="analytics.to"></label>
           <input type="date" id="a-to" name="to">
         </div>
         <div class="field">
-          <label for="a-district">地區</label>
+          <label for="a-district" data-i18n="analytics.district"></label>
           <select id="a-district" name="district">
-            <option value="">全部地區</option>
+            <option value="" data-i18n="map.district.all"></option>
           </select>
         </div>
-        <button type="button" class="btn btn-outline btn-sm" id="a-reset">重設</button>
-        <a class="btn btn-outline btn-sm" id="a-map-link" href="map.html">在地圖查看 →</a>
+        <button type="button" class="btn btn-outline btn-sm" id="a-reset" data-i18n="analytics.reset"></button>
+        <a class="btn btn-outline btn-sm" id="a-map-link" href="map.html" data-i18n="analytics.viewmap"></a>
       </form>
 
       <div class="stat-strip" style="margin-bottom: 26px;" data-summary>
-        <div class="card stat-tile"><div class="num" data-sum="records">—</div><div class="lbl">行動紀錄</div><div class="sub">符合篩選條件</div></div>
-        <div class="card stat-tile"><div class="num" data-sum="boars">—</div><div class="lbl">野豬數目</div><div class="sub">行動合計</div></div>
-        <div class="card stat-tile"><div class="num" data-sum="locations">—</div><div class="lbl">涉及地點</div><div class="sub">不重複地點</div></div>
-        <div class="card stat-tile"><div class="num" data-sum="avg">—</div><div class="lbl">平均每宗</div><div class="sub">野豬數目／行動</div></div>
+        <div class="card stat-tile"><div class="num" data-sum="records">—</div><div class="lbl" data-i18n="analytics.sum.records"></div><div class="sub" data-i18n="analytics.sum.records_sub"></div></div>
+        <div class="card stat-tile"><div class="num" data-sum="boars">—</div><div class="lbl" data-i18n="analytics.sum.boars"></div><div class="sub" data-i18n="analytics.sum.boars_sub"></div></div>
+        <div class="card stat-tile"><div class="num" data-sum="locations">—</div><div class="lbl" data-i18n="analytics.sum.locations"></div><div class="sub" data-i18n="analytics.sum.locations_sub"></div></div>
+        <div class="card stat-tile"><div class="num" data-sum="avg">—</div><div class="lbl" data-i18n="analytics.sum.avg"></div><div class="sub" data-i18n="analytics.sum.avg_sub"></div></div>
       </div>
 
       <div class="chart-grid">
         <article class="card chart-card wide">
-          <h3>月度趨勢</h3>
-          <p class="chart-sub">每月行動次數（柱）與野豬數目（線）。注意：收錄時段之間可能存在空檔，詳見<a href="about.html#limitations">資料限制</a>。</p>
-          <div class="chart-box tall"><canvas id="chart-monthly" role="img" aria-label="每月行動次數與野豬數目趨勢圖"></canvas></div>
+          <h3 data-i18n="analytics.chart.monthly"></h3>
+          <p class="chart-sub">
+            <span data-i18n="analytics.chart.monthly_sub"></span>
+            <a href="about.html#limitations" data-i18n="banner.learn"></a>。
+          </p>
+          <div class="chart-box tall"><canvas id="chart-monthly" role="img" aria-label="" data-i18n-aria="analytics.chart.monthly"></canvas></div>
         </article>
         <article class="card chart-card">
-          <h3>地區分佈</h3>
-          <p class="chart-sub">各地區的行動次數與野豬數目。</p>
-          <div class="chart-box"><canvas id="chart-district" role="img" aria-label="各地區行動次數與野豬數目分佈圖"></canvas></div>
+          <h3 data-i18n="analytics.chart.district"></h3>
+          <p class="chart-sub" data-i18n="analytics.chart.district_sub"></p>
+          <div class="chart-box"><canvas id="chart-district" role="img" aria-label="" data-i18n-aria="analytics.chart.district"></canvas></div>
         </article>
         <article class="card chart-card">
-          <h3>單次行動規模</h3>
-          <p class="chart-sub">每次行動捕獲野豬數目的分佈。</p>
-          <div class="chart-box"><canvas id="chart-bands" role="img" aria-label="單次行動野豬數目分佈圖"></canvas></div>
+          <h3 data-i18n="analytics.chart.bands"></h3>
+          <p class="chart-sub" data-i18n="analytics.chart.bands_sub"></p>
+          <div class="chart-box"><canvas id="chart-bands" role="img" aria-label="" data-i18n-aria="analytics.chart.bands"></canvas></div>
         </article>
         <article class="card chart-card wide">
-          <h3>紀錄最多的地點（前 10）</h3>
-          <p class="chart-sub">按行動紀錄次數排列。</p>
-          <div class="chart-box"><canvas id="chart-top-locations" role="img" aria-label="紀錄最多的十個地點"></canvas></div>
+          <h3 data-i18n="analytics.chart.top"></h3>
+          <p class="chart-sub" data-i18n="analytics.chart.top_sub"></p>
+          <div class="chart-box"><canvas id="chart-top-locations" role="img" aria-label="" data-i18n-aria="analytics.chart.top"></canvas></div>
         </article>
       </div>
 
-      <section class="section" style="padding-bottom: 0;" aria-label="地區統計表">
+      <section class="section" style="padding-bottom: 0;" aria-labelledby="district-table-title">
         <div class="section-head">
-          <h2 style="font-size: 1.3rem;">地區統計</h2>
-          <p>點擊「查看」可在地圖上開啟該區的篩選結果。</p>
+          <h2 id="district-table-title" style="font-size: 1.3rem;" data-i18n="analytics.table.district"></h2>
+          <p data-i18n="analytics.table.district_sub"></p>
         </div>
         <div class="card table-wrap">
           <table class="data-table" data-district-table>
             <thead>
-              <tr><th>地區</th><th class="num">行動次數</th><th class="num">野豬數目</th><th class="num">涉及地點</th><th>佔比</th><th>地圖</th></tr>
+              <tr>
+                <th data-i18n="analytics.th.district"></th>
+                <th class="num" data-i18n="analytics.th.actions"></th>
+                <th class="num" data-i18n="analytics.th.boars"></th>
+                <th class="num" data-i18n="analytics.th.locations"></th>
+                <th data-i18n="analytics.th.share"></th>
+                <th data-i18n="analytics.th.view"></th>
+              </tr>
             </thead>
             <tbody></tbody>
           </table>
         </div>
       </section>
 
-      <section class="section" style="padding-bottom: 0;" aria-label="活動指標表">
+      <section class="section" style="padding-bottom: 0;" aria-labelledby="location-table-title">
         <div class="section-head">
-          <h2 style="font-size: 1.3rem;">地點活動指標</h2>
-          <p>按最近一次行動時間劃分程度；指標只描述紀錄時間的新近度，<strong>並非風險預測</strong>。</p>
+          <h2 id="location-table-title" style="font-size: 1.3rem;" data-i18n="analytics.table.location"></h2>
+          <p>
+            <span data-i18n="analytics.table.location_sub"></span>
+            <strong data-i18n="analytics.table.location_sub_strong"></strong>。
+          </p>
         </div>
         <div class="card table-wrap">
           <table class="data-table" data-location-table>
             <thead>
-              <tr><th>地點</th><th>地區</th><th class="num">紀錄次數</th><th class="num">野豬數目</th><th class="num">最近行動</th><th>活動程度</th></tr>
+              <tr>
+                <th data-i18n="analytics.th.location"></th>
+                <th data-i18n="analytics.th.district"></th>
+                <th class="num" data-i18n="analytics.th.recordcount"></th>
+                <th class="num" data-i18n="analytics.th.boars"></th>
+                <th class="num" data-i18n="analytics.th.last"></th>
+                <th data-i18n="analytics.th.activity"></th>
+              </tr>
             </thead>
             <tbody></tbody>
           </table>
         </div>
         <p style="font-size: 0.85rem; color: var(--c-ink-faint); margin-top: 10px;">
-          完整計算方法見<a href="about.html#indicator">活動指標說明</a>。
+          <span data-i18n="analytics.indicator_link"></span>
+          <a href="about.html#indicator" data-i18n="analytics.indicator_link_target"></a>。
         </p>
       </section>
     </div>
@@ -138,27 +164,38 @@
 
   <footer class="site-footer">
     <div class="inner">
-      <div>
+      <div class="foot-brand">
         <h3>豬絲馬跡</h3>
-        <p>公開、唯讀的香港野豬活動資訊平台。資料整理自政府公開資料，僅供參考，不構成任何風險建議。</p>
+        <p data-i18n="foot.tagline"></p>
       </div>
-      <div>
-        <h3>瀏覽</h3>
+      <nav class="foot-col" aria-label="" data-i18n-aria="foot.browse">
+        <h3 data-i18n="foot.browse"></h3>
         <ul>
-          <li><a href="map.html">活動地圖</a></li>
-          <li><a href="analytics.html">數據分析</a></li>
-          <li><a href="about.html">資料來源與方法</a></li>
+          <li><a href="index.html" data-i18n="nav.home"></a></li>
+          <li><a href="map.html" data-i18n="nav.map"></a></li>
+          <li><a href="analytics.html" data-i18n="nav.analytics"></a></li>
+          <li><a href="about.html" data-i18n="nav.about"></a></li>
+        </ul>
+      </nav>
+      <div class="foot-col">
+        <h3 data-i18n="foot.data"></h3>
+        <ul>
+          <li><a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer" data-i18n="foot.afcd"></a></li>
+          <li><a href="about.html#source" data-i18n="foot.data_notes"></a></li>
         </ul>
       </div>
-      <div>
-        <h3>資料</h3>
+      <div class="foot-col">
+        <h3 data-i18n="foot.legal"></h3>
         <ul>
-          <li><a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁護署「野豬滋擾」公佈</a></li>
-          <li><a href="about.html#privacy">私隱聲明</a></li>
-          <li><a data-repo-link hidden href="#" rel="noopener noreferrer">源碼（GitHub）</a></li>
+          <li><a href="about.html#privacy" data-i18n="foot.privacy"></a></li>
+          <li><a href="about.html#copyright" data-i18n="foot.copyright"></a></li>
         </ul>
       </div>
-      <p class="foot-note">© 豬絲馬跡計劃 · 資料來源：香港特別行政區政府漁農自然護理署公佈之野豬捕捉行動資料 · 本網站為唯讀平台，不接受資料提交或修改。</p>
+      <div class="foot-legal">
+        <p class="copyright" data-i18n="foot.copyright_line"></p>
+        <p class="ownership" data-i18n="foot.ownership"></p>
+        <p class="foot-note" data-i18n="foot.readonly"></p>
+      </div>
     </div>
   </footer>
 

@@ -31,7 +31,14 @@ DATA_FILES = {"sightings.geojson", "statistics.json", "meta.json", "districts.js
 # Built by concatenation so this file does not literally contain the strings
 # it searches for (which would make the audit flag its own source).
 SCHOOL_ID = "pol" + "yu"
+# The official competition name is published intentionally (user request);
+# any OTHER mention of the school identifier remains a blocking finding.
+OFFICIAL_COMPETITION = (
+    "Poly" + "U FCE Build a Smart City Competition " + "2026"
+)
 URL_PLACEHOLDER = "YOUR-GITHUB" + "-USERNAME"
+
+SCHOOL_PATTERN = re.compile(SCHOOL_ID, re.IGNORECASE)
 
 # (pattern, severity, human description)
 RULES = [
@@ -39,7 +46,7 @@ RULES = [
     (re.compile(r"[CDE]:[\\/][Uu]sers[\\/][^\\/\s\"']+"), "FAIL", "Windows user profile path"),
     (re.compile(r"/home/[A-Za-z0-9._-]+"), "FAIL", "Linux home path"),
     (re.compile(r"/Users/[A-Za-z0-9._-]+"), "FAIL", "macOS user path"),
-    (re.compile(SCHOOL_ID, re.IGNORECASE), "FAIL", "school/affiliation identifier"),
+    (SCHOOL_PATTERN, "FAIL", "school/affiliation identifier"),
     (re.compile(r"password\s*[:=]\s*['\"][^'\"]{3,}", re.IGNORECASE), "FAIL", "hardcoded password"),
     (re.compile(r"(api[_-]?key|access[_-]?token|secret[_-]?key)\s*[:=]\s*['\"][^'\"]{8,}", re.IGNORECASE), "FAIL", "hardcoded API key / token"),
     (re.compile(r"\b\d{1,2}[A-Da-d]\(\d{1,3}\)\b"), "WARN", "student-class-number-like pattern (e.g. 5D(28))"),
@@ -73,8 +80,11 @@ def scan() -> int:
         except OSError:
             continue
         for lineno, line in enumerate(text.splitlines(), 1):
+            # Whitelist the official competition name before school-ID checks.
+            cleaned = re.sub(OFFICIAL_COMPETITION, "", line, flags=re.IGNORECASE)
             for pattern, severity, label in rules:
-                match = pattern.search(line)
+                haystack = cleaned if pattern is SCHOOL_PATTERN else line
+                match = pattern.search(haystack)
                 if match:
                     findings.append(
                         (str(path.relative_to(REPO_ROOT)), lineno, severity, label, match.group(0)[:60])

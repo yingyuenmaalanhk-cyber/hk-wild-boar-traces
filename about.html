@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="zh-HK">
+﻿<!DOCTYPE html>
+<html lang="zh-HK" data-title-i18n="doc.title.about">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>關於計劃與資料說明 — 豬絲馬跡</title>
-  <meta name="description" content="豬絲馬跡的資料來源、處理方法、活動指標計算方式、資料限制與私隱聲明。">
-  <meta property="og:title" content="關於計劃與資料說明 — 豬絲馬跡">
-  <meta property="og:description" content="資料來源、處理方法、活動指標計算方式、資料限制與私隱聲明。">
+  <meta name="description" content="豬絲馬跡的資料來源、活動指標說明、資料限制、私隱聲明與版權資訊。 Data sources, the activity indicator, limitations, privacy statement and copyright of HK Wild Boar Traces.">
+  <meta property="og:title" content="關於計劃 About — 豬絲馬跡 HK Wild Boar Traces">
+  <meta property="og:description" content="資料來源、活動指標說明、資料限制、私隱聲明與版權資訊。">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_HK">
+  <meta property="og:locale:alternate" content="en_GB">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e6b4e'/%3E%3Cg fill='%23fff'%3E%3Cellipse cx='22' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='42' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='12' cy='34' rx='5.5' ry='7'/%3E%3Cellipse cx='52' cy='34' rx='5.5' ry='7'/%3E%3Cpath d='M32 31c8 0 15 6.5 15 13.5 0 4.5-3.5 7.5-8 7.5-3 0-5-1.5-7-1.5s-4 1.5-7 1.5c-4.5 0-8-3-8-7.5C17 37.5 24 31 32 31z'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">跳至主要內容</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
 
   <header class="site-header">
     <div class="inner">
@@ -23,13 +24,17 @@
         </span>
         <span>豬絲馬跡<small>HK WILD BOAR TRACES</small></span>
       </a>
-      <nav class="main-nav" aria-label="主導覽">
-        <a href="index.html">主頁</a>
-        <a href="map.html">活動地圖</a>
-        <a href="analytics.html">數據分析</a>
-        <a href="about.html" aria-current="page">關於計劃</a>
+      <nav class="main-nav" aria-label="" data-i18n-aria="a11y.nav">
+        <a href="index.html" data-i18n="nav.home"></a>
+        <a href="map.html" data-i18n="nav.map"></a>
+        <a href="analytics.html" data-i18n="nav.analytics"></a>
+        <a href="about.html" aria-current="page" data-i18n="nav.about"></a>
       </nav>
-      <button class="nav-toggle" aria-expanded="false" aria-label="開啟或關閉選單">
+      <div class="lang-switch" role="group" aria-label="" data-i18n-aria="a11y.lang.group">
+        <button type="button" data-lang-btn="zh" aria-pressed="true" aria-label="" data-i18n-aria="a11y.lang.zh">中文</button>
+        <button type="button" data-lang-btn="en" aria-pressed="false" aria-label="" data-i18n-aria="a11y.lang.en">EN</button>
+      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-label="" data-i18n-aria="a11y.menu">
         <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
         <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></svg>
       </button>
@@ -39,149 +44,251 @@
   <div class="data-banner" data-banner hidden>
     <div class="inner">
       <span aria-hidden="true">ⓘ</span>
-      <span>資料快照：<strong data-banner-part="date">載入中…</strong> · 來源：<span data-banner-part="source">—</span> · 非即時統計</span>
-      <a href="#limitations">了解資料限制</a>
+      <span><span data-i18n="banner.snapshot"></span>: <strong data-banner-date>—</strong> · <span data-i18n="banner.source"></span>: <span data-banner-source>—</span> · <span data-i18n="banner.nonrealtime"></span></span>
+      <a href="#limitations" data-i18n="banner.learn"></a>
     </div>
   </div>
 
   <main id="main" class="section">
     <div class="container prose">
       <div class="section-head" style="margin-bottom: 10px;">
-        <span class="eyebrow">About &amp; Methodology</span>
-        <h2>關於本平台與資料說明</h2>
+        <span class="eyebrow" data-i18n="about.subtitle"></span>
+        <h2><span class="lang-zh">關於本平台與資料說明</span><span class="lang-en">About This Platform &amp; the Data</span></h2>
       </div>
 
-      <h2 id="what">這是什麼網站？</h2>
-      <p>
-        「豬絲馬跡」是一個公開、唯讀的香港野豬活動資訊平台。我們把政府公開發佈的野豬
-        捕捉行動紀錄整理成地圖與統計圖表，讓任何人都可以方便地查閱：哪裡曾經有行動、
-        甚麼時候、涉及多少野豬，以及各地點的近期活動程度。
-      </p>
-      <p>
-        本網站<strong>只供瀏覽</strong>：不接受資料提交、不設帳戶、不提供任何修改資料的功能。
-        所有訪客看到的內容完全相同。
-      </p>
+      <nav class="toc" aria-label="Page sections">
+        <ol>
+          <li><a href="#about"><span class="lang-zh">關於此計劃</span><span class="lang-en">About this project</span></a></li>
+          <li><a href="#source"><span class="lang-zh">資料來源</span><span class="lang-en">Data sources</span></a></li>
+          <li><a href="#indicator"><span class="lang-zh">活動指標</span><span class="lang-en">Activity indicator</span></a></li>
+          <li><a href="#limitations"><span class="lang-zh">資料限制</span><span class="lang-en">Data limitations</span></a></li>
+          <li><a href="#privacy"><span class="lang-zh">私隱聲明</span><span class="lang-en">Privacy</span></a></li>
+          <li><a href="#copyright"><span class="lang-zh">版權及所有權</span><span class="lang-en">Copyright &amp; ownership</span></a></li>
+          <li><a href="#faq"><span class="lang-zh">常見問題</span><span class="lang-en">FAQ</span></a></li>
+        </ol>
+      </nav>
 
-      <h2 id="source">資料來源</h2>
-      <p>
-        本站所有紀錄均整理自<a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁農自然護理署「野豬滋擾」網頁</a>
-        公佈的<strong>野豬捕捉行動</strong>資料（行動編號、日期、地點、野豬數目）。
-        每次更新資料時，本站會重新擷取該網頁的逐項紀錄並重新整理靜態資料檔。
-      </p>
-      <p>
-        需要特別說明：資料描述的是<strong>政府行動紀錄</strong>，並非市民目擊報告，
-        亦非全港野豬數量普查。捕捉行動通常在野豬出沒或曾構成滋擾的地點進行，
-        因此可以作為野豬活動分佈的參考，但不等同於實際野豬活動的全貌。
-      </p>
-      <p>
-        官方網頁僅逐項列出最近期的行動紀錄；更早的行動只有匯總數字
-        （例如：2021 年 11 月至 2026 年 6 月，共 1,220 次行動、2,450 頭野豬——
-        此匯總資料無法對應到具體地點，故不會出現在本站的地圖或圖表中）。
-        因此本站的時間序列<strong>不連續</strong>，詳見下文「資料限制」。
-      </p>
-
-      <h3>資料處理流程</h3>
-      <div class="pipeline" aria-label="資料處理流程">
-        <span class="step">擷取官方網頁</span><span class="arrow">→</span>
-        <span class="step">整理 / 去重</span><span class="arrow">→</span>
-        <span class="step">地點地理編碼</span><span class="arrow">→</span>
-        <span class="step">分區歸屬</span><span class="arrow">→</span>
-        <span class="step">統計運算</span><span class="arrow">→</span>
-        <span class="step">靜態 JSON / GeoJSON</span><span class="arrow">→</span>
-        <span class="step">本網站</span>
+      <h2 id="about"><span class="lang-zh">關於此計劃</span><span class="lang-en">About this project</span></h2>
+      <div class="lang-zh">
+        <p>
+          「豬絲馬跡」是一個公開、唯讀的香港野豬活動資訊平台。我們把政府公開發佈的野豬捕捉行動資料，
+          以地圖與統計圖表呈現，讓任何人都可以方便地查閱：哪裡曾經有行動、甚麼時候、涉及多少野豬，
+          以及各地點的近期活動程度。
+        </p>
+        <p>
+          本計劃最初為參加 <strong>PolyU FCE Build a Smart City Competition 2026</strong> 而開發，
+          現已進一步整理為一個公開、唯讀的 GIS 資訊網站，讓公眾更容易查看相關資料及分析結果。
+        </p>
+        <p>
+          本網站<strong>只供瀏覽</strong>：不接受資料提交、不設帳戶、不提供任何修改資料的功能。
+          所有訪客看到的內容完全相同。
+        </p>
       </div>
-      <p>
-        座標以開放的 <a href="https://nominatim.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap Nominatim</a>
-        服務由地點名稱推算，屬<strong>近似位置</strong>（精確至街道層級），
-        不代表實際行動的精確地點；分區歸屬亦由此推算，個別地點可能不準確。
-      </p>
+      <div class="lang-en">
+        <p>
+          HK Wild Boar Traces (豬絲馬跡) is an open, read-only information platform on wild boar
+          activity in Hong Kong. Government-published wild boar capture-action data is presented
+          through maps and statistical charts, so that anyone can easily find out where actions
+          took place, when, how many wild boars were involved, and how recent the activity is at
+          each location.
+        </p>
+        <p>
+          This project was originally developed as an entry for the
+          <strong>PolyU FCE Build a Smart City Competition 2026</strong>. It has since been
+          transformed into a public, read-only GIS information website for easier access to the
+          project's data visualization and analysis.
+        </p>
+        <p>
+          This website is <strong>for viewing only</strong>: it does not accept data submissions,
+          has no accounts, and offers no way to modify any data. Every visitor sees exactly the
+          same content.
+        </p>
+      </div>
 
-      <h2 id="indicator">活動指標是怎樣計算的？</h2>
-      <p>
-        本站的「活動程度」是一個<strong>由公開紀錄推算的活動參考指標</strong>，
-        只反映某地點「最近一次有行動紀錄」距離資料截止日多久，計算方法如下：
-      </p>
-      <ul>
-        <li><strong>高活動</strong> — 最近 30 天內曾有行動紀錄</li>
-        <li><strong>中度活動</strong> — 最近 31–90 天內曾有行動紀錄</li>
-        <li><strong>低度活動</strong> — 最近 91–180 天內曾有行動紀錄</li>
-        <li><strong>較早紀錄</strong> — 最近一次行動已超過 180 天</li>
-      </ul>
-      <p>
-        每個地點同時顯示紀錄次數、野豬合計數目與最近行動日期，方便自行判斷。
-        這個指標<strong>不是風險預測</strong>：它不能預測野豬會否出現，亦不代表某地點
-        現時是否危險。如需關於野豬滋擾的官方資訊，請參考
-        <a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁護署網頁</a>。
-      </p>
+      <h2 id="source"><span class="lang-zh">資料來源</span><span class="lang-en">Data sources</span></h2>
+      <div class="lang-zh">
+        <p>
+          本站所有紀錄均整理自
+          <a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁農自然護理署「野豬滋擾」網頁</a>
+          公佈的<strong>野豬捕捉行動</strong>資料（行動編號、日期、地點、野豬數目）。
+          網站資料會定期與官方公佈的最新資料同步更新。
+        </p>
+        <p>
+          需要特別說明：資料描述的是<strong>政府行動紀錄</strong>，並非市民目擊報告，
+          亦非全港野豬數量普查。捕捉行動通常在野豬出沒或曾構成滋擾的地點進行，
+          因此可以作為野豬活動分佈的參考，但不等同於實際野豬活動的全貌。
+        </p>
+        <p>
+          官方網頁僅逐項列出最近期的行動紀錄；更早的行動只有匯總數字
+          （例如：2021 年 11 月至 2026 年 6 月，共 1,220 次行動、2,450 頭野豬——
+          此匯總資料無法對應到具體地點，故不會出現在本站的地圖或圖表中）。
+          因此本站的時間序列<strong>不連續</strong>，詳見下文「資料限制」。
+        </p>
+        <p>
+          地圖上顯示的位置為地點的近似位置，僅供參考，並非行動的精確地點。
+        </p>
+      </div>
+      <div class="lang-en">
+        <p>
+          All records on this website are compiled from the <strong>wild boar capture-action</strong>
+          information (action number, date, location, number of wild boars) published on the
+          <a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">AFCD "Wild Pig Nuisance" webpage</a>.
+          The website is periodically updated to match the latest officially published data.
+        </p>
+        <p>
+          Please note: the data describe <strong>government action records</strong>, not public
+          sighting reports, and not a territory-wide wild boar population survey. Capture actions
+          usually take place at locations where wild boars have been present or have caused
+          nuisance, so the data are a useful reference for the distribution of wild boar activity,
+          but they do not represent the full picture of actual activity.
+        </p>
+        <p>
+          The official webpage itemises only the most recent actions; earlier actions are published
+          as totals only (for example: November 2021 to June 2026 — 1,220 actions and 2,450 wild
+          boars in total; such totals cannot be mapped to specific locations and therefore do not
+          appear on this website's map or charts). The time series on this website is therefore
+          <strong>not continuous</strong> — see "Data limitations" below.
+        </p>
+        <p>
+          Locations shown on the map are approximate and for reference only; they are not the
+          exact spots of the operations.
+        </p>
+      </div>
+
+      <h2 id="indicator"><span class="lang-zh">活動指標是怎樣理解的？</span><span class="lang-en">How to read the activity indicator</span></h2>
+      <div class="lang-zh">
+        <p>
+          本站的「活動程度」是一個<strong>由公開紀錄推算的活動參考指標</strong>，
+          只反映某地點「最近一次有行動紀錄」距離資料截止日多久：
+        </p>
+        <ul>
+          <li><strong>高活動</strong> — 最近 30 天內曾有行動紀錄</li>
+          <li><strong>中度活動</strong> — 最近 31–90 天內曾有行動紀錄</li>
+          <li><strong>低度活動</strong> — 最近 91–180 天內曾有行動紀錄</li>
+          <li><strong>較早紀錄</strong> — 最近一次行動已超過 180 天</li>
+        </ul>
+        <p>
+          每個地點同時顯示紀錄次數、野豬合計數目與最近行動日期，方便自行判斷。
+          這個指標<strong>不是風險預測</strong>：它不能預測野豬會否出現，亦不代表某地點
+          現時是否危險。如需關於野豬滋擾的官方資訊，請參考
+          <a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁護署網頁</a>。
+        </p>
+      </div>
+      <div class="lang-en">
+        <p>
+          The "activity level" on this website is a <strong>reference indicator derived from the
+          public records</strong>. It only reflects how long ago a location's most recent action
+          record was, relative to the data cut-off date:
+        </p>
+        <ul>
+          <li><strong>Higher activity</strong> — a record within the last 30 days</li>
+          <li><strong>Moderate activity</strong> — a record 31–90 days ago</li>
+          <li><strong>Lower activity</strong> — a record 91–180 days ago</li>
+          <li><strong>Earlier records only</strong> — the last action was more than 180 days ago</li>
+        </ul>
+        <p>
+          Each location also shows the number of records, the total number of wild boars and the
+          date of the most recent action, so you can judge for yourself. This indicator is
+          <strong>not a risk forecast</strong>: it cannot predict whether wild boars will appear,
+          and it does not indicate whether a location is currently dangerous. For official
+          information on wild boar nuisance, please refer to the
+          <a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">AFCD webpage</a>.
+        </p>
+      </div>
       <div class="level-demo" aria-hidden="true">
-        <span class="badge badge-high"><span class="dot" style="background:var(--c-high)"></span>高活動</span>
-        <span class="badge badge-medium"><span class="dot" style="background:var(--c-medium)"></span>中度活動</span>
-        <span class="badge badge-low"><span class="dot" style="background:var(--c-low)"></span>低度活動</span>
-        <span class="badge badge-past"><span class="dot" style="background:var(--c-past)"></span>較早紀錄</span>
+        <span class="badge badge-high"><span class="dot" style="background:var(--c-high)"></span><span class="lang-zh">高活動</span><span class="lang-en">High</span></span>
+        <span class="badge badge-medium"><span class="dot" style="background:var(--c-medium)"></span><span class="lang-zh">中度活動</span><span class="lang-en">Moderate</span></span>
+        <span class="badge badge-low"><span class="dot" style="background:var(--c-low)"></span><span class="lang-zh">低度活動</span><span class="lang-en">Low</span></span>
+        <span class="badge badge-past"><span class="dot" style="background:var(--c-past)"></span><span class="lang-zh">較早紀錄</span><span class="lang-en">Earlier</span></span>
       </div>
 
-      <h2 id="limitations">資料限制</h2>
-      <ul data-limitations>
+      <h2 id="limitations"><span class="lang-zh">資料限制</span><span class="lang-en">Data limitations</span></h2>
+      <ul class="lang-zh" data-limitations>
         <li>資料為靜態快照，更新頻率視乎資料整理進度，並非即時資料。</li>
       </ul>
-
-      <h2 id="history">關於此計劃</h2>
-      <p>
-        本計劃原為一個學界比賽項目，最初以 Python 擷取漁護署資料、MySQL 儲存、
-        QGIS 製作地圖及風險示意。後來我們把它重構為一個<strong>純靜態的公開網站</strong>：
-        資料以 JSON / GeoJSON 形式隨網站發佈，前端以 Leaflet 製圖、Chart.js 繪圖，
-        不設任何後端伺服器或資料庫，部署於 GitHub Pages。
-      </p>
-      <p>
-        原有技術並未被捨棄，而是各安其位：Python 負責資料整理與轉換（見
-        <code>tools/</code> 目錄），MySQL 僅存在於早期工作流程，QGIS 的時間分段著色概念
-        則演變成今天的活動指標配色。網站源碼以開放授權公開於 GitHub。
-      </p>
-
-      <h2 id="privacy">私隱聲明</h2>
-      <ul>
-        <li>本網站<strong>不使用 Cookies</strong>、不作任何追蹤、不嵌入廣告或統計腳本，也不設帳戶系統。</li>
-        <li>本網站不會收集任何訪客個人資料。</li>
-        <li>載入地圖時，瀏覽器需向第三方地圖圖塊服務（OpenStreetMap）請求地圖圖片，該服務會收到你的 IP 地址及瀏覽器資訊；除此之外，本站不與任何第三方共享資料。</li>
-        <li>網站由 GitHub Pages 託管，其伺服器日誌由 GitHub 按<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">其私隱政策</a>處理。</li>
-        <li>本站發佈的資料均為政府公開資料之整理，不含任何個人資料。</li>
+      <ul class="lang-en" data-limitations-en>
+        <li>The data are a static snapshot, refreshed periodically rather than in real time.</li>
       </ul>
 
-      <h2 id="faq">常見問題</h2>
+      <h2 id="privacy"><span class="lang-zh">私隱聲明</span><span class="lang-en">Privacy statement</span></h2>
+      <div class="lang-zh">
+        <ul>
+          <li>本網站不使用 Cookies、不設追蹤或廣告腳本、不設帳戶或個人檔案系統，也不會收集任何訪客個人資料。</li>
+          <li>本網站為唯讀平台，不接受任何資料提交或修改。</li>
+          <li>載入地圖時，瀏覽器需向第三方地圖圖塊服務（OpenStreetMap）請求地圖圖片；這些服務會如一般網絡請求一樣收到你的 IP 地址及瀏覽器技術資訊。除此之外，本站不與任何第三方共享資料。</li>
+          <li>網站由 GitHub Pages 託管，其基礎設施會按 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub 的私隱聲明</a> 處理標準的請求資訊。</li>
+          <li>本站發佈的資料均為政府公開資料之整理，不含任何個人資料。</li>
+        </ul>
+      </div>
+      <div class="lang-en">
+        <ul>
+          <li>This website does not use cookies, tracking or advertising scripts, has no account or profile system, and does not collect any personal information from visitors.</li>
+          <li>This website is read-only: it does not accept data submissions or edits of any kind.</li>
+          <li>When the map loads, your browser requests map tiles from a third-party tile service (OpenStreetMap); like any web request, that service receives your IP address and standard browser technical information. Apart from this, the website shares no data with any third party.</li>
+          <li>The website is hosted on GitHub Pages, whose infrastructure processes standard request information in accordance with <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's Privacy Statement</a>.</li>
+          <li>All data published here are compiled from publicly available government data and contain no personal information.</li>
+        </ul>
+      </div>
+
+      <h2 id="copyright"><span class="lang-zh">版權及所有權</span><span class="lang-en">Copyright &amp; ownership</span></h2>
+      <div class="lang-zh">
+        <p>
+          © 2026 馬英源及項目團隊。保留所有權利。本網站之原創設計、程式碼及項目內容，
+          除另有標明外，均由馬英源及項目團隊擁有。
+        </p>
+        <p>
+          第三方資料、地圖、商標及外部資源之權利歸其各自權利人所有，包括：香港特區政府漁農自然護理署
+          公佈之資料、OpenStreetMap 貢獻者提供之地圖圖塊，以及個別商標與外部連結資源。
+        </p>
+      </div>
+      <div class="lang-en">
+        <p>
+          © 2026 Ma Ying Yuen &amp; Project Team. All Rights Reserved. Original website design,
+          code, and project materials are owned by Ma Ying Yuen and the Project Team unless
+          otherwise stated.
+        </p>
+        <p>
+          Third-party data, maps, trademarks, and external resources remain the property of their
+          respective owners, including: data published by the Agriculture, Fisheries and
+          Conservation Department of the Hong Kong SAR Government, map tiles by OpenStreetMap
+          contributors, and any trademarks or externally linked resources.
+        </p>
+      </div>
+
+      <h2 id="faq"><span class="lang-zh">常見問題</span><span class="lang-en">Frequently asked questions</span></h2>
       <details class="faq">
-        <summary>為什麼 2025 年 9 月至 2026 年 6 月之間沒有紀錄？</summary>
+        <summary><span class="lang-zh">為什麼 2025 年 9 月至 2026 年 6 月之間沒有紀錄？</span><span class="lang-en">Why are there no records between September 2025 and June 2026?</span></summary>
         <div class="faq-body">
-          官方網頁只逐項公佈最近期的行動（現為 2026 年 7 月起的紀錄），更早的行動只有匯總數字，
-          本站無法取得該時段的逐項地點資料。本站收錄的 2025 年 7–8 月紀錄，是官方網頁
-          當時逐項公佈、由本計劃較早版本擷取保存的資料。不同時段之間因此存在空檔。
+          <span class="lang-zh">官方網頁只逐項公佈最近期的行動（現為 2026 年 7 月起的紀錄），更早的行動只有匯總數字，本站無法取得該時段的逐項地點資料。本站收錄的 2025 年 7–8 月紀錄，是官方網頁當時逐項公佈、由本計劃較早版本保存的資料。不同時段之間因此存在空檔。</span>
+          <span class="lang-en">The official webpage itemises only the most recent actions (currently from July 2026 onwards); earlier actions are published as totals only, and itemised location data for the period in between is not available. The July–August 2025 records on this website were itemised on the official webpage at the time and saved by an earlier version of this project. Gaps between periods are therefore unavoidable.</span>
         </div>
       </details>
       <details class="faq">
-        <summary>我可以提交野豬目擊報告嗎？</summary>
+        <summary><span class="lang-zh">我可以提交野豬目擊報告嗎？</span><span class="lang-en">Can I submit a wild boar sighting report?</span></summary>
         <div class="faq-body">
-          不可以。本網站是唯讀的資訊平台，不接受任何資料提交或修改。如需報告野豬滋擾，
-          請聯絡漁護署或經政府熱線 1823 反映。
+          <span class="lang-zh">不可以。本網站是唯讀的資訊平台，不接受任何資料提交或修改。如需報告野豬滋擾，請聯絡漁護署或經政府熱線 1823 反映。</span>
+          <span class="lang-en">No. This website is a read-only information platform and does not accept data submissions or edits. To report wild boar nuisance, please contact the AFCD or call the government hotline 1823.</span>
         </div>
       </details>
       <details class="faq">
-        <summary>地圖上的位置準確嗎？</summary>
+        <summary><span class="lang-zh">地圖上的位置準確嗎？</span><span class="lang-en">Are the map locations accurate?</span></summary>
         <div class="faq-body">
-          座標由地點名稱（通常是街道或鄉村名稱）經地理編碼服務推算，屬近似位置。
-          官方資料本身不含精確座標，因此標記位置僅供參考。
+          <span class="lang-zh">地圖上的位置為地點的近似位置，僅供參考。官方資料本身不含精確座標，因此標記位置並非實際行動的精確地點。</span>
+          <span class="lang-en">Map locations are approximate and for reference only. The official data contain no precise coordinates, so markers do not represent the exact spots of the operations.</span>
         </div>
       </details>
       <details class="faq">
-        <summary>「高活動」是否代表該處很危險？</summary>
+        <summary><span class="lang-zh">「高活動」是否代表該處很危險？</span><span class="lang-en">Does "Higher activity" mean the place is dangerous?</span></summary>
         <div class="faq-body">
-          不是。活動程度只描述「最近一次有政府行動紀錄」距今多久，並非風險評估或預測。
-          有關野豬安全資訊，請參考漁護署官方指引。
+          <span class="lang-zh">不是。活動程度只描述「最近一次有政府行動紀錄」距今多久，並非風險評估或預測。有關野豬安全資訊，請參考漁護署官方指引。</span>
+          <span class="lang-en">No. The activity level only describes how recently a government action was recorded there — it is not a risk assessment or forecast. For wild boar safety information, please refer to the official AFCD guidance.</span>
         </div>
       </details>
       <details class="faq">
-        <summary>資料多久更新一次？</summary>
+        <summary><span class="lang-zh">資料多久更新一次？</span><span class="lang-en">How often is the data updated?</span></summary>
         <div class="faq-body">
-          本站資料為靜態快照，由維護者不定期重新整理。每頁頂部的「資料快照」日期即為
-          當前資料的截止日。
+          <span class="lang-zh">本站資料為靜態快照，由維護者不定期重新整理。每頁頂部的「資料快照」日期即為當前資料的截止日。</span>
+          <span class="lang-en">The data are a static snapshot, refreshed periodically by the maintainers. The "Data snapshot" date at the top of every page is the current data cut-off date.</span>
         </div>
       </details>
     </div>
@@ -189,27 +296,38 @@
 
   <footer class="site-footer">
     <div class="inner">
-      <div>
+      <div class="foot-brand">
         <h3>豬絲馬跡</h3>
-        <p>公開、唯讀的香港野豬活動資訊平台。資料整理自政府公開資料，僅供參考，不構成任何風險建議。</p>
+        <p data-i18n="foot.tagline"></p>
       </div>
-      <div>
-        <h3>瀏覽</h3>
+      <nav class="foot-col" aria-label="" data-i18n-aria="foot.browse">
+        <h3 data-i18n="foot.browse"></h3>
         <ul>
-          <li><a href="map.html">活動地圖</a></li>
-          <li><a href="analytics.html">數據分析</a></li>
-          <li><a href="about.html">資料來源與方法</a></li>
+          <li><a href="index.html" data-i18n="nav.home"></a></li>
+          <li><a href="map.html" data-i18n="nav.map"></a></li>
+          <li><a href="analytics.html" data-i18n="nav.analytics"></a></li>
+          <li><a href="about.html" data-i18n="nav.about"></a></li>
+        </ul>
+      </nav>
+      <div class="foot-col">
+        <h3 data-i18n="foot.data"></h3>
+        <ul>
+          <li><a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer" data-i18n="foot.afcd"></a></li>
+          <li><a href="about.html#source" data-i18n="foot.data_notes"></a></li>
         </ul>
       </div>
-      <div>
-        <h3>資料</h3>
+      <div class="foot-col">
+        <h3 data-i18n="foot.legal"></h3>
         <ul>
-          <li><a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁護署「野豬滋擾」公佈</a></li>
-          <li><a href="#privacy">私隱聲明</a></li>
-          <li><a data-repo-link hidden href="#" rel="noopener noreferrer">源碼（GitHub）</a></li>
+          <li><a href="about.html#privacy" data-i18n="foot.privacy"></a></li>
+          <li><a href="about.html#copyright" data-i18n="foot.copyright"></a></li>
         </ul>
       </div>
-      <p class="foot-note">© 豬絲馬跡計劃 · 資料來源：香港特別行政區政府漁農自然護理署公佈之野豬捕捉行動資料 · 本網站為唯讀平台，不接受資料提交或修改。</p>
+      <div class="foot-legal">
+        <p class="copyright" data-i18n="foot.copyright_line"></p>
+        <p class="ownership" data-i18n="foot.ownership"></p>
+        <p class="foot-note" data-i18n="foot.readonly"></p>
+      </div>
     </div>
   </footer>
 

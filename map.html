@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" data-title-i18n="doc.title.map">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>活動地圖 — 豬絲馬跡</title>
-  <meta name="description" content="香港野豬捕捉行動互動地圖：按日期、地區、活動程度篩選，查看行動位置、規模與活動指標。資料整理自漁護署公開資料。">
-  <meta property="og:title" content="活動地圖 — 豬絲馬跡">
-  <meta property="og:description" content="香港野豬捕捉行動互動地圖，支援篩選、標記聚合與熱力圖。">
+  <meta name="description" content="香港野豬捕捉行動互動地圖：按日期、地區、活動程度篩選，查看行動位置、規模與活動指標。 Interactive map of wild boar capture actions in Hong Kong with filters and an activity indicator.">
+  <meta property="og:title" content="活動地圖 Activity Map — 豬絲馬跡 HK Wild Boar Traces">
+  <meta property="og:description" content="香港野豬捕捉行動互動地圖，支援篩選、標記聚合與熱力圖。 Interactive map with filters, marker clustering and a heatmap.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_HK">
+  <meta property="og:locale:alternate" content="en_GB">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e6b4e'/%3E%3Cg fill='%23fff'%3E%3Cellipse cx='22' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='42' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='12' cy='34' rx='5.5' ry='7'/%3E%3Cellipse cx='52' cy='34' rx='5.5' ry='7'/%3E%3Cpath d='M32 31c8 0 15 6.5 15 13.5 0 4.5-3.5 7.5-8 7.5-3 0-5-1.5-7-1.5s-4 1.5-7 1.5c-4.5 0-8-3-8-7.5C17 37.5 24 31 32 31z'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="assets/vendor/markercluster/MarkerCluster.css">
@@ -16,7 +17,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#map">跳至地圖</a>
+  <a class="skip-link" href="#map" data-i18n="map.jump"></a>
 
   <header class="site-header">
     <div class="inner">
@@ -26,13 +27,17 @@
         </span>
         <span>豬絲馬跡<small>HK WILD BOAR TRACES</small></span>
       </a>
-      <nav class="main-nav" aria-label="主導覽">
-        <a href="index.html">主頁</a>
-        <a href="map.html" aria-current="page">活動地圖</a>
-        <a href="analytics.html">數據分析</a>
-        <a href="about.html">關於計劃</a>
+      <nav class="main-nav" aria-label="" data-i18n-aria="a11y.nav">
+        <a href="index.html" data-i18n="nav.home"></a>
+        <a href="map.html" aria-current="page" data-i18n="nav.map"></a>
+        <a href="analytics.html" data-i18n="nav.analytics"></a>
+        <a href="about.html" data-i18n="nav.about"></a>
       </nav>
-      <button class="nav-toggle" aria-expanded="false" aria-label="開啟或關閉選單">
+      <div class="lang-switch" role="group" aria-label="" data-i18n-aria="a11y.lang.group">
+        <button type="button" data-lang-btn="zh" aria-pressed="true" aria-label="" data-i18n-aria="a11y.lang.zh">中文</button>
+        <button type="button" data-lang-btn="en" aria-pressed="false" aria-label="" data-i18n-aria="a11y.lang.en">EN</button>
+      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-label="" data-i18n-aria="a11y.menu">
         <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
         <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></svg>
       </button>
@@ -42,70 +47,64 @@
   <div class="data-banner" data-banner hidden>
     <div class="inner">
       <span aria-hidden="true">ⓘ</span>
-      <span>資料快照：<strong data-banner-part="date">載入中…</strong> · 來源：<span data-banner-part="source">—</span> · 非即時統計</span>
-      <a href="about.html#limitations">了解資料限制</a>
+      <span><span data-i18n="banner.snapshot"></span>: <strong data-banner-date>—</strong> · <span data-i18n="banner.source"></span>: <span data-banner-source>—</span> · <span data-i18n="banner.nonrealtime"></span></span>
+      <a href="about.html#limitations" data-i18n="banner.learn"></a>
     </div>
   </div>
 
   <main id="main" class="map-layout">
-    <aside class="map-side" aria-label="篩選與結果">
+    <aside class="map-side" aria-label="" data-i18n-aria="map.title">
       <div class="side-scroll">
         <form class="map-filters" id="filter-form">
-          <h2 style="font-size: 1.05rem;">篩選</h2>
+          <h2 style="font-size: 1.05rem;" data-i18n="map.title"></h2>
           <div class="field">
-            <label for="f-q">搜尋地點</label>
-            <input type="text" id="f-q" name="q" placeholder="例如：南生圍" autocomplete="off">
+            <label for="f-q" data-i18n="map.q.label"></label>
+            <input type="text" id="f-q" name="q" autocomplete="off" data-i18n-placeholder="map.q.placeholder">
           </div>
           <div class="field">
-            <label for="f-district">地區</label>
+            <label for="f-district" data-i18n="map.district"></label>
             <select id="f-district" name="district">
-              <option value="">全部地區</option>
+              <option value="" data-i18n="map.district.all"></option>
             </select>
           </div>
           <div class="field">
-            <label for="f-level">活動程度</label>
+            <label for="f-level" data-i18n="map.level"></label>
             <select id="f-level" name="level">
-              <option value="">全部程度</option>
-              <option value="high">高活動（30 天內）</option>
-              <option value="medium">中度活動（31–90 天）</option>
-              <option value="low">低度活動（91–180 天）</option>
-              <option value="past">較早紀錄（180 天以上）</option>
+              <option value="" data-i18n="map.level.all"></option>
+              <option value="high" data-i18n="map.level.high"></option>
+              <option value="medium" data-i18n="map.level.medium"></option>
+              <option value="low" data-i18n="map.level.low"></option>
+              <option value="past" data-i18n="map.level.past"></option>
             </select>
           </div>
           <fieldset class="field" style="border: 0; padding: 0; margin: 0 0 14px;">
-            <legend>行動日期</legend>
+            <legend data-i18n="map.date"></legend>
             <div class="field-row">
-              <input type="date" id="f-from" name="from" aria-label="開始日期">
-              <input type="date" id="f-to" name="to" aria-label="結束日期">
+              <input type="date" id="f-from" name="from" aria-label="" data-i18n-aria="map.date.from">
+              <input type="date" id="f-to" name="to" aria-label="" data-i18n-aria="map.date.to">
             </div>
           </fieldset>
           <div class="field">
-            <label for="f-min-count">野豬數目下限</label>
-            <input type="number" id="f-min-count" name="min_count" min="1" placeholder="全部" inputmode="numeric">
+            <label for="f-min-count" data-i18n="map.mincount"></label>
+            <input type="number" id="f-min-count" name="min_count" min="1" inputmode="numeric" data-i18n-placeholder="map.mincount.placeholder">
           </div>
           <div class="filter-actions">
-            <button type="button" class="btn btn-outline btn-sm" id="btn-reset">重設篩選</button>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-reset" data-i18n="map.reset"></button>
           </div>
-          <p style="font-size: 0.78rem; color: var(--c-ink-faint); margin: 0 0 10px;">
-            篩選只改變畫面顯示，不會修改任何資料。
-          </p>
+          <p style="font-size: 0.78rem; color: var(--c-ink-faint); margin: 0 0 10px;" data-i18n="map.readonly_note"></p>
         </form>
         <div style="padding: 0 18px;">
-          <div class="note" style="font-size: 0.82rem; padding: 10px 12px;">
-            標記顏色按「最近一次行動時間」劃分，不代表危險程度。
-          </div>
+          <div class="note" style="font-size: 0.82rem; padding: 10px 12px;" data-i18n="map.mark_note"></div>
         </div>
-        <div class="results-count" role="status" aria-live="polite" data-results-count>
-          載入中…
-        </div>
-        <ul class="result-list" data-result-list aria-label="符合篩選的紀錄"></ul>
+        <div class="results-count" role="status" aria-live="polite" data-results-count></div>
+        <ul class="result-list" data-result-list aria-label="" data-i18n-aria="map.list.label"></ul>
       </div>
     </aside>
 
-    <section class="map-stage" aria-label="野豬活動地圖">
+    <section class="map-stage" aria-label="" data-i18n-aria="nav.map">
       <div id="map" tabindex="-1"></div>
-      <div class="map-legend" aria-hidden="false">
-        <h3>最近行動時間</h3>
+      <div class="map-legend">
+        <h3 data-i18n="map.legend.title"></h3>
         <ul data-legend></ul>
       </div>
     </section>

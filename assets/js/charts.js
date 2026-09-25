@@ -1,11 +1,22 @@
+import "./site.js";
+
 /**
  * 豬絲馬跡 — analytics page
  * All charts are recomputed from the filtered record list, so the numbers
- * always agree with the map page for the same filters.
+ * always agree with the map page for the same filters. Fully bilingual:
+ * switching language rebuilds charts and tables with the same filters.
  */
 
-import { loadDatasets, applyFilters, filtersFromURL, levelOf } from "./data.js";
-import { esc, formatDate, daysSince } from "./site.js";
+import { applyFilters, filtersFromURL, levelOf, loadDatasets } from "./data.js";
+import {
+  currentLang,
+  daysSince,
+  districtName,
+  esc,
+  formatDate,
+  metaField,
+  t,
+} from "./i18n.js";
 
 const els = {
   form: null, from: null, to: null, district: null, reset: null, mapLink: null,
@@ -13,8 +24,17 @@ const els = {
 const charts = {};
 
 function monthLabel(ym) {
-  const [y, m] = ym.split("-").map(Number);
-  return `${y}/${m}`;
+  if (currentLang() === "en") {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const [y, m] = ym.split("-").map(Number);
+    return `${months[m - 1]} ${y}`;
+  }
+  return ym.replace("-", "/");
+}
+
+function bandLabel(band) {
+  return { "1": "analytics.band.1", "2-3": "analytics.band.2_3", "4-6": "analytics.band.4_6", "7+": "analytics.band.7p" }[band] ?? band;
 }
 
 function aggregate(records) {
@@ -22,10 +42,10 @@ function aggregate(records) {
   const byDistrict = new Map();
   const byLocation = new Map();
   const bands = [
-    { label: "1 頭", lo: 1, hi: 1 },
-    { label: "2–3 頭", lo: 2, hi: 3 },
-    { label: "4–6 頭", lo: 4, hi: 6 },
-    { label: "7 頭或以上", lo: 7, hi: 999 },
+    { key: "1", lo: 1, hi: 1 },
+    { key: "2-3", lo: 2, hi: 3 },
+    { key: "4-6", lo: 4, hi: 6 },
+    { key: "7+", lo: 7, hi: 999 },
   ].map((b) => ({ ...b, records: 0, boars: 0 }));
 
   for (const r of records) {
@@ -33,12 +53,12 @@ function aggregate(records) {
     m.records += 1; m.boars += r.count;
     monthly.set(r.month, m);
 
-    const key = r.district || "未分區";
+    const key = r.district || "unzoned";
     const d = byDistrict.get(key) || { records: 0, boars: 0, locations: new Set() };
     d.records += 1; d.boars += r.count; d.locations.add(r.location);
     byDistrict.set(key, d);
 
-    const loc = byLocation.get(r.location) || { records: 0, boars: 0, last: "" };
+    const loc = byLocation.get(r.location) || { records: 0, boars: 0, last: "", district: r.district, district_en: r.district_en };
     loc.records += 1; loc.boars += r.count;
     loc.last = loc.last > r.date ? loc.last : r.date;
     byLocation.set(r.location, loc);
@@ -64,7 +84,7 @@ function destroyCharts() {
   }
 }
 
-function renderCharts(records, levelColors) {
+function renderCharts(records) {
   const agg = aggregate(records);
   destroyCharts();
 
@@ -78,12 +98,12 @@ function renderCharts(records, levelColors) {
       labels: agg.monthly.map(([m]) => monthLabel(m)),
       datasets: [
         {
-          type: "bar", label: "行動次數",
+          type: "bar", label: t("analytics.ds.records"),
           data: agg.monthly.map(([, v]) => v.records),
           backgroundColor: "rgba(46, 107, 78, 0.75)", borderRadius: 5, yAxisID: "y",
         },
         {
-          type: "line", label: "野豬數目",
+          type: "line", label: t("analytics.ds.boars"),
           data: agg.monthly.map(([, v]) => v.boars),
           borderColor: "#b97a1a", backgroundColor: "#b97a1a",
           tension: 0.25, pointRadius: 4, yAxisID: "y1",
@@ -94,8 +114,8 @@ function renderCharts(records, levelColors) {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: "index", intersect: false },
       scales: {
-        y: { beginAtZero: true, title: { display: true, text: "行動次數" }, grid: { color: "#eef0ea" } },
-        y1: { beginAtZero: true, position: "right", title: { display: true, text: "野豬數目" }, grid: { drawOnChartArea: false } },
+        y: { beginAtZero: true, title: { display: true, text: t("analytics.axis.records") }, grid: { color: "#eef0ea" } },
+        y1: { beginAtZero: true, position: "right", title: { display: true, text: t("analytics.axis.boars") }, grid: { drawOnChartArea: false } },
       },
     },
   });
@@ -103,10 +123,11 @@ function renderCharts(records, levelColors) {
   charts.district = new Chart(document.getElementById("chart-district"), {
     type: "bar",
     data: {
-      labels: agg.byDistrict.map(([d]) => d),
+      labels: agg.byDistrict.map(([key]) =>
+        key === "unzoned" ? t("analytics.unzoned") : displayName(key, agg.byDistrict)),
       datasets: [
-        { label: "行動次數", data: agg.byDistrict.map(([, v]) => v.records), backgroundColor: "rgba(46, 107, 78, 0.75)", borderRadius: 4 },
-        { label: "野豬數目", data: agg.byDistrict.map(([, v]) => v.boars), backgroundColor: "rgba(185, 122, 26, 0.7)", borderRadius: 4 },
+        { label: t("analytics.ds.records"), data: agg.byDistrict.map(([, v]) => v.records), backgroundColor: "rgba(46, 107, 78, 0.75)", borderRadius: 4 },
+        { label: t("analytics.ds.boars"), data: agg.byDistrict.map(([, v]) => v.boars), backgroundColor: "rgba(185, 122, 26, 0.7)", borderRadius: 4 },
       ],
     },
     options: {
@@ -118,7 +139,7 @@ function renderCharts(records, levelColors) {
   charts.bands = new Chart(document.getElementById("chart-bands"), {
     type: "doughnut",
     data: {
-      labels: agg.bands.map((b) => b.label),
+      labels: agg.bands.map((b) => t(bandLabel(b.key))),
       datasets: [{
         data: agg.bands.map((b) => b.records),
         backgroundColor: ["#2e6b4e", "#5e9678", "#b97a1a", "#c0392b"],
@@ -133,61 +154,63 @@ function renderCharts(records, levelColors) {
     type: "bar",
     data: {
       labels: top.map(([name]) => name),
-      datasets: [{ label: "行動次數", data: top.map(([, v]) => v.records), backgroundColor: "rgba(46, 107, 78, 0.75)", borderRadius: 4 }],
+      datasets: [{ label: t("analytics.ds.records"), data: top.map(([, v]) => v.records), backgroundColor: "rgba(46, 107, 78, 0.75)", borderRadius: 4 }],
     },
     options: {
       indexAxis: "y", responsive: true, maintainAspectRatio: false,
       scales: { x: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: "#eef0ea" } } },
     },
   });
+}
 
-  void levelColors;
+/** District display name: the aggregate key is the zh name (or "unzoned"). */
+function displayName(zhName) {
+  return districtName(zhName, null);
 }
 
 /* ---------------------------------------------------------------- tables -- */
 
-function renderDistrictTable(records, meta) {
+function renderDistrictTable(records) {
   const agg = aggregate(records);
   const totalBoars = agg.byDistrict.reduce((s, [, v]) => s + v.boars, 0) || 1;
   const tbody = document.querySelector("[data-district-table] tbody");
   tbody.innerHTML = agg.byDistrict
-    .map(([district, v]) => {
+    .map(([key, v]) => {
+      const districtLabel = key === "unzoned" ? t("analytics.unzoned") : key;
       const pct = Math.round((v.boars / totalBoars) * 1000) / 10;
       const params = new URLSearchParams();
-      if (district !== "未分區") params.set("district", district);
-      const from = els.from.value; const to = els.to.value;
-      if (from) params.set("from", from);
-      if (to) params.set("to", to);
+      if (key !== "unzoned") params.set("district", key);
+      if (els.from.value) params.set("from", els.from.value);
+      if (els.to.value) params.set("to", els.to.value);
       return `<tr>
-        <td>${esc(district)}</td>
+        <td>${esc(districtLabel)}</td>
         <td class="num">${v.records}</td>
         <td class="num">${v.boars}</td>
         <td class="num">${v.locations.size}</td>
         <td><span class="bar-cell"><span class="bar" style="width:${Math.min(pct * 2, 100)}px"></span>${pct}%</span></td>
-        <td><a href="map.html${params.toString() ? "?" + params.toString() : ""}">查看</a></td>
+        <td><a href="map.html${params.toString() ? "?" + params.toString() : ""}">${t("analytics.view")}</a></td>
       </tr>`;
     })
     .join("");
-  void meta;
 }
 
 function renderLocationTable(records, meta) {
   const agg = aggregate(records);
   const top = agg.byLocation.slice(0, 15);
   const tbody = document.querySelector("[data-location-table] tbody");
-  const colors = Object.fromEntries(meta.activity_levels.map((l) => [l.key, l.color]));
-  const labels = Object.fromEntries(meta.activity_levels.map((l) => [l.key, l.label]));
   tbody.innerHTML = top
     .map(([name, v]) => {
-      const days = daysSince(v.last, meta.coverage.reference_date);
       const level = levelOf({ date: v.last }, meta);
       return `<tr>
         <td>${esc(name)}</td>
-        <td>${esc(records.find((r) => r.location === name)?.district || "—")}</td>
+        <td>${esc(districtName(v.district, v.district_en))}</td>
         <td class="num">${v.records}</td>
         <td class="num">${v.boars}</td>
         <td class="num">${formatDate(v.last)}</td>
-        <td><span class="badge badge-${level.key}"><span class="dot" style="background:${colors[level.key]}"></span>${labels[level.key]}</span></td>
+        <td><span class="badge badge-${level.key}">
+          <span class="dot" style="background:${level.color}" aria-hidden="true"></span>
+          ${esc(metaField(level, "label"))}
+        </span></td>
       </tr>`;
     })
     .join("");
@@ -215,15 +238,10 @@ function readFilters() {
 }
 
 function renderAll(data) {
-  const records = applyFilters(
-    data.records.filter((r) => r.district !== undefined),
-    readFilters(),
-    data.meta
-  );
-  const levelColors = Object.fromEntries(data.meta.activity_levels.map((l) => [l.key, l.color]));
+  const records = applyFilters(data.records, readFilters(), data.meta);
   renderSummary(records);
-  renderCharts(records, levelColors);
-  renderDistrictTable(records, data.meta);
+  renderCharts(records);
+  renderDistrictTable(records);
   renderLocationTable(records, data.meta);
 
   const params = new URLSearchParams();
@@ -244,6 +262,7 @@ async function init() {
   const data = await loadDatasets();
   const { meta } = data;
 
+  let hasUnzoned = false;
   for (const d of data.districts.districts) {
     if (d.records === 0) continue;
     const option = document.createElement("option");
@@ -251,6 +270,16 @@ async function init() {
     option.textContent = `${d.zh}（${d.records}）`;
     els.district.appendChild(option);
   }
+  // Include an "unzoned" option if any record lacks a district.
+  if (data.records.some((r) => !r.district)) {
+    const option = document.createElement("option");
+    option.value = "__unzoned__";
+    option.textContent = t("analytics.unzoned");
+    els.district.appendChild(option);
+    hasUnzoned = true;
+  }
+  void hasUnzoned;
+
   els.from.min = meta.coverage.min_date; els.from.max = meta.coverage.max_date;
   els.to.min = meta.coverage.min_date; els.to.max = meta.coverage.max_date;
 
@@ -273,12 +302,17 @@ async function init() {
     els.from.value = ""; els.to.value = ""; els.district.value = "";
     renderAll(data);
   });
+
+  // Rebuild charts and tables with the same filters after a language switch.
+  document.addEventListener("langchange", () => renderAll(data));
+
+  void daysSince;
 }
 
 init().catch((error) => {
   console.error(error);
   document.querySelector(".filter-bar")?.insertAdjacentHTML(
     "afterend",
-    '<p class="note warn" style="margin-top:12px;">資料載入失敗，請重新整理頁面。</p>'
+    `<p class="note warn" style="margin-top:12px;">${t("analytics.loadfail")}</p>`
   );
 });
