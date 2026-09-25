@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yingyuenmaalanhk-cyber.github.io/hk-wild-boar-traces/sitemap.xml

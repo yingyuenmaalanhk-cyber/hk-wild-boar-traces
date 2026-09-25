@@ -1,0 +1,482 @@
+{
+ "上角山路": {
+  "address": "seeded from legacy CSV export",
+  "district": "荃灣區",
+  "lat": 22.382932,
+  "lon": 114.124668
+ },
+ "下徑口": {
+  "address": "下徑口, 香港, 中国",
+  "district": "沙田區",
+  "lat": 22.365578,
+  "lon": 114.177867
+ },
+ "九肚": {
+  "address": "seeded from legacy CSV export",
+  "district": "沙田區",
+  "lat": 22.410131,
+  "lon": 114.202569
+ },
+ "井欄樹": {
+  "address": "seeded from legacy CSV export",
+  "district": "西貢區",
+  "lat": 22.33604,
+  "lon": 114.238197
+ },
+ "北潭涌": {
+  "address": "seeded from legacy CSV export",
+  "district": "西貢區",
+  "lat": 22.397332,
+  "lon": 114.319029
+ },
+ "南圍": {
+  "address": "南圍, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.352539,
+  "lon": 114.257006
+ },
+ "南生圍": {
+  "address": "seeded from legacy CSV export",
+  "district": "元朗區",
+  "lat": 22.462397,
+  "lon": 114.037972
+ },
+ "南風道": {
+  "address": "南風道, 黃竹坑新圍, 南區, 香港島, 香港, 中国",
+  "district": "南區",
+  "lat": 22.251296,
+  "lon": 114.174834
+ },
+ "司徒拔道": {
+  "address": "seeded from legacy CSV export",
+  "district": "灣仔區",
+  "lat": 22.27479,
+  "lon": 114.177716
+ },
+ "和合石": {
+  "address": "和合石, 北區, 粉嶺, 香港, 中国",
+  "district": "北區",
+  "lat": 22.482701,
+  "lon": 114.148679
+ },
+ "嘉澍路": {
+  "address": "嘉澍路, 白石窩, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.335246,
+  "lon": 114.241137
+ },
+ "堪仕達道": {
+  "address": "堪仕達道, 奇力山, 中西區, 香港島, 香港, 中国",
+  "district": "中西區",
+  "lat": 22.265323,
+  "lon": 114.150021
+ },
+ "大埔龍尾路": {
+  "address": "seeded from legacy CSV export",
+  "district": "大埔區",
+  "lat": 22.473675,
+  "lon": 114.230301
+ },
+ "大美督村": {
+  "address": "seeded from legacy CSV export",
+  "district": "大埔區",
+  "lat": 22.474114,
+  "lon": 114.234607
+ },
+ "天后廟道": {
+  "address": "seeded from legacy CSV export",
+  "district": "東區",
+  "lat": 22.288162,
+  "lon": 114.203368
+ },
+ "安達臣道": {
+  "address": "安達臣道, 佐敦谷, 觀塘區, 九龍, 香港, 中国",
+  "district": "觀塘區",
+  "lat": 22.332487,
+  "lon": 114.228589
+ },
+ "富地路": {
+  "address": "seeded from legacy CSV export",
+  "district": "屯門區",
+  "lat": 22.407253,
+  "lon": 113.985439
+ },
+ "寶珊道": {
+  "address": "寶珊道, 太平山, 西半山, 中西區, 香港島, 香港, 中国",
+  "district": "中西區",
+  "lat": 22.280373,
+  "lon": 114.141648
+ },
+ "屯富路": {
+  "address": "屯富路, 虎地, 頌皇台, 屯門區, 新界, 香港, 中国",
+  "district": "屯門區",
+  "lat": 22.410584,
+  "lon": 113.979848
+ },
+ "山光道": {
+  "address": "seeded from legacy CSV export",
+  "district": "灣仔區",
+  "lat": 22.2689,
+  "lon": 114.184021
+ },
+ "山南路": {
+  "address": "山南路, 汀角, 大埔, 大埔區, 新界, 香港, 中国",
+  "district": "大埔區",
+  "lat": 22.472599,
+  "lon": 114.22259
+ },
+ "山貝路": {
+  "address": "山貝路, 山貝涌口村, 山貝洪田村, 元朗區, 新界, 香港, 中国",
+  "district": "元朗區",
+  "lat": 22.451817,
+  "lon": 114.034971
+ },
+ "崇謙堂村": {
+  "address": "seeded from legacy CSV export",
+  "district": "北區",
+  "lat": 22.495057,
+  "lon": 114.147409
+ },
+ "廈門灣": {
+  "address": "廈門灣, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.356228,
+  "lon": 114.294421
+ },
+ "怡景道": {
+  "address": "seeded from legacy CSV export",
+  "district": "東區",
+  "lat": 22.281959,
+  "lon": 114.194182
+ },
+ "恆信街": {
+  "address": "恆信街, 大水坑, 沙田區, 新界, 香港, 中国",
+  "district": "沙田區",
+  "lat": 22.406306,
+  "lon": 114.222611
+ },
+ "掃管笏路": {
+  "address": "seeded from legacy CSV export",
+  "district": "屯門區",
+  "lat": 22.374597,
+  "lon": 113.996923
+ },
+ "摩星嶺道": {
+  "address": "摩星嶺道, 摩星嶺, 南區, 香港島, 香港, 中国",
+  "district": null,
+  "lat": 22.272782,
+  "lon": 114.123845
+ },
+ "數碼港": {
+  "address": "數碼港, 100, 鋼綫灣, 南區, 香港島, 香港, 中国",
+  "district": "南區",
+  "lat": 22.260755,
+  "lon": 114.130237
+ },
+ "新潭路": {
+  "address": "新潭路, 朗廈, 元朗區, 新界, 香港, 中国",
+  "district": "元朗區",
+  "lat": 22.462699,
+  "lon": 114.053523
+ },
+ "新運路": {
+  "address": "新運路, 田心, 黃崗山, 北區, 新界, 香港, 518010, 中国",
+  "district": "北區",
+  "lat": 22.491447,
+  "lon": 114.143991
+ },
+ "旭龢道": {
+  "address": "旭龢道, 西營盤, 中西區, 香港島, 香港, 中国",
+  "district": "中西區",
+  "lat": 22.281176,
+  "lon": 114.140093
+ },
+ "柏架山道": {
+  "address": "柏架山道, 鰂魚涌, 東區, 香港島, 香港, 中国",
+  "district": "東區",
+  "lat": 22.284667,
+  "lon": 114.211589
+ },
+ "柴灣道": {
+  "address": "seeded from legacy CSV export",
+  "district": null,
+  "lat": 22.266023,
+  "lon": 114.243099
+ },
+ "汀九": {
+  "address": "seeded from legacy CSV export",
+  "district": "荃灣區",
+  "lat": 22.369233,
+  "lon": 114.078559
+ },
+ "沙欄": {
+  "address": "沙欄, 大埔, 大埔區, 新界, 香港, 中国",
+  "district": "大埔區",
+  "lat": 22.460036,
+  "lon": 114.206907
+ },
+ "沙田坳道": {
+  "address": "沙田坳道, 鳳凰新村, 竹園聯合村, 黃大仙區, 九龍, 香港, 中国",
+  "district": "黃大仙區",
+  "lat": 22.34199,
+  "lon": 114.195473
+ },
+ "泰亨": {
+  "address": "seeded from legacy CSV export",
+  "district": "大埔區",
+  "lat": 22.468819,
+  "lon": 114.151947
+ },
+ "洞梓路": {
+  "address": "洞梓路, 大埔, 大埔區, 新界, 香港, 中国",
+  "district": "大埔區",
+  "lat": 22.468613,
+  "lon": 114.202914
+ },
+ "淺水灣道": {
+  "address": "淺水灣道, 淺水灣, 南區, 香港島, 香港, 中国",
+  "district": "南區",
+  "lat": 22.238242,
+  "lon": 114.199165
+ },
+ "滘西洲": {
+  "address": "滘西洲, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.361483,
+  "lon": 114.312631
+ },
+ "澳景路": {
+  "address": "seeded from legacy CSV export",
+  "district": "觀塘區",
+  "lat": 22.302225,
+  "lon": 114.243021
+ },
+ "牛潭尾路": {
+  "address": "牛潭尾路, 賴家村, 元朗區, 新界, 香港, 中国",
+  "district": "元朗區",
+  "lat": 22.479543,
+  "lon": 114.061608
+ },
+ "環保大道": {
+  "address": "環保大道, 小赤沙, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.296406,
+  "lon": 114.272927
+ },
+ "甘道": {
+  "address": "甘道, 灣仔峽, 灣仔區, 香港島, 香港, 中国",
+  "district": "灣仔區",
+  "lat": 22.267248,
+  "lon": 114.16924
+ },
+ "白石": {
+  "address": "seeded from legacy CSV export",
+  "district": "沙田區",
+  "lat": 22.43376,
+  "lon": 114.242148
+ },
+ "百勝角路": {
+  "address": "百勝角路, 百勝角, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.303122,
+  "lon": 114.272617
+ },
+ "石排灣道": {
+  "address": "石排灣道, 田灣, 南區, 香港島, 香港, 中国",
+  "district": "南區",
+  "lat": 22.24891,
+  "lon": 114.149119
+ },
+ "石澳": {
+  "address": "石澳, 南區, 香港島, 香港, 中国",
+  "district": "南區",
+  "lat": 22.233167,
+  "lon": 114.250033
+ },
+ "碗窰路": {
+  "address": "碗窰路, 大埔, 大埔區, 新界, 香港, 中国",
+  "district": "大埔區",
+  "lat": 22.424959,
+  "lon": 114.162003
+ },
+ "碧翠路": {
+  "address": "seeded from legacy CSV export",
+  "district": "西貢區",
+  "lat": 22.339977,
+  "lon": 114.247373
+ },
+ "碧雲道": {
+  "address": "碧雲道, 藍田, 觀塘區, 九龍, 香港, 中国",
+  "district": "觀塘區",
+  "lat": 22.309835,
+  "lon": 114.238802
+ },
+ "福亨村路": {
+  "address": "seeded from legacy CSV export",
+  "district": "屯門區",
+  "lat": 22.416393,
+  "lon": 113.990055
+ },
+ "穗禾路": {
+  "address": "穗禾路, 昂堂山, 火炭半山, 沙田區, 新界, 香港, 中国",
+  "district": "沙田區",
+  "lat": 22.392175,
+  "lon": 114.189343
+ },
+ "竹園道": {
+  "address": "竹園道, 鳳凰新村, 竹園, 黃大仙區, 九龍, 香港, 中国",
+  "district": "黃大仙區",
+  "lat": 22.345273,
+  "lon": 114.19524
+ },
+ "粉嶺": {
+  "address": "粉嶺, 香港, 518010, 中国",
+  "district": "北區",
+  "lat": 22.494626,
+  "lon": 114.138274
+ },
+ "芙蓉山路": {
+  "address": "芙蓉山路, 光板田村第一段, 芙蓉山, 荃灣區, 新界, 香港, 中国",
+  "district": "荃灣區",
+  "lat": 22.376975,
+  "lon": 114.117583
+ },
+ "荔枝窩": {
+  "address": "荔枝窩, 香港, 中国",
+  "district": "北區",
+  "lat": 22.526825,
+  "lon": 114.259357
+ },
+ "菠蘿輋": {
+  "address": "菠蘿輋, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.380989,
+  "lon": 114.264132
+ },
+ "華貴道": {
+  "address": "seeded from legacy CSV export",
+  "district": "南區",
+  "lat": 22.250458,
+  "lon": 114.140512
+ },
+ "落路下": {
+  "address": "落路下, 沙田區, 新界, 香港, 中国",
+  "district": "沙田區",
+  "lat": 22.401538,
+  "lon": 114.201195
+ },
+ "薄扶林道": {
+  "address": "薄扶林道, 石塘咀, 中西區, 香港島, 香港, 中国",
+  "district": "中西區",
+  "lat": 22.283763,
+  "lon": 114.133271
+ },
+ "蝦地下": {
+  "address": "蝦地下, 大埔區, 新界, 香港, 中国",
+  "district": "大埔區",
+  "lat": 22.465109,
+  "lon": 114.20395
+ },
+ "衛信道": {
+  "address": "seeded from legacy CSV export",
+  "district": "灣仔區",
+  "lat": 22.266456,
+  "lon": 114.191789
+ },
+ "貝璐道": {
+  "address": "seeded from legacy CSV export",
+  "district": "南區",
+  "lat": 22.256104,
+  "lon": 114.154008
+ },
+ "輋下": {
+  "address": "seeded from legacy CSV export",
+  "district": "大埔區",
+  "lat": 22.430184,
+  "lon": 114.262439
+ },
+ "達福路": {
+  "address": "達福路, 福亨村, 屯門區, 新界, 香港, 中国",
+  "district": "屯門區",
+  "lat": 22.418719,
+  "lon": 113.992199
+ },
+ "醫院徑": {
+  "address": "seeded from legacy CSV export",
+  "district": "中西區",
+  "lat": 22.270713,
+  "lon": 114.157519
+ },
+ "隔田": {
+  "address": "seeded from legacy CSV export",
+  "district": "沙田區",
+  "lat": 22.368528,
+  "lon": 114.183235
+ },
+ "青山公路-新田段": {
+  "address": "青山公路－新田段, 米埔老圍, 合盛圍, 元朗區, 新界, 香港, 518016, 中国",
+  "district": "元朗區",
+  "lat": 22.496292,
+  "lon": 114.067141
+ },
+ "顯徑": {
+  "address": "seeded from legacy CSV export",
+  "district": "沙田區",
+  "lat": 22.363879,
+  "lon": 114.170783
+ },
+ "顯田街": {
+  "address": "顯田街, 顯田, 顯徑, 沙田區, 新界, 香港, 中国",
+  "district": "沙田區",
+  "lat": 22.362705,
+  "lon": 114.173924
+ },
+ "香港仔": {
+  "address": "香港仔, 南區, 香港島, 香港, 中国",
+  "district": "南區",
+  "lat": 22.248907,
+  "lon": 114.156421
+ },
+ "馬己仙峽道": {
+  "address": "馬己仙峽道, 歌賦山, 中西區, 香港島, 香港, 中国",
+  "district": "中西區",
+  "lat": 22.269361,
+  "lon": 114.165415
+ },
+ "馬影徑": {
+  "address": "馬影徑, 馬料村, 沙田區, 新界, 香港, 中国",
+  "district": "沙田區",
+  "lat": 22.406225,
+  "lon": 114.203429
+ },
+ "馬游塘": {
+  "address": "馬游塘, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.316965,
+  "lon": 114.24405
+ },
+ "馬錦街": {
+  "address": "馬錦街, 馬鞍台, 馬鞍山市中心, 沙田區, 新界, 香港, 中国",
+  "district": "沙田區",
+  "lat": 22.423705,
+  "lon": 114.234872
+ },
+ "高輝道": {
+  "address": "高輝道, 油塘工業區, 觀塘區, 九龍, 香港, 中国",
+  "district": "觀塘區",
+  "lat": 22.295005,
+  "lon": 114.233913
+ },
+ "龍蝦灣路": {
+  "address": "龍蝦灣路, 大坳門, 西貢區, 新界, 香港, 中国",
+  "district": "西貢區",
+  "lat": 22.303526,
+  "lon": 114.297682
+ },
+ "龍躍徑": {
+  "address": "龍躍徑, 小西灣, 東區, 香港島, 香港, 中国",
+  "district": null,
+  "lat": 22.259674,
+  "lon": 114.2538
+ }
+}

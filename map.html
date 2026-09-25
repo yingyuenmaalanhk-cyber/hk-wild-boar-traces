@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活動地圖 — 豬絲馬跡</title>
+  <meta name="description" content="香港野豬捕捉行動互動地圖：按日期、地區、活動程度篩選，查看行動位置、規模與活動指標。資料整理自漁護署公開資料。">
+  <meta property="og:title" content="活動地圖 — 豬絲馬跡">
+  <meta property="og:description" content="香港野豬捕捉行動互動地圖，支援篩選、標記聚合與熱力圖。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_HK">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e6b4e'/%3E%3Cg fill='%23fff'%3E%3Cellipse cx='22' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='42' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='12' cy='34' rx='5.5' ry='7'/%3E%3Cellipse cx='52' cy='34' rx='5.5' ry='7'/%3E%3Cpath d='M32 31c8 0 15 6.5 15 13.5 0 4.5-3.5 7.5-8 7.5-3 0-5-1.5-7-1.5s-4 1.5-7 1.5c-4.5 0-8-3-8-7.5C17 37.5 24 31 32 31z'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="assets/vendor/markercluster/MarkerCluster.css">
+  <link rel="stylesheet" href="assets/vendor/markercluster/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#map">跳至地圖</a>
+
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 13.5c2.6 0 5 2 5 4.3 0 1.4-1.1 2.2-2.5 2.2-1 0-1.7-.5-2.5-.5s-1.5.5-2.5.5c-1.4 0-2.5-.8-2.5-2.2 0-2.3 2.4-4.3 5-4.3zM5.5 8.5c1 0 1.8 1 1.8 2.2S6.5 13 5.5 13 3.7 12 3.7 10.7s.8-2.2 1.8-2.2zm13 0c1 0 1.8 1 1.8 2.2S19.5 13 18.5 13s-1.8-1-1.8-2.3.8-2.2 1.8-2.2zM9 4.5c1.1 0 2 1.1 2 2.4S10.1 9.3 9 9.3 7 8.2 7 6.9s.9-2.4 2-2.4zm6 0c1.1 0 2 1.1 2 2.4s-.9 2.4-2 2.4-.9-1.1-.9-2.4.9-2.4 2-2.4z"/></svg>
+        </span>
+        <span>豬絲馬跡<small>HK WILD BOAR TRACES</small></span>
+      </a>
+      <nav class="main-nav" aria-label="主導覽">
+        <a href="index.html">主頁</a>
+        <a href="map.html" aria-current="page">活動地圖</a>
+        <a href="analytics.html">數據分析</a>
+        <a href="about.html">關於計劃</a>
+      </nav>
+      <button class="nav-toggle" aria-expanded="false" aria-label="開啟或關閉選單">
+        <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="data-banner" data-banner hidden>
+    <div class="inner">
+      <span aria-hidden="true">ⓘ</span>
+      <span>資料快照：<strong data-banner-part="date">載入中…</strong> · 來源：<span data-banner-part="source">—</span> · 非即時統計</span>
+      <a href="about.html#limitations">了解資料限制</a>
+    </div>
+  </div>
+
+  <main id="main" class="map-layout">
+    <aside class="map-side" aria-label="篩選與結果">
+      <div class="side-scroll">
+        <form class="map-filters" id="filter-form">
+          <h2 style="font-size: 1.05rem;">篩選</h2>
+          <div class="field">
+            <label for="f-q">搜尋地點</label>
+            <input type="text" id="f-q" name="q" placeholder="例如：南生圍" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="f-district">地區</label>
+            <select id="f-district" name="district">
+              <option value="">全部地區</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-level">活動程度</label>
+            <select id="f-level" name="level">
+              <option value="">全部程度</option>
+              <option value="high">高活動（30 天內）</option>
+              <option value="medium">中度活動（31–90 天）</option>
+              <option value="low">低度活動（91–180 天）</option>
+              <option value="past">較早紀錄（180 天以上）</option>
+            </select>
+          </div>
+          <fieldset class="field" style="border: 0; padding: 0; margin: 0 0 14px;">
+            <legend>行動日期</legend>
+            <div class="field-row">
+              <input type="date" id="f-from" name="from" aria-label="開始日期">
+              <input type="date" id="f-to" name="to" aria-label="結束日期">
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="f-min-count">野豬數目下限</label>
+            <input type="number" id="f-min-count" name="min_count" min="1" placeholder="全部" inputmode="numeric">
+          </div>
+          <div class="filter-actions">
+            <button type="button" class="btn btn-outline btn-sm" id="btn-reset">重設篩選</button>
+          </div>
+          <p style="font-size: 0.78rem; color: var(--c-ink-faint); margin: 0 0 10px;">
+            篩選只改變畫面顯示，不會修改任何資料。
+          </p>
+        </form>
+        <div style="padding: 0 18px;">
+          <div class="note" style="font-size: 0.82rem; padding: 10px 12px;">
+            標記顏色按「最近一次行動時間」劃分，不代表危險程度。
+          </div>
+        </div>
+        <div class="results-count" role="status" aria-live="polite" data-results-count>
+          載入中…
+        </div>
+        <ul class="result-list" data-result-list aria-label="符合篩選的紀錄"></ul>
+      </div>
+    </aside>
+
+    <section class="map-stage" aria-label="野豬活動地圖">
+      <div id="map" tabindex="-1"></div>
+      <div class="map-legend" aria-hidden="false">
+        <h3>最近行動時間</h3>
+        <ul data-legend></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/vendor/leaflet/leaflet.js"></script>
+  <script src="assets/vendor/markercluster/leaflet.markercluster.js"></script>
+  <script src="assets/vendor/leaflet/leaflet-heat.js"></script>
+  <script type="module" src="assets/js/map.js"></script>
+</body>
+</html>

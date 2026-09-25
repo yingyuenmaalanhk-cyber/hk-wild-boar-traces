@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於計劃與資料說明 — 豬絲馬跡</title>
+  <meta name="description" content="豬絲馬跡的資料來源、處理方法、活動指標計算方式、資料限制與私隱聲明。">
+  <meta property="og:title" content="關於計劃與資料說明 — 豬絲馬跡">
+  <meta property="og:description" content="資料來源、處理方法、活動指標計算方式、資料限制與私隱聲明。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_HK">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e6b4e'/%3E%3Cg fill='%23fff'%3E%3Cellipse cx='22' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='42' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='12' cy='34' rx='5.5' ry='7'/%3E%3Cellipse cx='52' cy='34' rx='5.5' ry='7'/%3E%3Cpath d='M32 31c8 0 15 6.5 15 13.5 0 4.5-3.5 7.5-8 7.5-3 0-5-1.5-7-1.5s-4 1.5-7 1.5c-4.5 0-8-3-8-7.5C17 37.5 24 31 32 31z'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 13.5c2.6 0 5 2 5 4.3 0 1.4-1.1 2.2-2.5 2.2-1 0-1.7-.5-2.5-.5s-1.5.5-2.5.5c-1.4 0-2.5-.8-2.5-2.2 0-2.3 2.4-4.3 5-4.3zM5.5 8.5c1 0 1.8 1 1.8 2.2S6.5 13 5.5 13 3.7 12 3.7 10.7s.8-2.2 1.8-2.2zm13 0c1 0 1.8 1 1.8 2.2S19.5 13 18.5 13s-1.8-1-1.8-2.3.8-2.2 1.8-2.2zM9 4.5c1.1 0 2 1.1 2 2.4S10.1 9.3 9 9.3 7 8.2 7 6.9s.9-2.4 2-2.4zm6 0c1.1 0 2 1.1 2 2.4s-.9 2.4-2 2.4-.9-1.1-.9-2.4.9-2.4 2-2.4z"/></svg>
+        </span>
+        <span>豬絲馬跡<small>HK WILD BOAR TRACES</small></span>
+      </a>
+      <nav class="main-nav" aria-label="主導覽">
+        <a href="index.html">主頁</a>
+        <a href="map.html">活動地圖</a>
+        <a href="analytics.html">數據分析</a>
+        <a href="about.html" aria-current="page">關於計劃</a>
+      </nav>
+      <button class="nav-toggle" aria-expanded="false" aria-label="開啟或關閉選單">
+        <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="data-banner" data-banner hidden>
+    <div class="inner">
+      <span aria-hidden="true">ⓘ</span>
+      <span>資料快照：<strong data-banner-part="date">載入中…</strong> · 來源：<span data-banner-part="source">—</span> · 非即時統計</span>
+      <a href="#limitations">了解資料限制</a>
+    </div>
+  </div>
+
+  <main id="main" class="section">
+    <div class="container prose">
+      <div class="section-head" style="margin-bottom: 10px;">
+        <span class="eyebrow">About &amp; Methodology</span>
+        <h2>關於本平台與資料說明</h2>
+      </div>
+
+      <h2 id="what">這是什麼網站？</h2>
+      <p>
+        「豬絲馬跡」是一個公開、唯讀的香港野豬活動資訊平台。我們把政府公開發佈的野豬
+        捕捉行動紀錄整理成地圖與統計圖表，讓任何人都可以方便地查閱：哪裡曾經有行動、
+        甚麼時候、涉及多少野豬，以及各地點的近期活動程度。
+      </p>
+      <p>
+        本網站<strong>只供瀏覽</strong>：不接受資料提交、不設帳戶、不提供任何修改資料的功能。
+        所有訪客看到的內容完全相同。
+      </p>
+
+      <h2 id="source">資料來源</h2>
+      <p>
+        本站所有紀錄均整理自<a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁農自然護理署「野豬滋擾」網頁</a>
+        公佈的<strong>野豬捕捉行動</strong>資料（行動編號、日期、地點、野豬數目）。
+        每次更新資料時，本站會重新擷取該網頁的逐項紀錄並重新整理靜態資料檔。
+      </p>
+      <p>
+        需要特別說明：資料描述的是<strong>政府行動紀錄</strong>，並非市民目擊報告，
+        亦非全港野豬數量普查。捕捉行動通常在野豬出沒或曾構成滋擾的地點進行，
+        因此可以作為野豬活動分佈的參考，但不等同於實際野豬活動的全貌。
+      </p>
+      <p>
+        官方網頁僅逐項列出最近期的行動紀錄；更早的行動只有匯總數字
+        （例如：2021 年 11 月至 2026 年 6 月，共 1,220 次行動、2,450 頭野豬——
+        此匯總資料無法對應到具體地點，故不會出現在本站的地圖或圖表中）。
+        因此本站的時間序列<strong>不連續</strong>，詳見下文「資料限制」。
+      </p>
+
+      <h3>資料處理流程</h3>
+      <div class="pipeline" aria-label="資料處理流程">
+        <span class="step">擷取官方網頁</span><span class="arrow">→</span>
+        <span class="step">整理 / 去重</span><span class="arrow">→</span>
+        <span class="step">地點地理編碼</span><span class="arrow">→</span>
+        <span class="step">分區歸屬</span><span class="arrow">→</span>
+        <span class="step">統計運算</span><span class="arrow">→</span>
+        <span class="step">靜態 JSON / GeoJSON</span><span class="arrow">→</span>
+        <span class="step">本網站</span>
+      </div>
+      <p>
+        座標以開放的 <a href="https://nominatim.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap Nominatim</a>
+        服務由地點名稱推算，屬<strong>近似位置</strong>（精確至街道層級），
+        不代表實際行動的精確地點；分區歸屬亦由此推算，個別地點可能不準確。
+      </p>
+
+      <h2 id="indicator">活動指標是怎樣計算的？</h2>
+      <p>
+        本站的「活動程度」是一個<strong>由公開紀錄推算的活動參考指標</strong>，
+        只反映某地點「最近一次有行動紀錄」距離資料截止日多久，計算方法如下：
+      </p>
+      <ul>
+        <li><strong>高活動</strong> — 最近 30 天內曾有行動紀錄</li>
+        <li><strong>中度活動</strong> — 最近 31–90 天內曾有行動紀錄</li>
+        <li><strong>低度活動</strong> — 最近 91–180 天內曾有行動紀錄</li>
+        <li><strong>較早紀錄</strong> — 最近一次行動已超過 180 天</li>
+      </ul>
+      <p>
+        每個地點同時顯示紀錄次數、野豬合計數目與最近行動日期，方便自行判斷。
+        這個指標<strong>不是風險預測</strong>：它不能預測野豬會否出現，亦不代表某地點
+        現時是否危險。如需關於野豬滋擾的官方資訊，請參考
+        <a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁護署網頁</a>。
+      </p>
+      <div class="level-demo" aria-hidden="true">
+        <span class="badge badge-high"><span class="dot" style="background:var(--c-high)"></span>高活動</span>
+        <span class="badge badge-medium"><span class="dot" style="background:var(--c-medium)"></span>中度活動</span>
+        <span class="badge badge-low"><span class="dot" style="background:var(--c-low)"></span>低度活動</span>
+        <span class="badge badge-past"><span class="dot" style="background:var(--c-past)"></span>較早紀錄</span>
+      </div>
+
+      <h2 id="limitations">資料限制</h2>
+      <ul data-limitations>
+        <li>資料為靜態快照，更新頻率視乎資料整理進度，並非即時資料。</li>
+      </ul>
+
+      <h2 id="history">關於此計劃</h2>
+      <p>
+        本計劃原為一個學界比賽項目，最初以 Python 擷取漁護署資料、MySQL 儲存、
+        QGIS 製作地圖及風險示意。後來我們把它重構為一個<strong>純靜態的公開網站</strong>：
+        資料以 JSON / GeoJSON 形式隨網站發佈，前端以 Leaflet 製圖、Chart.js 繪圖，
+        不設任何後端伺服器或資料庫，部署於 GitHub Pages。
+      </p>
+      <p>
+        原有技術並未被捨棄，而是各安其位：Python 負責資料整理與轉換（見
+        <code>tools/</code> 目錄），MySQL 僅存在於早期工作流程，QGIS 的時間分段著色概念
+        則演變成今天的活動指標配色。網站源碼以開放授權公開於 GitHub。
+      </p>
+
+      <h2 id="privacy">私隱聲明</h2>
+      <ul>
+        <li>本網站<strong>不使用 Cookies</strong>、不作任何追蹤、不嵌入廣告或統計腳本，也不設帳戶系統。</li>
+        <li>本網站不會收集任何訪客個人資料。</li>
+        <li>載入地圖時，瀏覽器需向第三方地圖圖塊服務（OpenStreetMap）請求地圖圖片，該服務會收到你的 IP 地址及瀏覽器資訊；除此之外，本站不與任何第三方共享資料。</li>
+        <li>網站由 GitHub Pages 託管，其伺服器日誌由 GitHub 按<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">其私隱政策</a>處理。</li>
+        <li>本站發佈的資料均為政府公開資料之整理，不含任何個人資料。</li>
+      </ul>
+
+      <h2 id="faq">常見問題</h2>
+      <details class="faq">
+        <summary>為什麼 2025 年 9 月至 2026 年 6 月之間沒有紀錄？</summary>
+        <div class="faq-body">
+          官方網頁只逐項公佈最近期的行動（現為 2026 年 7 月起的紀錄），更早的行動只有匯總數字，
+          本站無法取得該時段的逐項地點資料。本站收錄的 2025 年 7–8 月紀錄，是官方網頁
+          當時逐項公佈、由本計劃較早版本擷取保存的資料。不同時段之間因此存在空檔。
+        </div>
+      </details>
+      <details class="faq">
+        <summary>我可以提交野豬目擊報告嗎？</summary>
+        <div class="faq-body">
+          不可以。本網站是唯讀的資訊平台，不接受任何資料提交或修改。如需報告野豬滋擾，
+          請聯絡漁護署或經政府熱線 1823 反映。
+        </div>
+      </details>
+      <details class="faq">
+        <summary>地圖上的位置準確嗎？</summary>
+        <div class="faq-body">
+          座標由地點名稱（通常是街道或鄉村名稱）經地理編碼服務推算，屬近似位置。
+          官方資料本身不含精確座標，因此標記位置僅供參考。
+        </div>
+      </details>
+      <details class="faq">
+        <summary>「高活動」是否代表該處很危險？</summary>
+        <div class="faq-body">
+          不是。活動程度只描述「最近一次有政府行動紀錄」距今多久，並非風險評估或預測。
+          有關野豬安全資訊，請參考漁護署官方指引。
+        </div>
+      </details>
+      <details class="faq">
+        <summary>資料多久更新一次？</summary>
+        <div class="faq-body">
+          本站資料為靜態快照，由維護者不定期重新整理。每頁頂部的「資料快照」日期即為
+          當前資料的截止日。
+        </div>
+      </details>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div>
+        <h3>豬絲馬跡</h3>
+        <p>公開、唯讀的香港野豬活動資訊平台。資料整理自政府公開資料，僅供參考，不構成任何風險建議。</p>
+      </div>
+      <div>
+        <h3>瀏覽</h3>
+        <ul>
+          <li><a href="map.html">活動地圖</a></li>
+          <li><a href="analytics.html">數據分析</a></li>
+          <li><a href="about.html">資料來源與方法</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>資料</h3>
+        <ul>
+          <li><a href="https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html" target="_blank" rel="noopener noreferrer">漁護署「野豬滋擾」公佈</a></li>
+          <li><a href="#privacy">私隱聲明</a></li>
+          <li><a data-repo-link hidden href="#" rel="noopener noreferrer">源碼（GitHub）</a></li>
+        </ul>
+      </div>
+      <p class="foot-note">© 豬絲馬跡計劃 · 資料來源：香港特別行政區政府漁農自然護理署公佈之野豬捕捉行動資料 · 本網站為唯讀平台，不接受資料提交或修改。</p>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/js/about.js"></script>
+</body>
+</html>

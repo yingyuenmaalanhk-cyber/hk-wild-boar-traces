@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Local snapshots / scratch files used by the data pipeline
+tools/raw/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local env files must never be committed
+.env
+.env.*
+!.env.example

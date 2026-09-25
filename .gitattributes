@@ -1,0 +1,9 @@
+# Normalize line endings: LF in the repository, so the public history stays
+# clean regardless of contributor OS.
+* text=auto eol=lf
+
+# Binary assets
+*.png binary
+*.ico binary
+*.jpg binary
+*.gz binary

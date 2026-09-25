@@ -1,0 +1,70 @@
+{
+ "site_name": "豬絲馬跡",
+ "site_name_en": "HK Wild Boar Traces",
+ "data_source": {
+  "name": "漁農自然護理署「野豬滋擾」網頁公佈之野豬捕捉行動紀錄",
+  "publisher": "香港特別行政區政府漁農自然護理署",
+  "url": "https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html",
+  "retrieved_at": "2026-09-25",
+  "processing": "以程式擷取官方網頁公佈的逐項行動紀錄，經 OpenStreetMap Nominatim 將地點名稱轉換為 WGS84 座標及所屬分區後，整理為靜態 JSON / GeoJSON。座標僅代表行動地點的近似位置。"
+ },
+ "coverage": {
+  "min_date": "2025-07-02",
+  "max_date": "2026-09-25",
+  "reference_date": "2026-09-25",
+  "note": "本網站收錄官方網頁現時逐項公佈的行動紀錄；官方網頁僅逐項列出最近期的行動，更早的行動只有匯總數字。因此本網站並非完整的歷史資料庫，不同時段之間可能存在空檔。"
+ },
+ "historical_context": {
+  "actions": 1220,
+  "boars": 2450,
+  "period": "2021年11月至2026年6月"
+ },
+ "totals": {
+  "records": 170,
+  "boars": 350,
+  "locations": 80,
+  "districts_covered": 13,
+  "mapped_records": 170
+ },
+ "activity_levels": [
+  {
+   "key": "high",
+   "label": "高活動",
+   "label_en": "Higher activity",
+   "color": "#c0392b",
+   "max_days": 30,
+   "description": "最近 30 天內曾有行動紀錄"
+  },
+  {
+   "key": "medium",
+   "label": "中度活動",
+   "label_en": "Moderate activity",
+   "color": "#e67e22",
+   "max_days": 90,
+   "description": "最近 31–90 天內曾有行動紀錄"
+  },
+  {
+   "key": "low",
+   "label": "低度活動",
+   "label_en": "Lower activity",
+   "color": "#f1c40f",
+   "max_days": 180,
+   "description": "最近 91–180 天內曾有行動紀錄"
+  },
+  {
+   "key": "past",
+   "label": "較早紀錄",
+   "label_en": "Earlier records only",
+   "color": "#909497",
+   "max_days": null,
+   "description": "最近一次行動已超過 180 天"
+  }
+ ],
+ "limitations": [
+  "資料來源為漁護署公佈的「野豬捕捉行動」紀錄，並非市民目擊報告，亦非全港野豬數量普查。",
+  "官方網頁只逐項公佈最近期的行動，較早行動僅有匯總數字，故本網站的時間序列不連續。",
+  "地點座標由地點名稱經地理編碼取得，屬近似位置，不代表實際行動的精確地點。",
+  "活動指標只反映「紀錄時間新近度」，並非風險預測，亦不代表某地點現時是否危險。",
+  "資料為靜態快照，更新頻率視乎資料整理進度，並非即時資料。"
+ ]
+}
