@@ -41,7 +41,7 @@ let filters = {};
 
 const els = {
   form: null, q: null, district: null, level: null, from: null, to: null,
-  minCount: null, reset: null, count: null, list: null, legend: null,
+  minCount: null, source: null, reset: null, count: null, list: null, legend: null,
 };
 
 /* ------------------------------------------------------------------ map -- */
@@ -69,25 +69,35 @@ function popupHTML(record) {
     ? t("popup.when.today")
     : t("popup.when.days", { days });
   const level = levelOf(record);
+  const isCommunity = record.source === "community";
+  const countValue = record.count_band && isCommunity
+    ? t("popup.count.withband", { value: t("popup.count.value", { n: record.count }), band: record.count_band })
+    : t("popup.count.value", { n: record.count });
+  const sourceLine = isCommunity ? t("popup.source.community") : t("popup.source");
+  const precision = record.location_precision === "district_centre"
+    ? ` ${t("popup.location_centre")}`
+    : "";
   return `<div class="popup">
     <div class="popup-date">${formatDate(record.date)}${when ? ` · ${when}` : ""}</div>
     <h3>${esc(record.location)}</h3>
     <dl>
-      <dt>${t("popup.count")}</dt><dd>${t("popup.count.value", { n: record.count })}</dd>
+      <dt>${t("popup.count")}</dt><dd>${countValue}</dd>
       <dt>${t("popup.district")}</dt><dd>${esc(districtName(record.district, record.district_en))}</dd>
       ${record.action_number ? `<dt>${t("popup.actionno")}</dt><dd>#${esc(record.action_number)}</dd>` : ""}
+      ${record.notes ? `<dt>${t("popup.notes")}</dt><dd>${esc(record.notes)}</dd>` : ""}
       <dt>${t("popup.level")}</dt><dd>${esc(metaField(level, "label"))}</dd>
     </dl>
-    <p class="popup-src">${t("popup.source")}</p>
+    <p class="popup-src">${sourceLine}${precision}</p>
   </div>`;
 }
 
 function markerStyle(record) {
   const level = levelOf(record);
+  const isCommunity = record.source === "community";
   return {
     radius: 5 + Math.sqrt(Math.max(record.count, 1)) * 1.6,
-    color: "#ffffff",
-    weight: 1.5,
+    color: isCommunity ? "#8e5ea8" : "#ffffff",
+    weight: isCommunity ? 2.5 : 1.5,
     fillColor: level.color,
     fillOpacity: 0.92,
   };
@@ -126,26 +136,16 @@ function buildActivity() {
     const level = levelOf(last);
     const boars = list.reduce((s, r) => s + r.count, 0);
     const circle = L.circle([last.lat, last.lon], {
+      // Non-interactive: the circles stay purely visual so they never block
+      // clicks on the record markers beneath them. The location summary they
+      // used to show is available in the analytics location table.
+      interactive: false,
       radius: 140 + Math.min(list.length, 8) * 45,
       color: level.color,
       weight: 1.5,
       fillColor: level.color,
       fillOpacity: 0.22,
     });
-    circle.bindPopup(
-      `<div class="popup">
-        <div class="popup-date">${t("popup.activity.title")}</div>
-        <h3>${esc(name)}</h3>
-        <dl>
-          <dt>${t("popup.activity.level")}</dt><dd>${esc(metaField(level, "label"))}</dd>
-          <dt>${t("popup.activity.records")}</dt><dd>${t("popup.activity.records_value", { n: list.length })}</dd>
-          <dt>${t("popup.activity.boars")}</dt><dd>${t("popup.count.value", { n: boars })}</dd>
-          <dt>${t("popup.activity.last")}</dt><dd>${formatDate(last.date)}</dd>
-        </dl>
-        <p class="popup-src">${t("popup.activity.note", { description: metaField(level, "description") })}</p>
-      </div>`,
-      { maxWidth: 280 }
-    );
     activityLayer.addLayer(circle);
   }
 }
@@ -168,11 +168,14 @@ function renderList() {
   els.list.innerHTML = shown
     .map((r) => {
       const level = levelOf(r);
+      const communityTag = r.source === "community"
+        ? ` <span class="tag-community">${t("home.tag.community")}</span>`
+        : "";
       return `<li>
         <button type="button" class="result-item" data-index="${sorted.indexOf(r)}">
           <span class="dot" style="background:${colors[level.key]}" aria-hidden="true"></span>
           <span class="meta">
-            <span class="loc">${esc(r.location)}</span>
+            <span class="loc">${esc(r.location)}${communityTag}</span>
             <span class="sub">${formatDate(r.date)} · ${esc(districtName(r.district, r.district_en))}</span>
           </span>
           <span class="badge badge-${level.key}">
@@ -210,6 +213,7 @@ function readFiltersFromForm() {
     from: els.from.value,
     to: els.to.value,
     minCount: els.minCount.value,
+    source: els.source.value,
   };
 }
 
@@ -220,6 +224,7 @@ function writeFiltersToForm() {
   els.from.value = filters.from || "";
   els.to.value = filters.to || "";
   els.minCount.value = filters.minCount || "";
+  els.source.value = filters.source || "";
 }
 
 function render() {
@@ -249,6 +254,9 @@ function buildLegend() {
       (l) => `<li><span class="swatch" style="background:${l.color}"></span>${esc(metaField(l, "label"))} · ${esc(metaField(l, "description"))}</li>`
     )
     .join("");
+  const community = document.createElement("li");
+  community.innerHTML = `<span class="swatch swatch-community" aria-hidden="true"></span>${t("map.legend.community")}`;
+  els.legend.appendChild(community);
 }
 
 function populateDistricts(districts) {
@@ -296,6 +304,11 @@ function initMap() {
   });
   baseLayer().addTo(map);
 
+  // Activity circles are non-interactive (see buildActivity), so they never
+  // block clicks on the record markers beneath them.
+  activityLayer = L.layerGroup();
+  map.addLayer(activityLayer);
+
   cluster = L.markerClusterGroup({
     showCoverageOnHover: false,
     maxClusterRadius: 45,
@@ -308,8 +321,6 @@ function initMap() {
   });
   map.addLayer(cluster);
 
-  activityLayer = L.layerGroup();
-
   // Created up front (empty) so the layers control can bind it; unchecked
   // until the visitor enables it.
   heat = L.heatLayer([], {
@@ -321,7 +332,6 @@ function initMap() {
   });
 
   buildLayerControl();
-  map.addLayer(activityLayer);
 
   window.addEventListener("resize", () => {
     map.invalidateSize();
@@ -336,6 +346,7 @@ async function init() {
   els.from = document.getElementById("f-from");
   els.to = document.getElementById("f-to");
   els.minCount = document.getElementById("f-min-count");
+  els.source = document.getElementById("f-source");
   els.reset = document.getElementById("btn-reset");
   els.count = document.querySelector("[data-results-count]");
   els.list = document.querySelector("[data-result-list]");
@@ -361,7 +372,7 @@ async function init() {
   els.form.addEventListener("change", onFilterInput);
   els.form.addEventListener("submit", (e) => e.preventDefault());
   els.reset.addEventListener("click", () => {
-    filters = { q: "", district: "", level: "", from: "", to: "", minCount: "" };
+    filters = { q: "", district: "", level: "", from: "", to: "", minCount: "", source: "" };
     writeFiltersToForm();
     render();
   });

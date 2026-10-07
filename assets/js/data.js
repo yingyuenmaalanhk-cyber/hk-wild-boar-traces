@@ -51,9 +51,10 @@ export function levelOf(record, meta) {
  *   level           activity level key or ""
  *   minCount        number
  *   q               free-text location substring
+ *   source          "afcd" | "community" | "" (all)
  */
 export function applyFilters(records, filters, meta) {
-  const { from, to, district, level, minCount, q } = filters;
+  const { from, to, district, level, minCount, q, source } = filters;
   const query = (q || "").trim();
   const isUnzoned = district === "__unzoned__";
   return records.filter((r) => {
@@ -67,6 +68,8 @@ export function applyFilters(records, filters, meta) {
     if (minCount && r.count < minCount) return false;
     if (level && levelOf(r, meta).key !== level) return false;
     if (query && !(r.location || "").includes(query)) return false;
+    if (source === "community" && r.source !== "community") return false;
+    if (source === "afcd" && r.source === "community") return false;
     return true;
   });
 }
@@ -90,6 +93,7 @@ export function filtersFromURL() {
     level: params.get("level") || "",
     minCount: params.get("min_count") || "",
     q: params.get("q") || "",
+    source: params.get("source") || "",
   };
 }
 
@@ -102,6 +106,7 @@ export function filtersToURL(filters) {
   if (filters.level) params.set("level", filters.level);
   if (filters.minCount) params.set("min_count", filters.minCount);
   if (filters.q) params.set("q", filters.q);
+  if (filters.source) params.set("source", filters.source);
   const qs = params.toString();
   history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
 }

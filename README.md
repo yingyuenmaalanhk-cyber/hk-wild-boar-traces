@@ -36,14 +36,36 @@ no backend, no database, no tracking.
 # 擷取 AFCD 網頁最新逐項紀錄 + 併入舊有 CSV 匯出，重新地理編碼並輸出 data/*
 python tools/prepare_data.py --legacy-csv path/to/mysql_coordinates.csv
 
+# 同時併入公眾報告（Google Sheets 已發佈的 CSV 網址）
+python tools/prepare_data.py --community-url "https://docs.google.com/..."
+
 # 僅用已快取的地理編碼離線重建（不連網）
-python tools/prepare_data.py --offline
+python tools/prepare_data.py --offline --afcd-file tools/raw/afcd_page.html
 ```
 
 - 首次執行會以每 1.1 秒一個請求的速度向 OpenStreetMap Nominatim 查詢新地點座標，
   結果快取於 `tools/geocode_cache.json`，之後再執行幾乎即時完成。
-- `--legacy-csv` 為可選參數，用於併入早期 MySQL 工作流程匯出的
-  `date,latitude,longitude,description` CSV。
+- 官方逐項紀錄會累積存檔於 `tools/afcd_records.json`（官方網頁只列出最近期行動）。
+- GitHub Actions 會在每月 1 日自動執行上述流程（見 `.github/workflows/update-data.yml`），
+  有新資料才會 commit 並自動重新發佈；亦可在 Actions 頁手動觸發。
+
+## 公眾報告 Community reports
+
+1. 以你的 Google 帳號建立 Google Form，題目建議：
+   - 行動日期 Date of sighting（日期，必填）
+   - 地區 District（下拉：18 區中英對照，必填）
+   - 地點描述 Location description（短答案，必填）
+   - 野豬約略數量 Approx. number of boars（下拉：1 / 2–3 / 4–6 / 7 或以上，必填）
+   - 補充資料 Notes（長答案，選填）
+   - 表單說明請提醒：勿填個人資料、位置大約即可、緊急情況請報警或致電 1823
+2. 表單 → 回應 → 連結至 Google 試算表 → 檔案 → 分享 → 發佈到網頁（CSV 格式）
+3. 把該 CSV 網址加到倉庫 Settings → Secrets and variables → Actions → **Variables**，
+   名稱 `COMMUNITY_SHEET_CSV_URL`
+4. 把表單連結填入 `assets/js/config.js` 的 `googleFormLinkUrl` / `googleFormEmbedUrl`
+   （embed 網址為 `.../viewform?embedded=true`）
+
+提交的報告會在下次自動更新時直接上架，標示為「公眾報告（未經官方核實）」；
+在 Google Sheet 刪除某列，下次更新即會從網站移除。
 
 ## 本地預覽 Local preview
 

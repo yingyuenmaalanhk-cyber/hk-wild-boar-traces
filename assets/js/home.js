@@ -45,7 +45,7 @@ function render(data) {
         return `<li class="card record-item">
           <span class="dot" style="background:${levelColors[levelKey]}" aria-hidden="true"></span>
           <span class="when">${formatDate(r.date)}</span>
-          <span class="what">${esc(r.location)}<small> · ${esc(district)}</small></span>
+          <span class="what">${esc(r.location)}<small> · ${esc(district)}</small>${r.source === "community" ? ` <span class="tag-community">${t("home.tag.community")}</span>` : ""}</span>
           <span class="count">${t("home.count.unit", { n: r.count })}</span>
         </li>`;
       })

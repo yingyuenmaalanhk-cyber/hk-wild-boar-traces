@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-HK" data-title-i18n="doc.title.home">
+<html lang="zh-HK" data-title-i18n="doc.title.report">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>豬絲馬跡 — 香港野豬活動資訊平台</title>
-  <meta name="description" content="公開、唯讀的香港野豬活動資訊平台：在地圖上探索野豬捕捉行動紀錄，按日期、地區篩選，查看統計趨勢與活動指標。 Hong Kong wild boar activity records on an interactive, read-only GIS map.">
-  <meta property="og:title" content="豬絲馬跡 HK Wild Boar Traces — 香港野豬活動資訊平台">
-  <meta property="og:description" content="在地圖上探索香港野豬捕捉行動紀錄，查看統計趨勢與活動指標。資料整理自漁護署公開資料。">
+  <title>報告野豬出沒 — 豬絲馬跡</title>
+  <meta name="description" content="提交野豬出沒報告：填寫簡單表單，你的報告會在下一次資料更新時顯示於本平台地圖，標示為公眾報告。 Submit a wild boar sighting report; approved submissions appear on the community map after the next data update.">
+  <meta property="og:title" content="報告出沒 Report a Sighting — 豬絲馬跡 HK Wild Boar Traces">
+  <meta property="og:description" content="填寫簡單表單報告野豬出沒，報告會在下一次資料更新後顯示於地圖。">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_HK">
   <meta property="og:locale:alternate" content="en_GB">
-  <meta name="twitter:card" content="summary">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e6b4e'/%3E%3Cg fill='%23fff'%3E%3Cellipse cx='22' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='42' cy='20' rx='6' ry='8'/%3E%3Cellipse cx='12' cy='34' rx='5.5' ry='7'/%3E%3Cellipse cx='52' cy='34' rx='5.5' ry='7'/%3E%3Cpath d='M32 31c8 0 15 6.5 15 13.5 0 4.5-3.5 7.5-8 7.5-3 0-5-1.5-7-1.5s-4 1.5-7 1.5c-4.5 0-8-3-8-7.5C17 37.5 24 31 32 31z'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -26,10 +25,10 @@
         <span>豬絲馬跡<small>HK WILD BOAR TRACES</small></span>
       </a>
       <nav class="main-nav" aria-label="" data-i18n-aria="a11y.nav">
-        <a href="index.html" aria-current="page" data-i18n="nav.home"></a>
+        <a href="index.html" data-i18n="nav.home"></a>
         <a href="map.html" data-i18n="nav.map"></a>
         <a href="analytics.html" data-i18n="nav.analytics"></a>
-        <a href="report.html" data-i18n="nav.report"></a>
+        <a href="report.html" aria-current="page" data-i18n="nav.report"></a>
         <a href="about.html" data-i18n="nav.about"></a>
       </nav>
       <div class="lang-switch" role="group" aria-label="" data-i18n-aria="a11y.lang.group">
@@ -51,88 +50,42 @@
     </div>
   </div>
 
-  <main id="main">
-    <section class="hero">
-      <div class="inner">
-        <div>
-          <h1>豬絲馬跡</h1>
-          <p class="tagline" data-i18n="home.hero.tagline"></p>
-          <p class="lead" data-i18n="home.hero.lead"></p>
-          <div class="actions">
-            <a class="btn btn-light" href="map.html" data-i18n="home.cta.map"></a>
-            <a class="btn btn-ghost" href="analytics.html" data-i18n="home.cta.analytics"></a>
-            <a class="btn btn-ghost" href="report.html" data-i18n="home.cta.report"></a>
-          </div>
-        </div>
-        <aside class="snapshot-card" aria-label="" data-i18n-aria="home.snap.title">
-          <h2 data-i18n="home.snap.title"></h2>
-          <dl>
-            <div><dt data-i18n="home.snap.records"></dt><dd data-stat="records">—</dd></div>
-            <div><dt data-i18n="home.snap.boars"></dt><dd data-stat="boars">—</dd></div>
-            <div><dt data-i18n="home.snap.locations"></dt><dd data-stat="locations">—</dd></div>
-            <div><dt data-i18n="home.snap.districts"></dt><dd data-stat="districts">—</dd></div>
-          </dl>
-          <p class="snapshot-foot" data-asof></p>
-        </aside>
+  <main id="main" class="section">
+    <div class="container prose">
+      <div class="section-head" style="margin-bottom: 14px;">
+        <span class="eyebrow" data-i18n="report.eyebrow"></span>
+        <h2 data-i18n="report.title"></h2>
+        <p data-i18n="report.lead"></p>
       </div>
-    </section>
 
-    <section class="section" aria-label="" data-i18n-aria="nav.home">
-      <div class="container">
-        <div class="card-grid">
-          <article class="card feature-card">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
-            </span>
-            <h3 data-i18n="home.f1.title"></h3>
-            <p data-i18n="home.f1.body"></p>
-            <a href="map.html" data-i18n="home.f1.link"></a>
-          </article>
-          <article class="card feature-card">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 20h16v2H2V2h2zM6 16V9h3v7zm5 0V4h3v12zm5 0v-6h3v6z"/></svg>
-            </span>
-            <h3 data-i18n="home.f2.title"></h3>
-            <p data-i18n="home.f2.body"></p>
-            <a href="analytics.html" data-i18n="home.f2.link"></a>
-          </article>
-          <article class="card feature-card">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5zm0 4 4 1.6v3.6c0 3.4-1.9 6.7-4 7.7-2.1-1-4-4.3-4-7.7V7.6z"/></svg>
-            </span>
-            <h3 data-i18n="home.f3.title"></h3>
-            <p data-i18n="home.f3.body"></p>
-            <a href="about.html#indicator" data-i18n="home.f3.link"></a>
-          </article>
+      <section aria-labelledby="report-form-title" class="report-form-section">
+        <h3 id="report-form-title" data-i18n="report.form.title"></h3>
+        <div data-form-mount>
+          <p class="note" data-i18n="report.form.loading"></p>
         </div>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top: 0;" aria-labelledby="latest-title">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow" data-i18n="home.latest.eyebrow"></span>
-          <h2 id="latest-title" data-i18n="home.latest.title"></h2>
-          <p data-i18n="home.latest.sub"></p>
-        </div>
-        <ol class="record-list" data-latest-records>
-          <li class="card record-item" aria-live="polite"></li>
-        </ol>
-        <p style="margin-top: 16px;">
-          <a class="btn btn-outline btn-sm" href="map.html" data-i18n="home.latest.all"></a>
+        <p style="margin-top: 10px;">
+          <a class="btn btn-outline btn-sm" data-form-open hidden href="#" target="_blank" rel="noopener noreferrer" data-i18n="report.form.open"></a>
         </p>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" style="padding-top: 0;" aria-label="" data-i18n-aria="foot.data">
-      <div class="container">
-        <div class="note warn">
-          <strong data-i18n="foot.data"></strong>:
-          <span data-i18n="home.data.note"></span>
-          <a href="about.html#limitations" data-i18n="banner.learn"></a>。
-        </div>
+      <div class="card-grid" style="margin-top: 40px;">
+        <article class="card feature-card">
+          <h3 data-i18n="report.how.title"></h3>
+          <p data-i18n="report.how.body"></p>
+        </article>
+        <article class="card feature-card">
+          <h3 data-i18n="report.safety.title"></h3>
+          <p data-i18n="report.safety.body"></p>
+        </article>
+        <article class="card feature-card">
+          <h3 data-i18n="report.privacy.title"></h3>
+          <p data-i18n="report.privacy.body"></p>
+          <p style="margin-top: 8px;">
+            <a href="about.html#privacy" data-i18n="foot.privacy"></a>
+          </p>
+        </article>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -173,6 +126,6 @@
     </div>
   </footer>
 
-  <script type="module" src="assets/js/home.js"></script>
+  <script type="module" src="assets/js/report.js"></script>
 </body>
 </html>

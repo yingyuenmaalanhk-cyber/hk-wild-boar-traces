@@ -16,6 +16,7 @@ const DICT = {
     "doc.title.map": "活動地圖 — 豬絲馬跡",
     "doc.title.analytics": "數據分析 — 豬絲馬跡",
     "doc.title.about": "關於計劃與資料說明 — 豬絲馬跡",
+    "doc.title.report": "報告野豬出沒 — 豬絲馬跡",
     "doc.title.404": "找不到頁面 — 豬絲馬跡",
 
     "a11y.skip": "跳至主要內容",
@@ -31,6 +32,7 @@ const DICT = {
     "nav.home": "主頁",
     "nav.map": "活動地圖",
     "nav.analytics": "數據分析",
+    "nav.report": "報告出沒",
     "nav.about": "關於計劃",
 
     "banner.snapshot": "資料快照",
@@ -52,7 +54,29 @@ const DICT = {
     "foot.ownership":
       "本網站之原創設計、程式碼及項目內容，除另有標明外，均由馬英源及項目團隊擁有。第三方資料、地圖、商標及外部資源之權利歸其各自權利人所有。",
     "foot.readonly":
-      "資料來源：香港特別行政區政府漁農自然護理署公佈之野豬捕捉行動資料 · 本網站為唯讀平台，不接受資料提交或修改。",
+      "資料來源：漁護署公佈之野豬捕捉行動資料，以及公眾經表單提交之目擊報告 · 本網站資料不可編輯，歡迎透過「報告出沒」頁提交目擊情報。",
+
+    "home.cta.report": "報告野豬出沒",
+    "home.tag.community": "公眾",
+
+    "report.eyebrow": "公眾報告",
+    "report.title": "報告野豬出沒",
+    "report.lead":
+      "留意到野豬出沒？填寫下方表單提交目擊報告，幫助完善本平台的社區資料。提交前請細閱以下提示。",
+    "report.form.title": "填寫報告表單",
+    "report.form.loading": "正在載入表單…",
+    "report.form.unavailable":
+      "報告表單即將開放，請稍後再訪。",
+    "report.form.open": "在新視窗開啟表單 →",
+    "report.how.title": "報告會如何處理",
+    "report.how.body":
+      "提交的報告會自動存入本平台的資料表，並於下次資料更新（現時每月一次）自動顯示於地圖，標示為「公眾報告（未經官方核實）」。你可以用地圖的「資料來源」篩選單獨查看公眾報告。",
+    "report.safety.title": "提交前請注意",
+    "report.safety.body":
+      "請勿填寫任何個人資料（姓名、電話、地址等）；位置寫大約即可；報告內容將公開顯示，提交即表示同意公開（明顯的電話號碼及電郵會被自動遮蔽）。緊急情況請立即報警（999）或致電政府熱線 1823，切勿使用本表單。",
+    "report.privacy.title": "私隱",
+    "report.privacy.body":
+      "表單由 Google Forms 提供，提交的內容會按 Google 的服務條款處理；本站只會發佈你填寫的報告內容，不會公開你的身份。",
 
     "home.hero.tagline": "香港野豬活動資訊平台 · 公開 · 唯讀",
     "home.hero.lead":
@@ -104,6 +128,10 @@ const DICT = {
     "map.date.to": "結束日期",
     "map.mincount": "野豬數目下限",
     "map.mincount.placeholder": "全部",
+    "map.source": "資料來源",
+    "map.source.all": "全部來源",
+    "map.source.afcd": "官方行動紀錄",
+    "map.source.community": "公眾報告",
     "map.reset": "重設篩選",
     "map.readonly_note": "篩選只改變畫面顯示，不會修改任何資料。",
     "map.mark_note": "標記顏色按「最近一次行動時間」劃分，不代表危險程度。",
@@ -113,6 +141,7 @@ const DICT = {
     "map.list.cap":
       "僅顯示最近 {cap} 筆，合共 {total} 筆，請善用篩選收窄範圍。",
     "map.legend.title": "最近行動時間",
+    "map.legend.community": "紫框 = 公眾報告（未經官方核實）",
     "map.layer.records": "行動紀錄",
     "map.layer.activity": "活動指標範圍",
     "map.layer.heat": "熱力圖",
@@ -123,10 +152,14 @@ const DICT = {
     "popup.when.days": "{days} 天前",
     "popup.count": "野豬數目",
     "popup.count.value": "{n} 頭",
+    "popup.count.withband": "{value}（約 {band} 頭）",
     "popup.district": "所屬地區",
     "popup.actionno": "行動編號",
     "popup.level": "最近程度",
+    "popup.notes": "補充",
     "popup.source": "資料來源：漁護署公佈之捕捉行動 · 位置為近似地點",
+    "popup.source.community": "資料來源：公眾報告（未經官方核實）· 位置為近似位置",
+    "popup.location_centre": "（位置以地區中心顯示）",
     "popup.activity.title": "活動指標 · 地點摘要",
     "popup.activity.level": "目前程度",
     "popup.activity.records": "紀錄次數",
@@ -201,6 +234,7 @@ const DICT = {
     "doc.title.map": "Activity Map — HK Wild Boar Traces",
     "doc.title.analytics": "Data Analytics — HK Wild Boar Traces",
     "doc.title.about": "About the Project & Data — HK Wild Boar Traces",
+    "doc.title.report": "Report a Sighting — HK Wild Boar Traces",
     "doc.title.404": "Page Not Found — HK Wild Boar Traces",
 
     "a11y.skip": "Skip to main content",
@@ -216,6 +250,7 @@ const DICT = {
     "nav.home": "Home",
     "nav.map": "Activity Map",
     "nav.analytics": "Data Analytics",
+    "nav.report": "Report a sighting",
     "nav.about": "About",
 
     "banner.snapshot": "Data snapshot",
@@ -237,7 +272,29 @@ const DICT = {
     "foot.ownership":
       "Original website design, code, and project materials are owned by Ma Ying Yuen and the Project Team unless otherwise stated. Third-party data, maps, trademarks, and external resources remain the property of their respective owners.",
     "foot.readonly":
-      "Data source: wild boar capture-action information published by the AFCD, The Government of the Hong Kong SAR · This is a read-only platform; data submission or editing is not accepted.",
+      "Data source: wild boar capture-action information published by the AFCD, plus sighting reports submitted by the public through our form · Data on this website cannot be edited; sighting reports are welcome via the \"Report a sighting\" page.",
+
+    "home.cta.report": "Report a sighting",
+    "home.tag.community": "Public",
+
+    "report.eyebrow": "Community reports",
+    "report.title": "Report a wild boar sighting",
+    "report.lead":
+      "Seen wild boars nearby? Fill in the form below to submit a sighting report and help improve this platform's community data. Please read the notes first.",
+    "report.form.title": "Fill in the report form",
+    "report.form.loading": "Loading the form…",
+    "report.form.unavailable":
+      "The report form is coming soon — please check back later.",
+    "report.form.open": "Open the form in a new tab →",
+    "report.how.title": "What happens to your report",
+    "report.how.body":
+      "Submitted reports are stored automatically in this platform's data sheet and appear on the map after the next data update (currently monthly), labelled as \"community report (not officially verified)\". You can view community reports on their own using the \"Data source\" filter on the map.",
+    "report.safety.title": "Before you submit",
+    "report.safety.body":
+      "Do not include any personal information (names, phone numbers, addresses, etc.); an approximate location is enough. Report contents are published publicly — by submitting you agree to publication (obvious phone numbers and e-mail addresses are redacted automatically). In an emergency, call 999 or the government hotline 1823 immediately — do not use this form.",
+    "report.privacy.title": "Privacy",
+    "report.privacy.body":
+      "The form is provided by Google Forms; submissions are handled under Google's terms of service. This website only publishes the report content you enter and never publishes your identity.",
 
     "home.hero.tagline": "Hong Kong Wild Boar Information Platform · Open · Read-only",
     "home.hero.lead":
@@ -290,6 +347,10 @@ const DICT = {
     "map.date.to": "To date",
     "map.mincount": "Minimum boar count",
     "map.mincount.placeholder": "Any",
+    "map.source": "Data source",
+    "map.source.all": "All sources",
+    "map.source.afcd": "Official action records",
+    "map.source.community": "Community reports",
     "map.reset": "Reset filters",
     "map.readonly_note":
       "Filters only change what is displayed — they never modify the data.",
@@ -301,6 +362,7 @@ const DICT = {
     "map.list.cap":
       "Showing the latest {cap} of {total} matching records — refine the filters to narrow the list.",
     "map.legend.title": "Most recent action",
+    "map.legend.community": "Purple outline = community report (not officially verified)",
     "map.layer.records": "Action records",
     "map.layer.activity": "Activity indicator",
     "map.layer.heat": "Heatmap",
@@ -311,11 +373,16 @@ const DICT = {
     "popup.when.days": "{days} days ago",
     "popup.count": "Wild boars",
     "popup.count.value": "{n} boar(s)",
+    "popup.count.withband": "{value} (reported: {band})",
     "popup.district": "District",
     "popup.actionno": "Action no.",
     "popup.level": "Recency",
+    "popup.notes": "Notes",
     "popup.source":
       "Source: capture actions published by AFCD · location is approximate",
+    "popup.source.community":
+      "Source: community report (not officially verified) · location is approximate",
+    "popup.location_centre": "(shown at the district centre)",
     "popup.activity.title": "Activity indicator · location summary",
     "popup.activity.level": "Current level",
     "popup.activity.records": "Records",

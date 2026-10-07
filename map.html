@@ -31,6 +31,7 @@
         <a href="index.html" data-i18n="nav.home"></a>
         <a href="map.html" aria-current="page" data-i18n="nav.map"></a>
         <a href="analytics.html" data-i18n="nav.analytics"></a>
+        <a href="report.html" data-i18n="nav.report"></a>
         <a href="about.html" data-i18n="nav.about"></a>
       </nav>
       <div class="lang-switch" role="group" aria-label="" data-i18n-aria="a11y.lang.group">
@@ -87,6 +88,14 @@
           <div class="field">
             <label for="f-min-count" data-i18n="map.mincount"></label>
             <input type="number" id="f-min-count" name="min_count" min="1" inputmode="numeric" data-i18n-placeholder="map.mincount.placeholder">
+          </div>
+          <div class="field">
+            <label for="f-source" data-i18n="map.source"></label>
+            <select id="f-source" name="source">
+              <option value="" data-i18n="map.source.all"></option>
+              <option value="afcd" data-i18n="map.source.afcd"></option>
+              <option value="community" data-i18n="map.source.community"></option>
+            </select>
           </div>
           <div class="filter-actions">
             <button type="button" class="btn btn-outline btn-sm" id="btn-reset" data-i18n="map.reset"></button>

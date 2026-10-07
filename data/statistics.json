@@ -1,12 +1,14 @@
 {
- "generated_at": "2026-09-25",
+ "generated_at": "2026-10-07",
  "reference_date": "2026-09-25",
  "totals": {
   "records": 170,
   "boars": 350,
   "locations": 80,
   "districts_covered": 13,
-  "mapped_records": 170
+  "mapped_records": 170,
+  "official_records": 170,
+  "community_records": 0
  },
  "monthly": [
   {

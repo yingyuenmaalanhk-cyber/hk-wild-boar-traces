@@ -19,7 +19,7 @@ import {
 } from "./i18n.js";
 
 const els = {
-  form: null, from: null, to: null, district: null, reset: null, mapLink: null,
+  form: null, from: null, to: null, district: null, source: null, reset: null, mapLink: null,
 };
 const charts = {};
 
@@ -233,7 +233,7 @@ function renderSummary(records) {
 function readFilters() {
   return {
     from: els.from.value, to: els.to.value, district: els.district.value,
-    level: "", minCount: "", q: "",
+    level: "", minCount: "", q: "", source: els.source.value,
   };
 }
 
@@ -248,6 +248,7 @@ function renderAll(data) {
   if (els.from.value) params.set("from", els.from.value);
   if (els.to.value) params.set("to", els.to.value);
   if (els.district.value) params.set("district", els.district.value);
+  if (els.source.value) params.set("source", els.source.value);
   els.mapLink.href = "map.html" + (params.toString() ? "?" + params.toString() : "");
 }
 
@@ -256,6 +257,7 @@ async function init() {
   els.from = document.getElementById("a-from");
   els.to = document.getElementById("a-to");
   els.district = document.getElementById("a-district");
+  els.source = document.getElementById("a-source");
   els.reset = document.getElementById("a-reset");
   els.mapLink = document.getElementById("a-map-link");
 
@@ -299,7 +301,7 @@ async function init() {
   els.form.addEventListener("change", onChange);
   els.form.addEventListener("submit", (e) => e.preventDefault());
   els.reset.addEventListener("click", () => {
-    els.from.value = ""; els.to.value = ""; els.district.value = "";
+    els.from.value = ""; els.to.value = ""; els.district.value = ""; els.source.value = "";
     renderAll(data);
   });
 

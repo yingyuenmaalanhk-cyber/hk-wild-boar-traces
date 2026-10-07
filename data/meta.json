@@ -7,7 +7,7 @@
   "publisher": "香港特別行政區政府漁農自然護理署",
   "publisher_en": "Agriculture, Fisheries and Conservation Department, The Government of the Hong Kong SAR",
   "url": "https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html",
-  "retrieved_at": "2026-09-25",
+  "retrieved_at": "2026-10-07",
   "processing": "本網站資料整理自政府公開發佈的捕捉行動資訊，並以地圖及圖表形式呈現，方便公眾查閱。",
   "processing_en": "The information on this website is compiled from publicly available government data and presented in a map-based visualisation for easier public reference."
  },
@@ -28,7 +28,16 @@
   "boars": 350,
   "locations": 80,
   "districts_covered": 13,
-  "mapped_records": 170
+  "mapped_records": 170,
+  "official_records": 170,
+  "community_records": 0
+ },
+ "community_source": {
+  "label": "公眾報告",
+  "label_en": "Community report",
+  "platform": "Google Forms",
+  "note": "公眾可透過網站內的表單提交野豬出沒報告；報告未經官方核實，地圖上會以不同標示區分。",
+  "note_en": "Visitors can submit wild boar sighting reports through the form on this website. Reports are not officially verified and are visually distinguished on the map."
  },
  "activity_levels": [
   {
@@ -69,17 +78,17 @@
   }
  ],
  "limitations": [
-  "資料來源為漁護署公佈的「野豬捕捉行動」紀錄，並非市民目擊報告，亦非全港野豬數量普查。",
+  "本站主要資料為漁護署公佈的「野豬捕捉行動」紀錄，並非全港野豬數量普查；站內同時包含公眾提交的目擊報告，該等報告未經官方核實，僅供參考。",
   "官方網頁只逐項公佈最近期的行動，較早行動僅有匯總數字，故本網站的時間序列不連續。",
-  "地點位置由地點名稱推算，屬近似位置，不代表實際行動的精確地點。",
+  "地點位置由地點名稱推算，屬近似位置，不代表實際行動或目擊的精確地點。",
   "活動指標只反映「紀錄時間新近度」，並非風險預測，亦不代表某地點現時是否危險。",
-  "資料為靜態快照，更新頻率視乎資料整理進度，並非即時資料。"
+  "資料會定期與官方公佈及公眾報告同步（現時每月一次），並非即時資料。"
  ],
  "limitations_en": [
-  "The data are AFCD capture-action records, not public sighting reports, and not a territory-wide wild boar population survey.",
+  "The primary data are AFCD capture-action records, not a territory-wide wild boar population survey. The site also includes community-submitted sighting reports, which are not officially verified and are provided for reference only.",
   "The official webpage itemises only recent actions; earlier actions are published as totals only, so the time series on this website is not continuous.",
-  "Locations are estimated from place names and are approximate; they do not represent the exact spot of each operation.",
+  "Locations are estimated from place names and are approximate; they do not represent the exact spot of each operation or sighting.",
   "The activity indicator only reflects how recent the records are. It is not a risk forecast and does not indicate whether a location is currently dangerous.",
-  "The data are a static snapshot, refreshed periodically rather than in real time."
+  "The data are synced periodically with official publications and community reports (currently monthly), not in real time."
  ]
 }

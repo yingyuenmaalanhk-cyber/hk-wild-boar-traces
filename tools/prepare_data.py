@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import io
 import json
 import re
 import sys
@@ -44,6 +45,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = REPO_ROOT / "data"
 TOOLS_DIR = Path(__file__).resolve().parent
 GEOCODE_CACHE = TOOLS_DIR / "geocode_cache.json"
+AFCD_ARCHIVE = TOOLS_DIR / "afcd_records.json"
 
 AFCD_URL = (
     "https://www.afcd.gov.hk/tc_chi/conservation/con_fau/"
@@ -118,10 +120,47 @@ ACTIVITY_LEVELS = [
 
 HK_BBOX = (22.13, 113.82, 22.58, 114.45)  # lat/lon sanity window for geocoding
 
+# Approximate district centres (WGS84). Used ONLY as a fallback display
+# location for community reports whose description could not be geocoded;
+# such records are flagged with location_precision="district_centre".
+DISTRICT_CENTROIDS = {
+    "中西區": (22.2830, 114.1540),
+    "灣仔區": (22.2770, 114.1730),
+    "東區": (22.2860, 114.2250),
+    "南區": (22.2430, 114.1970),
+    "油尖旺區": (22.3050, 114.1690),
+    "深水埗區": (22.3300, 114.1550),
+    "九龍城區": (22.3280, 114.1910),
+    "黃大仙區": (22.3350, 114.1950),
+    "觀塘區": (22.3100, 114.2260),
+    "北區": (22.4940, 114.1380),
+    "大埔區": (22.4460, 114.1650),
+    "沙田區": (22.3770, 114.1930),
+    "西貢區": (22.3820, 114.2710),
+    "荃灣區": (22.3710, 114.1130),
+    "屯門區": (22.3920, 113.9720),
+    "元朗區": (22.4420, 114.0220),
+    "葵青區": (22.3630, 114.1330),
+    "離島區": (22.2650, 113.9460),
+}
+
+# Community report count bands -> representative integer for the map radius.
+COUNT_BAND_VALUES = {"1": 1, "2-3": 3, "4-6": 5, "7+": 8}
+
+EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+PHONE_PATTERN = re.compile(r"(?:\+?852[\s-]?)?[2-9]\d{3}[\s-]?\d{4}")
+REDACTED = "[已遮蔽]"
+
 # Spelling variants on the official page that refer to the same place.
 NAME_ALIASES = {
     "司徙拔道": "司徒拔道",  # official page typo,Stubbs Road
 }
+
+
+def sanitize_text(value: str) -> str:
+    """Redact obvious e-mails / phone numbers from public text fields."""
+    text = EMAIL_PATTERN.sub(REDACTED, value or "")
+    return PHONE_PATTERN.sub(REDACTED, text)
 
 
 def normalize_name(name: str) -> str:
@@ -223,6 +262,145 @@ def parse_legacy_csv(path: Path) -> list[dict]:
 
 
 # --------------------------------------------------------------------------
+# Step 1: AFCD record archive (the official page only itemises recent
+# actions, so past itemised records must be persisted across runs)
+# --------------------------------------------------------------------------
+
+def load_afcd_archive() -> list[dict]:
+    if AFCD_ARCHIVE.exists():
+        with open(AFCD_ARCHIVE, encoding="utf-8") as fh:
+            return json.load(fh)
+    return []
+
+
+def merge_afcd_archive(fresh: list[dict], archive: list[dict]) -> list[dict]:
+    merged = {r["action_number"]: r for r in archive}
+    for r in fresh:
+        merged.setdefault(r["action_number"], r)
+    return sorted(merged.values(), key=lambda r: (r["action_date"], r["action_number"].zfill(6)))
+
+
+def save_afcd_archive(records: list[dict]) -> None:
+    with open(AFCD_ARCHIVE, "w", encoding="utf-8") as fh:
+        json.dump(records, fh, ensure_ascii=False, indent=1)
+
+
+# --------------------------------------------------------------------------
+# Step 1b: community reports (Google Form responses via a published CSV)
+# --------------------------------------------------------------------------
+
+COUNT_BAND_PATTERNS = (
+    ("7+", re.compile(r"[7七]")),
+    ("4-6", re.compile(r"[4四][\s]*[-~至到–]|4-6")),
+    ("2-3", re.compile(r"[23二三][\s]*[-~至到–]?")),
+)
+
+
+def parse_count_band(value: str) -> tuple[str, int]:
+    v = (value or "").strip()
+    if re.search(r"[7七]", v):
+        return "7+", COUNT_BAND_VALUES["7+"]
+    if re.search(r"[4四]", v) or re.search(r"[5六五六]", v):
+        return "4-6", COUNT_BAND_VALUES["4-6"]
+    if re.search(r"[23二三]", v):
+        return "2-3", COUNT_BAND_VALUES["2-3"]
+    return "1", COUNT_BAND_VALUES["1"]
+
+
+def resolve_district(value: str) -> str | None:
+    v = (value or "").strip()
+    for zh in DISTRICTS_ZH_EN:
+        if zh in v:
+            return zh
+    lowered = v.lower()
+    for zh, en in DISTRICTS_ZH_EN.items():
+        if en.lower() in lowered:
+            return zh
+    return None
+
+
+def parse_community_date(value: str) -> str | None:
+    raw = (value or "").strip().split(" ")[0].split("T")[0]
+    for fmt in ("%Y/%m/%d", "%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y"):
+        try:
+            d = datetime.strptime(raw, fmt).date()
+        except ValueError:
+            continue
+        if 2020 <= d.year <= 2035:
+            return d.strftime("%Y-%m-%d")
+    return None
+
+
+def load_community_records(source: str, offline: bool) -> list[dict]:
+    """Read community sighting reports from a published CSV (URL or file)."""
+    if not source:
+        return []
+    if source.startswith("http://") or source.startswith("https://"):
+        if offline:
+            log("[INFO] offline mode: skipping community CSV fetch")
+            return []
+        try:
+            log("[INFO] fetching community CSV ...")
+            text = fetch_url(source).decode("utf-8-sig", errors="replace")
+        except Exception as exc:  # noqa: BLE001
+            log(f"[WARN] community CSV fetch failed: {exc}")
+            return []
+    else:
+        text = Path(source).read_text(encoding="utf-8-sig", errors="replace")
+
+    reader = csv.DictReader(io.StringIO(text))
+    columns = {"date": None, "district": None, "location": None, "count": None, "notes": None}
+    for name in reader.fieldnames or []:
+        lowered = name.lower()
+        if columns["date"] is None and ("日期" in name or "date" in lowered):
+            columns["date"] = name
+        elif columns["district"] is None and ("地區" in name or "district" in lowered):
+            columns["district"] = name
+        elif columns["location"] is None and ("地點" in name or "位置" in name or "location" in lowered):
+            columns["location"] = name
+        elif columns["count"] is None and ("數量" in name or "數目" in name or "number" in lowered):
+            columns["count"] = name
+        elif columns["notes"] is None and ("補充" in name or "note" in lowered or "備註" in name):
+            columns["notes"] = name
+
+    if not (columns["date"] and columns["district"] and columns["location"]):
+        log("[WARN] community CSV is missing required columns; ignoring it")
+        return []
+
+    records: list[dict] = []
+    seen: set[tuple] = set()
+    skipped = 0
+    for row in reader:
+        date = parse_community_date(row.get(columns["date"], ""))
+        district = resolve_district(row.get(columns["district"], ""))
+        location = sanitize_text((row.get(columns["location"]) or "").strip())[:120]
+        notes = sanitize_text((row.get(columns["notes"]) or "").strip())[:300]
+        band, count = parse_count_band(row.get(columns["count"], ""))
+        if not date or not district or not location:
+            skipped += 1
+            continue
+        key = (date, district, location)
+        if key in seen:
+            continue
+        seen.add(key)
+        records.append(
+            {
+                "action_number": None,
+                "action_date": date,
+                "location_name": location,
+                "boar_count": count,
+                "district": district,
+                "source": "community",
+                "count_band": band,
+                "notes": notes,
+                "geocode_query": f"{location}, {district}, 香港",
+            }
+        )
+    log(f"[OK] community reports: {len(records)} valid, {skipped} skipped (invalid rows)")
+    return records
+
+
+# --------------------------------------------------------------------------
 # Step 4: geocoding (Nominatim) with a local cache
 # --------------------------------------------------------------------------
 
@@ -265,30 +443,38 @@ def district_from_address(address: dict) -> str | None:
 
 
 def geocode_all(records: list[dict], offline: bool) -> None:
-    """Fill in lat/lon/district for every unique location.
+    """Fill in lat/lon/district for every unique geocode query.
 
-    Coordinates already present on records (e.g. the legacy CSV export) are
-    seeded into the cache so they are preserved and only need a reverse lookup
-    for the district name.
+    Each record's query defaults to "{location_name}, 香港"; community reports
+    supply their own query (description + district). Districts submitted with
+    a record (community reports) are never overwritten by the geocoder.
     """
     cache = load_cache()
-    unique = sorted({r["location_name"] for r in records if r["location_name"]})
+
+    for r in records:
+        # Official records key the cache by bare location name (matching the
+        # long-standing cache); community reports use a district-aware query.
+        r.setdefault(
+            "geocode_query",
+            r["location_name"] if r.get("source") != "community" else f"{r['location_name']}, {r['district']}, 香港",
+        )
 
     # Seed the cache with coordinates already attached to records.
     for r in records:
-        name = r["location_name"]
-        if name and r.get("lat") is not None and not cache.get(name, {}).get("lat"):
-            cache[name] = {
+        query = r["geocode_query"]
+        if r.get("lat") is not None and not cache.get(query, {}).get("lat"):
+            cache[query] = {
                 "lat": r["lat"],
                 "lon": r["lon"],
-                "district": None,
+                "district": r.get("district"),
                 "address": "seeded from legacy CSV export",
             }
 
-    pending = [name for name in unique if not cache.get(name, {}).get("lat")]
-    log(f"[INFO] unique locations: {len(unique)}, to geocode: {len(pending)}")
+    unique = sorted({r["geocode_query"] for r in records})
+    pending = [q for q in unique if not cache.get(q, {}).get("lat")]
+    log(f"[INFO] unique geocode queries: {len(unique)}, to geocode: {len(pending)}")
 
-    for i, name in enumerate(pending, 1):
+    for i, query in enumerate(pending, 1):
         if offline:
             break
         entry: dict = {"lat": None, "lon": None, "district": None}
@@ -298,7 +484,7 @@ def geocode_all(records: list[dict], offline: bool) -> None:
         result = nominatim_json(
             "/search",
             {
-                "q": f"{name}, 香港",
+                "q": query,
                 "format": "jsonv2",
                 "limit": 1,
                 "addressdetails": 1,
@@ -314,19 +500,25 @@ def geocode_all(records: list[dict], offline: bool) -> None:
                 entry["address"] = hit.get("display_name", "")
                 entry["district"] = district_from_address(hit.get("address", {}))
         if entry["lat"] is None:
-            log(f"  [{i}/{len(pending)}] MISS  {name}")
+            log(f"  [{i}/{len(pending)}] MISS  {query}")
         else:
             log(
-                f"  [{i}/{len(pending)}] OK    {name} -> "
+                f"  [{i}/{len(pending)}] OK    {query} -> "
                 f"{entry['lat']},{entry['lon']} ({entry['district'] or '未分區'})"
             )
-        cache[name] = entry
+        cache[query] = entry
         if i % 10 == 0:
             save_cache(cache)
 
-    # Districts for locations that already had coordinates (legacy CSV rows).
-    for name in unique:
-        entry = cache.get(name)
+    # Reverse lookup for cached queries that still lack a district, but only
+    # when some record that uses the query has no district of its own.
+    needs_district = {
+        r["geocode_query"] for r in records if r.get("district") is None
+    }
+    for query in unique:
+        if query not in needs_district:
+            continue
+        entry = cache.get(query)
         if not entry or not entry.get("lat") or entry.get("district"):
             continue
         if offline:
@@ -346,15 +538,16 @@ def geocode_all(records: list[dict], offline: bool) -> None:
             district = district_from_address(result.get("address", {}))
             if district:
                 entry["district"] = district
-                log(f"  [DISTRICT] {name} -> {district}")
+                log(f"  [DISTRICT] {query} -> {district}")
     save_cache(cache)
 
     # Apply the cache to every record.
     for record in records:
-        entry = cache.get(record["location_name"]) or {}
+        entry = cache.get(record["geocode_query"]) or {}
         record["lat"] = entry.get("lat")
         record["lon"] = entry.get("lon")
-        record["district"] = entry.get("district")
+        if record.get("district") is None:
+            record["district"] = entry.get("district")
 
 
 # --------------------------------------------------------------------------
@@ -398,7 +591,10 @@ def build_outputs(records: list[dict], historical: dict | None) -> None:
                     "district_en": DISTRICTS_ZH_EN.get(r.get("district") or ""),
                     "count": r["boar_count"],
                     "action_number": r.get("action_number"),
-                    "source": "AFCD",
+                    "source": r.get("source") or "AFCD",
+                    "count_band": r.get("count_band"),
+                    "location_precision": r.get("location_precision"),
+                    "notes": r.get("notes") or "",
                 },
             }
         )
@@ -493,6 +689,7 @@ def build_outputs(records: list[dict], historical: dict | None) -> None:
     ]
 
     geocoded = len(features)
+    community_records = sum(1 for r in dated if r.get("source") == "community")
     statistics = {
         "generated_at": datetime.now().strftime("%Y-%m-%d"),
         "reference_date": reference.isoformat(),
@@ -502,6 +699,8 @@ def build_outputs(records: list[dict], historical: dict | None) -> None:
             "locations": len(locations),
             "districts_covered": len([d for d in district_list if d["district"]]),
             "mapped_records": geocoded,
+            "official_records": len(dated) - community_records,
+            "community_records": community_records,
         },
         "monthly": sorted(monthly.values(), key=lambda x: x["month"]),
         "by_district": district_list,
@@ -556,30 +755,47 @@ def build_outputs(records: list[dict], historical: dict | None) -> None:
         },
         "historical_context": historical,
         "totals": statistics["totals"],
+        "community_source": {
+            "label": "公眾報告",
+            "label_en": "Community report",
+            "platform": "Google Forms",
+            "note": (
+                "公眾可透過網站內的表單提交野豬出沒報告；報告未經官方核實，"
+                "地圖上會以不同標示區分。"
+            ),
+            "note_en": (
+                "Visitors can submit wild boar sighting reports through the "
+                "form on this website. Reports are not officially verified "
+                "and are visually distinguished on the map."
+            ),
+        },
         "activity_levels": ACTIVITY_LEVELS,
         "limitations": [
-            "資料來源為漁護署公佈的「野豬捕捉行動」紀錄，並非市民目擊報告，"
-            "亦非全港野豬數量普查。",
+            "本站主要資料為漁護署公佈的「野豬捕捉行動」紀錄，並非全港野豬數量普查；"
+            "站內同時包含公眾提交的目擊報告，該等報告未經官方核實，僅供參考。",
             "官方網頁只逐項公佈最近期的行動，較早行動僅有匯總數字，"
             "故本網站的時間序列不連續。",
-            "地點位置由地點名稱推算，屬近似位置，不代表實際行動的精確地點。",
+            "地點位置由地點名稱推算，屬近似位置，不代表實際行動或目擊的精確地點。",
             "活動指標只反映「紀錄時間新近度」，並非風險預測，"
             "亦不代表某地點現時是否危險。",
-            "資料為靜態快照，更新頻率視乎資料整理進度，並非即時資料。",
+            "資料會定期與官方公佈及公眾報告同步（現時每月一次），並非即時資料。",
         ],
         "limitations_en": [
-            "The data are AFCD capture-action records, not public sighting "
-            "reports, and not a territory-wide wild boar population survey.",
+            "The primary data are AFCD capture-action records, not a "
+            "territory-wide wild boar population survey. The site also "
+            "includes community-submitted sighting reports, which are not "
+            "officially verified and are provided for reference only.",
             "The official webpage itemises only recent actions; earlier "
             "actions are published as totals only, so the time series on "
             "this website is not continuous.",
             "Locations are estimated from place names and are approximate; "
-            "they do not represent the exact spot of each operation.",
+            "they do not represent the exact spot of each operation or "
+            "sighting.",
             "The activity indicator only reflects how recent the records are. "
             "It is not a risk forecast and does not indicate whether a "
             "location is currently dangerous.",
-            "The data are a static snapshot, refreshed periodically rather "
-            "than in real time.",
+            "The data are synced periodically with official publications and "
+            "community reports (currently monthly), not in real time.",
         ],
     }
 
@@ -616,12 +832,23 @@ def main() -> int:
     parser.add_argument("--legacy-csv", type=Path, help="legacy mysql_coordinates.csv export to merge")
     parser.add_argument("--afcd-file", type=Path, help="locally saved AFCD page (offline fetch)")
     parser.add_argument("--offline", action="store_true", help="no network: cache only")
+    parser.add_argument(
+        "--require-afcd",
+        action="store_true",
+        help="abort (without writing outputs) when the AFCD fetch yields nothing",
+    )
+    parser.add_argument(
+        "--community-url",
+        default="",
+        help="published Google Sheets CSV URL (or local file) with community reports",
+    )
     args = parser.parse_args()
 
     records: list[dict] = []
     historical = None
 
-    # 1. AFCD itemized records (live page or saved copy).
+    # 1. AFCD itemized records (live page or saved copy), merged with the
+    #    committed archive so older itemized records survive page rollover.
     if args.afcd_file:
         html = args.afcd_file.read_text(encoding="utf-8", errors="replace")
         log("[INFO] parsing local AFCD page copy")
@@ -640,10 +867,21 @@ def main() -> int:
         log(f"[OK] AFCD page: {len(afcd_records)} itemized records")
         if historical:
             log(f"[OK] historical aggregate: {historical}")
-        for r in afcd_records:
-            records.append({**r, "lat": None, "lon": None, "district": None})
+        archive = load_afcd_archive()
+        merged_afcd = merge_afcd_archive(afcd_records, archive)
+        log(f"[OK] AFCD archive: {len(archive)} archived -> {len(merged_afcd)} merged")
+        save_afcd_archive(merged_afcd)
+        for r in merged_afcd:
+            records.append({**r, "source": "AFCD", "lat": None, "lon": None, "district": None})
+    if args.require_afcd and not any(r.get("source") == "AFCD" for r in records):
+        log("[ERROR] --require-afcd set but no AFCD records available; aborting without writing outputs")
+        return 1
 
-    # 2. Legacy CSV export (already geocoded).
+    # 2. Community reports (Google Form responses via published CSV).
+    community = load_community_records(args.community_url, offline=args.offline)
+    records.extend(community)
+
+    # 3. Legacy CSV export (already geocoded).
     if args.legacy_csv:
         legacy = parse_legacy_csv(args.legacy_csv)
         log(f"[OK] legacy CSV: {len(legacy)} records")
@@ -653,7 +891,7 @@ def main() -> int:
         log("[ERROR] no records available; nothing to do")
         return 1
 
-    # 3. De-duplicate on (date, location, count).
+    # 4. De-duplicate on (date, location, count).
     seen: set[tuple] = set()
     unique_records = []
     for r in records:
@@ -664,11 +902,27 @@ def main() -> int:
         unique_records.append(r)
     log(f"[OK] {len(unique_records)} unique records after de-duplication")
 
-    # 4. Geocode + district assignment.
+    # 5. Geocode + district assignment.
     geocode_all(unique_records, offline=args.offline)
 
-    # 5-6. Aggregate and write.
-    build_outputs(unique_records, historical)
+    # 6. Community records that could not be geocoded fall back to their
+    #    district centre, clearly flagged; those without any location are
+    #    dropped (they would not be mappable).
+    kept: list[dict] = []
+    for r in unique_records:
+        if r.get("lat") is None and r.get("source") == "community":
+            centroid = DISTRICT_CENTROIDS.get(r.get("district") or "")
+            if centroid:
+                r["lat"], r["lon"] = centroid
+                r["location_precision"] = "district_centre"
+                kept.append(r)
+            else:
+                log(f"[WARN] community report dropped (no location): {r['location_name']}")
+        else:
+            kept.append(r)
+
+    # 7. Aggregate and write.
+    build_outputs(kept, historical)
     return 0
 
 
