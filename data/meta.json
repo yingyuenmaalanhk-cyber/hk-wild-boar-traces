@@ -12,9 +12,9 @@
   "processing_en": "The information on this website is compiled from publicly available government data and presented in a map-based visualisation for easier public reference."
  },
  "coverage": {
-  "min_date": "2025-07-02",
-  "max_date": "2026-09-25",
-  "reference_date": "2026-09-25",
+  "min_date": "2026-07-03",
+  "max_date": "2026-10-06",
+  "reference_date": "2026-10-06",
   "note": "本網站收錄官方網頁現時逐項公佈的行動紀錄；官方網頁僅逐項列出最近期的行動，更早的行動只有匯總數字。因此本網站並非完整的歷史資料庫，不同時段之間可能存在空檔。",
   "note_en": "This website includes the itemised action records currently published on the official webpage; the official webpage only lists recent actions item by item, while earlier actions are published as totals only. The website is therefore not a complete historical database and there may be gaps between periods."
  },
@@ -24,12 +24,12 @@
   "period": "2021年11月至2026年6月"
  },
  "totals": {
-  "records": 170,
-  "boars": 350,
-  "locations": 80,
-  "districts_covered": 13,
-  "mapped_records": 170,
-  "official_records": 170,
+  "records": 128,
+  "boars": 256,
+  "locations": 66,
+  "districts_covered": 15,
+  "mapped_records": 128,
+  "official_records": 128,
   "community_records": 0
  },
  "community_source": {

@@ -718,5 +718,53 @@
   "action_date": "2026-09-25",
   "location_name": "碧雲道",
   "boar_count": 2
+ },
+ {
+  "action_number": "1341",
+  "action_date": "2026-09-25",
+  "location_name": "沙田坳道",
+  "boar_count": 3
+ },
+ {
+  "action_number": "1342",
+  "action_date": "2026-09-25",
+  "location_name": "馬游塘",
+  "boar_count": 1
+ },
+ {
+  "action_number": "1343",
+  "action_date": "2026-10-02",
+  "location_name": "荔景山路",
+  "boar_count": 1
+ },
+ {
+  "action_number": "1344",
+  "action_date": "2026-10-05",
+  "location_name": "滘西洲",
+  "boar_count": 1
+ },
+ {
+  "action_number": "1345",
+  "action_date": "2026-10-05",
+  "location_name": "碧雲道",
+  "boar_count": 2
+ },
+ {
+  "action_number": "1346",
+  "action_date": "2026-10-06",
+  "location_name": "沙田坳道",
+  "boar_count": 2
+ },
+ {
+  "action_number": "1347",
+  "action_date": "2026-10-06",
+  "location_name": "龍坪道",
+  "boar_count": 1
+ },
+ {
+  "action_number": "1348",
+  "action_date": "2026-10-06",
+  "location_name": "波老道",
+  "boar_count": 1
  }
 ]
