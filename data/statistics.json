@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-10-07",
- "reference_date": "2026-10-06",
+ "generated_at": "2026-11-01",
+ "reference_date": "2026-10-30",
  "totals": {
-  "records": 128,
-  "boars": 256,
-  "locations": 66,
+  "records": 175,
+  "boars": 321,
+  "locations": 83,
   "districts_covered": 15,
-  "mapped_records": 128,
-  "official_records": 128,
+  "mapped_records": 173,
+  "official_records": 175,
   "community_records": 0
  },
  "monthly": [
@@ -28,52 +28,59 @@
   },
   {
    "month": "2026-10",
-   "records": 6,
-   "boars": 8
+   "records": 53,
+   "boars": 73
   }
  ],
  "by_district": [
   {
    "district": "西貢區",
    "district_en": "Sai Kung",
-   "records": 26,
-   "boars": 50,
+   "records": 30,
+   "boars": 54,
+   "locations": 11
+  },
+  {
+   "district": "大埔區",
+   "district_en": "Tai Po",
+   "records": 24,
+   "boars": 42,
    "locations": 11
   },
   {
    "district": "北區",
    "district_en": "North",
-   "records": 12,
-   "boars": 33,
+   "records": 14,
+   "boars": 36,
    "locations": 5
   },
   {
    "district": "南區",
    "district_en": "Southern",
-   "records": 14,
-   "boars": 28,
-   "locations": 7
-  },
-  {
-   "district": "大埔區",
-   "district_en": "Tai Po",
-   "records": 13,
-   "boars": 24,
-   "locations": 7
+   "records": 15,
+   "boars": 30,
+   "locations": 8
   },
   {
    "district": "中西區",
    "district_en": "Central and Western",
-   "records": 9,
-   "boars": 20,
-   "locations": 6
+   "records": 15,
+   "boars": 26,
+   "locations": 9
   },
   {
    "district": null,
    "district_en": null,
-   "records": 7,
-   "boars": 17,
-   "locations": 3
+   "records": 10,
+   "boars": 20,
+   "locations": 5
+  },
+  {
+   "district": "沙田區",
+   "district_en": "Sha Tin",
+   "records": 16,
+   "boars": 20,
+   "locations": 9
   },
   {
    "district": "屯門區",
@@ -83,59 +90,52 @@
    "locations": 3
   },
   {
-   "district": "元朗區",
-   "district_en": "Yuen Long",
-   "records": 6,
-   "boars": 14,
-   "locations": 5
+   "district": "黃大仙區",
+   "district_en": "Wong Tai Sin",
+   "records": 9,
+   "boars": 17,
+   "locations": 2
   },
   {
-   "district": "沙田區",
-   "district_en": "Sha Tin",
-   "records": 11,
-   "boars": 14,
-   "locations": 7
+   "district": "元朗區",
+   "district_en": "Yuen Long",
+   "records": 8,
+   "boars": 16,
+   "locations": 6
   },
   {
    "district": "觀塘區",
    "district_en": "Kwun Tong",
-   "records": 7,
-   "boars": 11,
+   "records": 9,
+   "boars": 16,
    "locations": 4
-  },
-  {
-   "district": "黃大仙區",
-   "district_en": "Wong Tai Sin",
-   "records": 6,
-   "boars": 11,
-   "locations": 2
   },
   {
    "district": "灣仔區",
    "district_en": "Wan Chai",
-   "records": 6,
-   "boars": 8,
-   "locations": 2
+   "records": 8,
+   "boars": 10,
+   "locations": 3
   },
   {
    "district": "荃灣區",
    "district_en": "Tsuen Wan",
-   "records": 2,
-   "boars": 5,
-   "locations": 1
+   "records": 5,
+   "boars": 10,
+   "locations": 3
   },
   {
    "district": "東區",
    "district_en": "Eastern",
-   "records": 1,
-   "boars": 2,
-   "locations": 1
+   "records": 2,
+   "boars": 3,
+   "locations": 2
   },
   {
    "district": "深水埗區",
    "district_en": "Sham Shui Po",
-   "records": 1,
-   "boars": 1,
+   "records": 3,
+   "boars": 3,
    "locations": 1
   },
   {
@@ -149,13 +149,13 @@
  "count_bands": [
   {
    "band": "1",
-   "records": 73,
-   "boars": 73
+   "records": 105,
+   "boars": 105
   },
   {
    "band": "2-3",
-   "records": 38,
-   "boars": 93
+   "records": 53,
+   "boars": 126
   },
   {
    "band": "4-6",
@@ -170,6 +170,18 @@
  ],
  "locations": [
   {
+   "name": "沙田坳道",
+   "district": "黃大仙區",
+   "lat": 22.34199,
+   "lon": 114.195473,
+   "records": 6,
+   "boars": 13,
+   "first_date": "2026-07-03",
+   "last_date": "2026-10-15",
+   "days_since_last": 15,
+   "activity": "high"
+  },
+  {
    "name": "粉嶺",
    "district": "北區",
    "lat": 22.494626,
@@ -178,7 +190,7 @@
    "boars": 13,
    "first_date": "2026-07-29",
    "last_date": "2026-09-03",
-   "days_since_last": 33,
+   "days_since_last": 57,
    "activity": "medium"
   },
   {
@@ -190,7 +202,19 @@
    "boars": 12,
    "first_date": "2026-09-15",
    "last_date": "2026-09-16",
-   "days_since_last": 20,
+   "days_since_last": 44,
+   "activity": "medium"
+  },
+  {
+   "name": "崇謙堂村",
+   "district": "北區",
+   "lat": 22.495057,
+   "lon": 114.147409,
+   "records": 6,
+   "boars": 10,
+   "first_date": "2026-07-30",
+   "last_date": "2026-10-14",
+   "days_since_last": 16,
    "activity": "high"
   },
   {
@@ -202,8 +226,8 @@
    "boars": 10,
    "first_date": "2026-08-17",
    "last_date": "2026-09-23",
-   "days_since_last": 13,
-   "activity": "high"
+   "days_since_last": 37,
+   "activity": "medium"
   },
   {
    "name": "馬己仙峽道",
@@ -214,31 +238,19 @@
    "boars": 10,
    "first_date": "2026-07-03",
    "last_date": "2026-08-12",
-   "days_since_last": 55,
+   "days_since_last": 79,
    "activity": "medium"
   },
   {
-   "name": "崇謙堂村",
-   "district": "北區",
-   "lat": 22.495057,
-   "lon": 114.147409,
-   "records": 5,
+   "name": "輋下",
+   "district": "大埔區",
+   "lat": 22.430184,
+   "lon": 114.262439,
+   "records": 8,
    "boars": 9,
-   "first_date": "2026-07-30",
-   "last_date": "2026-09-18",
-   "days_since_last": 18,
-   "activity": "high"
-  },
-  {
-   "name": "沙田坳道",
-   "district": "黃大仙區",
-   "lat": 22.34199,
-   "lon": 114.195473,
-   "records": 4,
-   "boars": 9,
-   "first_date": "2026-07-03",
-   "last_date": "2026-10-06",
-   "days_since_last": 0,
+   "first_date": "2026-08-04",
+   "last_date": "2026-10-29",
+   "days_since_last": 1,
    "activity": "high"
   },
   {
@@ -250,7 +262,7 @@
    "boars": 9,
    "first_date": "2026-07-17",
    "last_date": "2026-08-04",
-   "days_since_last": 63,
+   "days_since_last": 87,
    "activity": "medium"
   },
   {
@@ -262,7 +274,31 @@
    "boars": 8,
    "first_date": "2026-07-08",
    "last_date": "2026-09-11",
-   "days_since_last": 25,
+   "days_since_last": 49,
+   "activity": "medium"
+  },
+  {
+   "name": "碧雲道",
+   "district": "觀塘區",
+   "lat": 22.309835,
+   "lon": 114.238802,
+   "records": 4,
+   "boars": 8,
+   "first_date": "2026-08-13",
+   "last_date": "2026-10-15",
+   "days_since_last": 15,
+   "activity": "high"
+  },
+  {
+   "name": "馬游塘",
+   "district": "西貢區",
+   "lat": 22.316965,
+   "lon": 114.24405,
+   "records": 3,
+   "boars": 8,
+   "first_date": "2026-07-08",
+   "last_date": "2026-10-15",
+   "days_since_last": 15,
    "activity": "high"
   },
   {
@@ -274,7 +310,43 @@
    "boars": 8,
    "first_date": "2026-08-13",
    "last_date": "2026-09-10",
-   "days_since_last": 26,
+   "days_since_last": 50,
+   "activity": "medium"
+  },
+  {
+   "name": "司徒拔道",
+   "district": "灣仔區",
+   "lat": 22.27479,
+   "lon": 114.177716,
+   "records": 5,
+   "boars": 7,
+   "first_date": "2026-09-09",
+   "last_date": "2026-10-13",
+   "days_since_last": 17,
+   "activity": "high"
+  },
+  {
+   "name": "和合石",
+   "district": "北區",
+   "lat": 22.482701,
+   "lon": 114.148679,
+   "records": 4,
+   "boars": 7,
+   "first_date": "2026-07-30",
+   "last_date": "2026-10-14",
+   "days_since_last": 16,
+   "activity": "high"
+  },
+  {
+   "name": "百勝角路",
+   "district": "西貢區",
+   "lat": 22.303122,
+   "lon": 114.272617,
+   "records": 4,
+   "boars": 7,
+   "first_date": "2026-07-22",
+   "last_date": "2026-10-16",
+   "days_since_last": 14,
    "activity": "high"
   },
   {
@@ -286,8 +358,8 @@
    "boars": 7,
    "first_date": "2026-09-08",
    "last_date": "2026-09-10",
-   "days_since_last": 26,
-   "activity": "high"
+   "days_since_last": 50,
+   "activity": "medium"
   },
   {
    "name": "掃管笏路",
@@ -298,31 +370,31 @@
    "boars": 7,
    "first_date": "2026-07-14",
    "last_date": "2026-09-03",
-   "days_since_last": 33,
+   "days_since_last": 57,
    "activity": "medium"
   },
   {
-   "name": "馬游塘",
-   "district": "西貢區",
-   "lat": 22.316965,
-   "lon": 114.24405,
-   "records": 2,
+   "name": "芙蓉山路",
+   "district": "荃灣區",
+   "lat": 22.376975,
+   "lon": 114.117583,
+   "records": 3,
    "boars": 7,
-   "first_date": "2026-07-08",
-   "last_date": "2026-09-25",
-   "days_since_last": 11,
+   "first_date": "2026-08-06",
+   "last_date": "2026-10-21",
+   "days_since_last": 9,
    "activity": "high"
   },
   {
-   "name": "司徒拔道",
-   "district": "灣仔區",
-   "lat": 22.27479,
-   "lon": 114.177716,
-   "records": 4,
+   "name": "澳景路",
+   "district": "觀塘區",
+   "lat": 22.302225,
+   "lon": 114.243021,
+   "records": 3,
    "boars": 6,
-   "first_date": "2026-09-09",
-   "last_date": "2026-09-16",
-   "days_since_last": 20,
+   "first_date": "2026-07-08",
+   "last_date": "2026-10-15",
+   "days_since_last": 15,
    "activity": "high"
   },
   {
@@ -334,8 +406,20 @@
    "boars": 6,
    "first_date": "2026-07-24",
    "last_date": "2026-08-06",
-   "days_since_last": 61,
+   "days_since_last": 85,
    "activity": "medium"
+  },
+  {
+   "name": "南生圍",
+   "district": "元朗區",
+   "lat": 22.462397,
+   "lon": 114.037972,
+   "records": 2,
+   "boars": 6,
+   "first_date": "2026-07-16",
+   "last_date": "2026-10-21",
+   "days_since_last": 9,
+   "activity": "high"
   },
   {
    "name": "薄扶林道",
@@ -346,8 +430,8 @@
    "boars": 6,
    "first_date": "2026-08-15",
    "last_date": "2026-09-10",
-   "days_since_last": 26,
-   "activity": "high"
+   "days_since_last": 50,
+   "activity": "medium"
   },
   {
    "name": "摩星嶺道",
@@ -358,68 +442,32 @@
    "boars": 6,
    "first_date": "2026-07-09",
    "last_date": "2026-07-09",
-   "days_since_last": 89,
-   "activity": "medium"
+   "days_since_last": 113,
+   "activity": "low"
   },
   {
-   "name": "輋下",
+   "name": "落路下",
+   "district": "沙田區",
+   "lat": 22.401538,
+   "lon": 114.201195,
+   "records": 4,
+   "boars": 5,
+   "first_date": "2026-07-14",
+   "last_date": "2026-10-30",
+   "days_since_last": 0,
+   "activity": "high"
+  },
+  {
+   "name": "西徑",
    "district": "大埔區",
-   "lat": 22.430184,
-   "lon": 114.262439,
-   "records": 5,
-   "boars": 5,
-   "first_date": "2026-08-04",
-   "last_date": "2026-09-23",
-   "days_since_last": 13,
-   "activity": "high"
-  },
-  {
-   "name": "和合石",
-   "district": "北區",
-   "lat": 22.482701,
-   "lon": 114.148679,
+   "lat": 22.41767,
+   "lon": 114.266099,
    "records": 3,
    "boars": 5,
-   "first_date": "2026-07-30",
-   "last_date": "2026-09-17",
-   "days_since_last": 19,
+   "first_date": "2026-10-08",
+   "last_date": "2026-10-30",
+   "days_since_last": 0,
    "activity": "high"
-  },
-  {
-   "name": "碧雲道",
-   "district": "觀塘區",
-   "lat": 22.309835,
-   "lon": 114.238802,
-   "records": 3,
-   "boars": 5,
-   "first_date": "2026-08-13",
-   "last_date": "2026-10-05",
-   "days_since_last": 1,
-   "activity": "high"
-  },
-  {
-   "name": "百勝角路",
-   "district": "西貢區",
-   "lat": 22.303122,
-   "lon": 114.272617,
-   "records": 2,
-   "boars": 5,
-   "first_date": "2026-07-22",
-   "last_date": "2026-07-23",
-   "days_since_last": 75,
-   "activity": "medium"
-  },
-  {
-   "name": "芙蓉山路",
-   "district": "荃灣區",
-   "lat": 22.376975,
-   "lon": 114.117583,
-   "records": 2,
-   "boars": 5,
-   "first_date": "2026-08-06",
-   "last_date": "2026-08-07",
-   "days_since_last": 60,
-   "activity": "medium"
   },
   {
    "name": "龍蝦灣路",
@@ -430,19 +478,7 @@
    "boars": 5,
    "first_date": "2026-08-12",
    "last_date": "2026-09-08",
-   "days_since_last": 28,
-   "activity": "high"
-  },
-  {
-   "name": "南生圍",
-   "district": "元朗區",
-   "lat": 22.462397,
-   "lon": 114.037972,
-   "records": 1,
-   "boars": 5,
-   "first_date": "2026-07-16",
-   "last_date": "2026-07-16",
-   "days_since_last": 82,
+   "days_since_last": 52,
    "activity": "medium"
   },
   {
@@ -454,7 +490,7 @@
    "boars": 5,
    "first_date": "2026-08-21",
    "last_date": "2026-08-21",
-   "days_since_last": 46,
+   "days_since_last": 70,
    "activity": "medium"
   },
   {
@@ -466,7 +502,7 @@
    "boars": 4,
    "first_date": "2026-08-05",
    "last_date": "2026-08-26",
-   "days_since_last": 41,
+   "days_since_last": 65,
    "activity": "medium"
   },
   {
@@ -478,32 +514,20 @@
    "boars": 4,
    "first_date": "2026-08-11",
    "last_date": "2026-09-11",
-   "days_since_last": 25,
-   "activity": "high"
+   "days_since_last": 49,
+   "activity": "medium"
   },
   {
-   "name": "落路下",
-   "district": "沙田區",
-   "lat": 22.401538,
-   "lon": 114.201195,
+   "name": "竹園道",
+   "district": "黃大仙區",
+   "lat": 22.345273,
+   "lon": 114.19524,
    "records": 3,
    "boars": 4,
-   "first_date": "2026-07-14",
-   "last_date": "2026-08-19",
-   "days_since_last": 48,
-   "activity": "medium"
-  },
-  {
-   "name": "澳景路",
-   "district": "觀塘區",
-   "lat": 22.302225,
-   "lon": 114.243021,
-   "records": 2,
-   "boars": 4,
-   "first_date": "2026-07-08",
-   "last_date": "2026-08-12",
-   "days_since_last": 55,
-   "activity": "medium"
+   "first_date": "2026-08-28",
+   "last_date": "2026-10-19",
+   "days_since_last": 11,
+   "activity": "high"
   },
   {
    "name": "貝璐道",
@@ -514,8 +538,8 @@
    "boars": 4,
    "first_date": "2026-09-22",
    "last_date": "2026-09-23",
-   "days_since_last": 13,
-   "activity": "high"
+   "days_since_last": 37,
+   "activity": "medium"
   },
   {
    "name": "淺水灣道",
@@ -526,7 +550,7 @@
    "boars": 4,
    "first_date": "2026-08-05",
    "last_date": "2026-08-05",
-   "days_since_last": 62,
+   "days_since_last": 86,
    "activity": "medium"
   },
   {
@@ -538,8 +562,20 @@
    "boars": 4,
    "first_date": "2026-07-18",
    "last_date": "2026-07-18",
-   "days_since_last": 80,
-   "activity": "medium"
+   "days_since_last": 104,
+   "activity": "low"
+  },
+  {
+   "name": "滘西洲",
+   "district": "西貢區",
+   "lat": 22.361483,
+   "lon": 114.312631,
+   "records": 3,
+   "boars": 3,
+   "first_date": "2026-09-07",
+   "last_date": "2026-10-20",
+   "days_since_last": 10,
+   "activity": "high"
   },
   {
    "name": "石澳",
@@ -550,7 +586,19 @@
    "boars": 3,
    "first_date": "2026-08-10",
    "last_date": "2026-09-10",
-   "days_since_last": 26,
+   "days_since_last": 50,
+   "activity": "medium"
+  },
+  {
+   "name": "龍坪道",
+   "district": "深水埗區",
+   "lat": 22.342116,
+   "lon": 114.167469,
+   "records": 3,
+   "boars": 3,
+   "first_date": "2026-10-06",
+   "last_date": "2026-10-21",
+   "days_since_last": 9,
    "activity": "high"
   },
   {
@@ -562,7 +610,7 @@
    "boars": 3,
    "first_date": "2026-07-17",
    "last_date": "2026-08-04",
-   "days_since_last": 63,
+   "days_since_last": 87,
    "activity": "medium"
   },
   {
@@ -574,7 +622,31 @@
    "boars": 3,
    "first_date": "2026-09-15",
    "last_date": "2026-09-16",
-   "days_since_last": 20,
+   "days_since_last": 44,
+   "activity": "medium"
+  },
+  {
+   "name": "穗禾路",
+   "district": "沙田區",
+   "lat": 22.392175,
+   "lon": 114.189343,
+   "records": 2,
+   "boars": 3,
+   "first_date": "2026-08-18",
+   "last_date": "2026-10-28",
+   "days_since_last": 2,
+   "activity": "high"
+  },
+  {
+   "name": "蝦地下",
+   "district": "大埔區",
+   "lat": 22.465109,
+   "lon": 114.20395,
+   "records": 2,
+   "boars": 3,
+   "first_date": "2026-09-16",
+   "last_date": "2026-10-23",
+   "days_since_last": 7,
    "activity": "high"
   },
   {
@@ -586,7 +658,7 @@
    "boars": 3,
    "first_date": "2026-08-18",
    "last_date": "2026-08-19",
-   "days_since_last": 48,
+   "days_since_last": 72,
    "activity": "medium"
   },
   {
@@ -598,7 +670,19 @@
    "boars": 3,
    "first_date": "2026-09-08",
    "last_date": "2026-09-08",
-   "days_since_last": 28,
+   "days_since_last": 52,
+   "activity": "medium"
+  },
+  {
+   "name": "石蓮路",
+   "district": "大埔區",
+   "lat": 22.446802,
+   "lon": 114.154867,
+   "records": 1,
+   "boars": 3,
+   "first_date": "2026-10-08",
+   "last_date": "2026-10-08",
+   "days_since_last": 22,
    "activity": "high"
   },
   {
@@ -610,7 +694,7 @@
    "boars": 3,
    "first_date": "2026-09-03",
    "last_date": "2026-09-03",
-   "days_since_last": 33,
+   "days_since_last": 57,
    "activity": "medium"
   },
   {
@@ -622,8 +706,20 @@
    "boars": 2,
    "first_date": "2026-08-18",
    "last_date": "2026-08-19",
-   "days_since_last": 48,
+   "days_since_last": 72,
    "activity": "medium"
+  },
+  {
+   "name": "寶珊道",
+   "district": "中西區",
+   "lat": 22.280373,
+   "lon": 114.141648,
+   "records": 2,
+   "boars": 2,
+   "first_date": "2026-08-13",
+   "last_date": "2026-10-29",
+   "days_since_last": 1,
+   "activity": "high"
   },
   {
    "name": "廈門灣",
@@ -634,19 +730,43 @@
    "boars": 2,
    "first_date": "2026-07-21",
    "last_date": "2026-08-11",
-   "days_since_last": 56,
+   "days_since_last": 80,
    "activity": "medium"
   },
   {
-   "name": "滘西洲",
-   "district": "西貢區",
-   "lat": 22.361483,
-   "lon": 114.312631,
+   "name": "旭龢道",
+   "district": "中西區",
+   "lat": 22.281176,
+   "lon": 114.140093,
    "records": 2,
    "boars": 2,
-   "first_date": "2026-09-07",
-   "last_date": "2026-10-05",
-   "days_since_last": 1,
+   "first_date": "2026-08-13",
+   "last_date": "2026-10-22",
+   "days_since_last": 8,
+   "activity": "high"
+  },
+  {
+   "name": "沙欄",
+   "district": "大埔區",
+   "lat": 22.460036,
+   "lon": 114.206907,
+   "records": 2,
+   "boars": 2,
+   "first_date": "2026-09-16",
+   "last_date": "2026-10-23",
+   "days_since_last": 7,
+   "activity": "high"
+  },
+  {
+   "name": "波老道",
+   "district": "中西區",
+   "lat": 22.274874,
+   "lon": 114.164066,
+   "records": 2,
+   "boars": 2,
+   "first_date": "2026-10-06",
+   "last_date": "2026-10-07",
+   "days_since_last": 23,
    "activity": "high"
   },
   {
@@ -658,18 +778,30 @@
    "boars": 2,
    "first_date": "2026-07-09",
    "last_date": "2026-09-23",
-   "days_since_last": 13,
+   "days_since_last": 37,
+   "activity": "medium"
+  },
+  {
+   "name": "馬影徑",
+   "district": "沙田區",
+   "lat": 22.406225,
+   "lon": 114.203429,
+   "records": 2,
+   "boars": 2,
+   "first_date": "2026-07-15",
+   "last_date": "2026-10-27",
+   "days_since_last": 3,
    "activity": "high"
   },
   {
-   "name": "竹園道",
-   "district": "黃大仙區",
-   "lat": 22.345273,
-   "lon": 114.19524,
+   "name": "龍躍徑",
+   "district": null,
+   "lat": 22.259674,
+   "lon": 114.2538,
    "records": 2,
    "boars": 2,
-   "first_date": "2026-08-28",
-   "last_date": "2026-09-19",
+   "first_date": "2026-08-20",
+   "last_date": "2026-10-13",
    "days_since_last": 17,
    "activity": "high"
   },
@@ -682,8 +814,20 @@
    "boars": 2,
    "first_date": "2026-08-04",
    "last_date": "2026-08-04",
-   "days_since_last": 63,
+   "days_since_last": 87,
    "activity": "medium"
+  },
+  {
+   "name": "林錦公路",
+   "district": "大埔區",
+   "lat": 22.433587,
+   "lon": 114.117272,
+   "records": 1,
+   "boars": 2,
+   "first_date": "2026-10-22",
+   "last_date": "2026-10-22",
+   "days_since_last": 8,
+   "activity": "high"
   },
   {
    "name": "柏架山道",
@@ -694,20 +838,92 @@
    "boars": 2,
    "first_date": "2026-09-22",
    "last_date": "2026-09-22",
-   "days_since_last": 14,
+   "days_since_last": 38,
+   "activity": "medium"
+  },
+  {
+   "name": "汀九",
+   "district": "荃灣區",
+   "lat": 22.369233,
+   "lon": 114.078559,
+   "records": 1,
+   "boars": 2,
+   "first_date": "2026-10-21",
+   "last_date": "2026-10-21",
+   "days_since_last": 9,
    "activity": "high"
   },
   {
-   "name": "穗禾路",
+   "name": "赤泥坪",
    "district": "沙田區",
-   "lat": 22.392175,
-   "lon": 114.189343,
+   "lat": 22.418206,
+   "lon": 114.201825,
    "records": 1,
    "boars": 2,
-   "first_date": "2026-08-18",
-   "last_date": "2026-08-18",
-   "days_since_last": 49,
-   "activity": "medium"
+   "first_date": "2026-10-27",
+   "last_date": "2026-10-27",
+   "days_since_last": 3,
+   "activity": "high"
+  },
+  {
+   "name": "黃麻角道",
+   "district": "南區",
+   "lat": 22.211521,
+   "lon": 114.216801,
+   "records": 1,
+   "boars": 2,
+   "first_date": "2026-10-27",
+   "last_date": "2026-10-27",
+   "days_since_last": 3,
+   "activity": "high"
+  },
+  {
+   "name": "上角山路",
+   "district": "荃灣區",
+   "lat": 22.382932,
+   "lon": 114.124668,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-21",
+   "last_date": "2026-10-21",
+   "days_since_last": 9,
+   "activity": "high"
+  },
+  {
+   "name": "九肚",
+   "district": "沙田區",
+   "lat": 22.410131,
+   "lon": 114.202569,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-27",
+   "last_date": "2026-10-27",
+   "days_since_last": 3,
+   "activity": "high"
+  },
+  {
+   "name": "井頭",
+   "district": "大埔區",
+   "lat": 22.427404,
+   "lon": 114.269367,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-08",
+   "last_date": "2026-10-08",
+   "days_since_last": 22,
+   "activity": "high"
+  },
+  {
+   "name": "卑路乍街",
+   "district": "中西區",
+   "lat": 22.285663,
+   "lon": 114.132438,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-15",
+   "last_date": "2026-10-15",
+   "days_since_last": 15,
+   "activity": "high"
   },
   {
    "name": "南風道",
@@ -718,8 +934,8 @@
    "boars": 1,
    "first_date": "2026-09-09",
    "last_date": "2026-09-09",
-   "days_since_last": 27,
-   "activity": "high"
+   "days_since_last": 51,
+   "activity": "medium"
   },
   {
    "name": "堪仕達道",
@@ -730,8 +946,8 @@
    "boars": 1,
    "first_date": "2026-09-23",
    "last_date": "2026-09-23",
-   "days_since_last": 13,
-   "activity": "high"
+   "days_since_last": 37,
+   "activity": "medium"
   },
   {
    "name": "安達臣道",
@@ -742,19 +958,7 @@
    "boars": 1,
    "first_date": "2026-09-18",
    "last_date": "2026-09-18",
-   "days_since_last": 18,
-   "activity": "high"
-  },
-  {
-   "name": "寶珊道",
-   "district": "中西區",
-   "lat": 22.280373,
-   "lon": 114.141648,
-   "records": 1,
-   "boars": 1,
-   "first_date": "2026-08-13",
-   "last_date": "2026-08-13",
-   "days_since_last": 54,
+   "days_since_last": 42,
    "activity": "medium"
   },
   {
@@ -766,8 +970,20 @@
    "boars": 1,
    "first_date": "2026-08-03",
    "last_date": "2026-08-03",
-   "days_since_last": 64,
+   "days_since_last": 88,
    "activity": "medium"
+  },
+  {
+   "name": "康健路",
+   "district": null,
+   "lat": null,
+   "lon": null,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-15",
+   "last_date": "2026-10-15",
+   "days_since_last": 15,
+   "activity": "high"
   },
   {
    "name": "恆信街",
@@ -778,43 +994,19 @@
    "boars": 1,
    "first_date": "2026-08-11",
    "last_date": "2026-08-11",
-   "days_since_last": 56,
+   "days_since_last": 80,
    "activity": "medium"
   },
   {
-   "name": "旭龢道",
+   "name": "梅道",
    "district": "中西區",
-   "lat": 22.281176,
-   "lon": 114.140093,
+   "lat": 22.273716,
+   "lon": 114.154479,
    "records": 1,
    "boars": 1,
-   "first_date": "2026-08-13",
-   "last_date": "2026-08-13",
-   "days_since_last": 54,
-   "activity": "medium"
-  },
-  {
-   "name": "沙欄",
-   "district": "大埔區",
-   "lat": 22.460036,
-   "lon": 114.206907,
-   "records": 1,
-   "boars": 1,
-   "first_date": "2026-09-16",
-   "last_date": "2026-09-16",
-   "days_since_last": 20,
-   "activity": "high"
-  },
-  {
-   "name": "波老道",
-   "district": "中西區",
-   "lat": 22.274874,
-   "lon": 114.164066,
-   "records": 1,
-   "boars": 1,
-   "first_date": "2026-10-06",
-   "last_date": "2026-10-06",
-   "days_since_last": 0,
+   "first_date": "2026-10-13",
+   "last_date": "2026-10-13",
+   "days_since_last": 17,
    "activity": "high"
   },
   {
@@ -826,8 +1018,8 @@
    "boars": 1,
    "first_date": "2026-07-30",
    "last_date": "2026-07-30",
-   "days_since_last": 68,
-   "activity": "medium"
+   "days_since_last": 92,
+   "activity": "low"
   },
   {
    "name": "牛潭尾路",
@@ -838,8 +1030,8 @@
    "boars": 1,
    "first_date": "2026-07-30",
    "last_date": "2026-07-30",
-   "days_since_last": 68,
-   "activity": "medium"
+   "days_since_last": 92,
+   "activity": "low"
   },
   {
    "name": "環保大道",
@@ -850,7 +1042,19 @@
    "boars": 1,
    "first_date": "2026-09-24",
    "last_date": "2026-09-24",
-   "days_since_last": 12,
+   "days_since_last": 36,
+   "activity": "medium"
+  },
+  {
+   "name": "真善路",
+   "district": "元朗區",
+   "lat": 22.47465,
+   "lon": 114.068295,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-21",
+   "last_date": "2026-10-21",
+   "days_since_last": 9,
    "activity": "high"
   },
   {
@@ -862,7 +1066,31 @@
    "boars": 1,
    "first_date": "2026-09-22",
    "last_date": "2026-09-22",
-   "days_since_last": 14,
+   "days_since_last": 38,
+   "activity": "medium"
+  },
+  {
+   "name": "維園道",
+   "district": "灣仔區",
+   "lat": 22.283977,
+   "lon": 114.187,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-22",
+   "last_date": "2026-10-22",
+   "days_since_last": 8,
+   "activity": "high"
+  },
+  {
+   "name": "耀興道",
+   "district": "東區",
+   "lat": 22.281995,
+   "lon": 114.220508,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-13",
+   "last_date": "2026-10-13",
+   "days_since_last": 17,
    "activity": "high"
   },
   {
@@ -874,7 +1102,7 @@
    "boars": 1,
    "first_date": "2026-10-02",
    "last_date": "2026-10-02",
-   "days_since_last": 4,
+   "days_since_last": 28,
    "activity": "high"
   },
   {
@@ -886,32 +1114,20 @@
    "boars": 1,
    "first_date": "2026-08-25",
    "last_date": "2026-08-25",
-   "days_since_last": 42,
+   "days_since_last": 66,
    "activity": "medium"
   },
   {
-   "name": "蝦地下",
-   "district": "大埔區",
-   "lat": 22.465109,
-   "lon": 114.20395,
+   "name": "香雪道",
+   "district": "中西區",
+   "lat": 22.276562,
+   "lon": 114.152391,
    "records": 1,
    "boars": 1,
-   "first_date": "2026-09-16",
-   "last_date": "2026-09-16",
-   "days_since_last": 20,
+   "first_date": "2026-10-29",
+   "last_date": "2026-10-29",
+   "days_since_last": 1,
    "activity": "high"
-  },
-  {
-   "name": "馬影徑",
-   "district": "沙田區",
-   "lat": 22.406225,
-   "lon": 114.203429,
-   "records": 1,
-   "boars": 1,
-   "first_date": "2026-07-15",
-   "last_date": "2026-07-15",
-   "days_since_last": 83,
-   "activity": "medium"
   },
   {
    "name": "馬錦街",
@@ -922,8 +1138,20 @@
    "boars": 1,
    "first_date": "2026-08-19",
    "last_date": "2026-08-19",
-   "days_since_last": 48,
+   "days_since_last": 72,
    "activity": "medium"
+  },
+  {
+   "name": "馬鞍山",
+   "district": null,
+   "lat": null,
+   "lon": null,
+   "records": 1,
+   "boars": 1,
+   "first_date": "2026-10-28",
+   "last_date": "2026-10-28",
+   "days_since_last": 2,
+   "activity": "high"
   },
   {
    "name": "高輝道",
@@ -934,31 +1162,7 @@
    "boars": 1,
    "first_date": "2026-09-16",
    "last_date": "2026-09-16",
-   "days_since_last": 20,
-   "activity": "high"
-  },
-  {
-   "name": "龍坪道",
-   "district": "深水埗區",
-   "lat": 22.342116,
-   "lon": 114.167469,
-   "records": 1,
-   "boars": 1,
-   "first_date": "2026-10-06",
-   "last_date": "2026-10-06",
-   "days_since_last": 0,
-   "activity": "high"
-  },
-  {
-   "name": "龍躍徑",
-   "district": null,
-   "lat": 22.259674,
-   "lon": 114.2538,
-   "records": 1,
-   "boars": 1,
-   "first_date": "2026-08-20",
-   "last_date": "2026-08-20",
-   "days_since_last": 47,
+   "days_since_last": 44,
    "activity": "medium"
   }
  ]

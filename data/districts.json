@@ -3,22 +3,22 @@
   {
    "zh": "中西區",
    "en": "Central and Western",
-   "records": 9
+   "records": 15
   },
   {
    "zh": "灣仔區",
    "en": "Wan Chai",
-   "records": 6
+   "records": 8
   },
   {
    "zh": "東區",
    "en": "Eastern",
-   "records": 1
+   "records": 2
   },
   {
    "zh": "南區",
    "en": "Southern",
-   "records": 14
+   "records": 15
   },
   {
    "zh": "油尖旺區",
@@ -28,7 +28,7 @@
   {
    "zh": "深水埗區",
    "en": "Sham Shui Po",
-   "records": 1
+   "records": 3
   },
   {
    "zh": "九龍城區",
@@ -38,37 +38,37 @@
   {
    "zh": "黃大仙區",
    "en": "Wong Tai Sin",
-   "records": 6
+   "records": 9
   },
   {
    "zh": "觀塘區",
    "en": "Kwun Tong",
-   "records": 7
+   "records": 9
   },
   {
    "zh": "北區",
    "en": "North",
-   "records": 12
+   "records": 14
   },
   {
    "zh": "大埔區",
    "en": "Tai Po",
-   "records": 13
+   "records": 24
   },
   {
    "zh": "沙田區",
    "en": "Sha Tin",
-   "records": 11
+   "records": 16
   },
   {
    "zh": "西貢區",
    "en": "Sai Kung",
-   "records": 26
+   "records": 30
   },
   {
    "zh": "荃灣區",
    "en": "Tsuen Wan",
-   "records": 2
+   "records": 5
   },
   {
    "zh": "屯門區",
@@ -78,7 +78,7 @@
   {
    "zh": "元朗區",
    "en": "Yuen Long",
-   "records": 6
+   "records": 8
   },
   {
    "zh": "葵青區",

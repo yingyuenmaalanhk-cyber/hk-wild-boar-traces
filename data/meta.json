@@ -7,14 +7,14 @@
   "publisher": "香港特別行政區政府漁農自然護理署",
   "publisher_en": "Agriculture, Fisheries and Conservation Department, The Government of the Hong Kong SAR",
   "url": "https://www.afcd.gov.hk/tc_chi/conservation/con_fau/con_fau_nui/con_fau_nui_pig/con_fau_nui_pig.html",
-  "retrieved_at": "2026-10-07",
+  "retrieved_at": "2026-11-01",
   "processing": "本網站資料整理自政府公開發佈的捕捉行動資訊，並以地圖及圖表形式呈現，方便公眾查閱。",
   "processing_en": "The information on this website is compiled from publicly available government data and presented in a map-based visualisation for easier public reference."
  },
  "coverage": {
   "min_date": "2026-07-03",
-  "max_date": "2026-10-06",
-  "reference_date": "2026-10-06",
+  "max_date": "2026-10-30",
+  "reference_date": "2026-10-30",
   "note": "本網站收錄官方網頁現時逐項公佈的行動紀錄；官方網頁僅逐項列出最近期的行動，更早的行動只有匯總數字。因此本網站並非完整的歷史資料庫，不同時段之間可能存在空檔。",
   "note_en": "This website includes the itemised action records currently published on the official webpage; the official webpage only lists recent actions item by item, while earlier actions are published as totals only. The website is therefore not a complete historical database and there may be gaps between periods."
  },
@@ -24,12 +24,12 @@
   "period": "2021年11月至2026年6月"
  },
  "totals": {
-  "records": 128,
-  "boars": 256,
-  "locations": 66,
+  "records": 175,
+  "boars": 321,
+  "locations": 83,
   "districts_covered": 15,
-  "mapped_records": 128,
-  "official_records": 128,
+  "mapped_records": 173,
+  "official_records": 175,
   "community_records": 0
  },
  "community_source": {
