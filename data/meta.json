@@ -24,13 +24,13 @@
   "period": "2021年11月至2026年6月"
  },
  "totals": {
-  "records": 176,
-  "boars": 324,
-  "locations": 84,
+  "records": 175,
+  "boars": 321,
+  "locations": 83,
   "districts_covered": 15,
-  "mapped_records": 174,
+  "mapped_records": 173,
   "official_records": 175,
-  "community_records": 1
+  "community_records": 0
  },
  "community_source": {
   "label": "公眾報告",
