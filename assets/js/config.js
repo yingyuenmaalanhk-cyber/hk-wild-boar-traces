@@ -8,6 +8,7 @@
  */
 
 export const SITE_CONFIG = {
-  googleFormLinkUrl: "",
-  googleFormEmbedUrl: "",
+  googleFormLinkUrl: "https://forms.gle/EoM3bZ5ko3QfT4t49",
+  googleFormEmbedUrl:
+    "https://docs.google.com/forms/d/e/1FAIpQLScjFUpFk8E5QSv2BXayFExEuGMceCZOEFHT7bVSx1r3rJm9oA/viewform?embedded=true",
 };
