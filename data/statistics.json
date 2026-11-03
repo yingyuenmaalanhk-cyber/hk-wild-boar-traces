@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-11-01",
+ "generated_at": "2026-11-03",
  "reference_date": "2026-10-30",
  "totals": {
-  "records": 175,
-  "boars": 321,
-  "locations": 83,
+  "records": 176,
+  "boars": 324,
+  "locations": 84,
   "districts_covered": 15,
-  "mapped_records": 173,
+  "mapped_records": 174,
   "official_records": 175,
-  "community_records": 0
+  "community_records": 1
  },
  "monthly": [
   {
@@ -28,8 +28,8 @@
   },
   {
    "month": "2026-10",
-   "records": 53,
-   "boars": 73
+   "records": 54,
+   "boars": 76
   }
  ],
  "by_district": [
@@ -64,9 +64,9 @@
   {
    "district": "中西區",
    "district_en": "Central and Western",
-   "records": 15,
-   "boars": 26,
-   "locations": 9
+   "records": 16,
+   "boars": 29,
+   "locations": 10
   },
   {
    "district": null,
@@ -154,8 +154,8 @@
   },
   {
    "band": "2-3",
-   "records": 53,
-   "boars": 126
+   "records": 54,
+   "boars": 129
   },
   {
    "band": "4-6",
@@ -696,6 +696,18 @@
    "last_date": "2026-09-03",
    "days_since_last": 57,
    "activity": "medium"
+  },
+  {
+   "name": "香港公園",
+   "district": "中西區",
+   "lat": 22.277418,
+   "lon": 114.161508,
+   "records": 1,
+   "boars": 3,
+   "first_date": "2026-10-30",
+   "last_date": "2026-10-30",
+   "days_since_last": 0,
+   "activity": "high"
   },
   {
    "name": "下徑口",
