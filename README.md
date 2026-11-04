@@ -120,7 +120,7 @@ python tools/check_privacy.py
 │   ├── prepare_data.py     # 資料管線（擷取 → 地理編碼 → 統計 → JSON）
 │   ├── check_privacy.py    # 私隱審計腳本
 │   └── geocode_cache.json  # 地理編碼快取
-├── .github/workflows/deploy.yml
+├── .github/workflows/update-data.yml
 ├── robots.txt / sitemap.xml / .nojekyll
 └── LICENSE (MIT)
 ```

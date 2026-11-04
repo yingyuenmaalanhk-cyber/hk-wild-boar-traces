@@ -32,8 +32,10 @@ from __future__ import annotations
 import argparse
 import csv
 import io
+import ipaddress
 import json
 import re
+import socket
 import sys
 import time
 import urllib.parse
@@ -171,7 +173,34 @@ def log(msg: str) -> None:
     print(msg, flush=True)
 
 
+def assert_public_url(url: str) -> None:
+    """Defence-in-depth against SSRF: only http(s) to public hosts.
+
+    The only caller-controlled URL is the community CSV repo variable; if it
+    were ever pointed at a private/metadata address, refuse to fetch it.
+    """
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.scheme not in ("http", "https") or not parsed.hostname:
+        raise ValueError(f"refusing to fetch non-public URL: {url!r}")
+    default_port = 443 if parsed.scheme == "https" else 80
+    infos = socket.getaddrinfo(
+        parsed.hostname, parsed.port or default_port, proto=socket.IPPROTO_TCP
+    )
+    for info in infos:
+        addr = ipaddress.ip_address(str(info[4][0]).split("%")[0])
+        if (
+            addr.is_private
+            or addr.is_loopback
+            or addr.is_link_local
+            or addr.is_reserved
+            or addr.is_multicast
+            or addr.is_unspecified
+        ):
+            raise ValueError(f"refusing to fetch private/reserved address {addr}")
+
+
 def fetch_url(url: str, timeout: int = 45) -> bytes:
+    assert_public_url(url)
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read()
@@ -289,6 +318,10 @@ def save_afcd_archive(records: list[dict]) -> None:
 # Step 1b: community reports (Google Form responses via a published CSV)
 # --------------------------------------------------------------------------
 
+# Cap on community reports accepted per run — bounds geocoding work even if
+# the CSV source is ever replaced with a huge dataset.
+MAX_COMMUNITY_ROWS = 500
+
 COUNT_BAND_PATTERNS = (
     ("7+", re.compile(r"[7七]")),
     ("4-6", re.compile(r"[4四][\s]*[-~至到–]|4-6")),
@@ -371,6 +404,9 @@ def load_community_records(source: str, offline: bool) -> list[dict]:
     seen: set[tuple] = set()
     skipped = 0
     for row in reader:
+        if len(records) >= MAX_COMMUNITY_ROWS:
+            log(f"[WARN] community CSV exceeds {MAX_COMMUNITY_ROWS} valid rows; ignoring the rest")
+            break
         date = parse_community_date(row.get(columns["date"], ""))
         district = resolve_district(row.get(columns["district"], ""))
         location = sanitize_text((row.get(columns["location"]) or "").strip())[:120]
@@ -418,6 +454,7 @@ def save_cache(cache: dict) -> None:
 
 def nominatim_json(path: str, params: dict) -> list | dict | None:
     url = f"{NOMINATIM}{path}?" + urllib.parse.urlencode(params)
+    assert_public_url(url)
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     for attempt in (1, 2):
         try:
@@ -541,11 +578,17 @@ def geocode_all(records: list[dict], offline: bool) -> None:
                 log(f"  [DISTRICT] {query} -> {district}")
     save_cache(cache)
 
-    # Apply the cache to every record.
+    # Apply the cache to every record. Cached coordinates are re-validated
+    # against Hong Kong's bounding box so a corrupted/hand-edited cache entry
+    # cannot push a record outside the region.
     for record in records:
         entry = cache.get(record["geocode_query"]) or {}
-        record["lat"] = entry.get("lat")
-        record["lon"] = entry.get("lon")
+        lat, lon = entry.get("lat"), entry.get("lon")
+        if lat is not None and not in_hong_kong(lat, lon):
+            log(f"[WARN] cache entry out of HK bbox ignored: {record['geocode_query']!r}")
+            lat, lon = None, None
+        record["lat"] = lat
+        record["lon"] = lon
         if record.get("district") is None:
             record["district"] = entry.get("district")
 

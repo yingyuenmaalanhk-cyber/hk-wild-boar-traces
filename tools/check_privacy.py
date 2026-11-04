@@ -23,8 +23,9 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Files/directories that are not published, or are third-party code outside
-# the privacy scope of this project.
-SKIP_DIRS = {".git", ".github", "__pycache__", "node_modules", "raw", "vendor"}
+# the privacy scope of this project. `.github` IS scanned (it is committed
+# and published with the repo).
+SKIP_DIRS = {".git", "__pycache__", "node_modules", "raw", "vendor"}
 # Datasets contain dense coordinates that trip phone-number heuristics.
 DATA_FILES = {"sightings.geojson", "statistics.json", "meta.json", "districts.json"}
 
@@ -37,20 +38,26 @@ OFFICIAL_COMPETITION = (
     "Poly" + "U FCE Build a Smart City Competition " + "2026"
 )
 URL_PLACEHOLDER = "YOUR-GITHUB" + "-USERNAME"
+# Built by concatenation so the audit does not flag its own source.
+LOCAL_REF = "local" + "host|127.0.0" + ".1|file:/" + "/"
 
 SCHOOL_PATTERN = re.compile(SCHOOL_ID, re.IGNORECASE)
 
 # (pattern, severity, human description)
 RULES = [
     (re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"), "FAIL", "e-mail address"),
+    (re.compile(r"[A-Za-z0-9._%+-]+[＠][A-Za-z0-9.-]+"), "FAIL", "full-width ＠ e-mail address"),
     (re.compile(r"[CDE]:[\\/][Uu]sers[\\/][^\\/\s\"']+"), "FAIL", "Windows user profile path"),
+    (re.compile(r"[A-Za-z]:\\"), "FAIL", "Windows drive path"),
     (re.compile(r"/home/[A-Za-z0-9._-]+"), "FAIL", "Linux home path"),
     (re.compile(r"/Users/[A-Za-z0-9._-]+"), "FAIL", "macOS user path"),
     (SCHOOL_PATTERN, "FAIL", "school/affiliation identifier"),
     (re.compile(r"password\s*[:=]\s*['\"][^'\"]{3,}", re.IGNORECASE), "FAIL", "hardcoded password"),
     (re.compile(r"(api[_-]?key|access[_-]?token|secret[_-]?key)\s*[:=]\s*['\"][^'\"]{8,}", re.IGNORECASE), "FAIL", "hardcoded API key / token"),
+    (re.compile(r"(password|passwd|api[_-]?key|secret[_-]?key|access[_-]?token|auth[_-]?token)\s*[:=]\s*[\"']?[A-Za-z0-9_./+-]{8,}", re.IGNORECASE), "FAIL", "unquoted hardcoded secret"),
     (re.compile(r"\b\d{1,2}[A-Da-d]\(\d{1,3}\)\b"), "WARN", "student-class-number-like pattern (e.g. 5D(28))"),
     (re.compile(r"\b[4-9]\d{3}[\s-]\d{4}\b"), "WARN", "possible Hong Kong phone number"),
+    (re.compile(LOCAL_REF), "WARN", "local development URL (loopback) reference"),
     (re.compile(URL_PLACEHOLDER), "WARN", "deployment placeholder still present (replace before/after publishing)"),
 ]
 

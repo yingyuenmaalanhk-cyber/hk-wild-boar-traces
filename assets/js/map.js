@@ -81,7 +81,7 @@ function popupHTML(record) {
     <div class="popup-date">${formatDate(record.date)}${when ? ` · ${when}` : ""}</div>
     <h3>${esc(record.location)}</h3>
     <dl>
-      <dt>${t("popup.count")}</dt><dd>${countValue}</dd>
+      <dt>${t("popup.count")}</dt><dd>${esc(countValue)}</dd>
       <dt>${t("popup.district")}</dt><dd>${esc(districtName(record.district, record.district_en))}</dd>
       ${record.action_number ? `<dt>${t("popup.actionno")}</dt><dd>#${esc(record.action_number)}</dd>` : ""}
       ${record.notes ? `<dt>${t("popup.notes")}</dt><dd>${esc(record.notes)}</dd>` : ""}
@@ -180,7 +180,7 @@ function renderList() {
           </span>
           <span class="badge badge-${level.key}">
             <span class="dot" style="background:${colors[level.key]}" aria-hidden="true"></span>
-            ${r.count} · ${esc(metaField(level, "label"))}
+            ${esc(r.count)} · ${esc(metaField(level, "label"))}
           </span>
         </button>
       </li>`;

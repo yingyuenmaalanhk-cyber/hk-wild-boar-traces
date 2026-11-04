@@ -76,7 +76,7 @@ const DICT = {
       "請勿填寫任何個人資料（姓名、電話、地址等）；位置寫大約即可；報告內容將公開顯示，提交即表示同意公開（明顯的電話號碼及電郵會被自動遮蔽）。緊急情況請立即報警（999）或致電政府熱線 1823，切勿使用本表單。",
     "report.privacy.title": "私隱",
     "report.privacy.body":
-      "表單由 Google Forms 提供，提交的內容會按 Google 的服務條款處理；本站只會發佈你填寫的報告內容，不會公開你的身份。",
+      "表單由 Google Forms 提供，提交的內容會按 Google 的服務條款處理；提交內容會儲存於連結的 Google 試算表，該試算表以「知道連結的任何人」可檢視（自動更新管線所需），表單不會收集你的電郵地址。本站只會發佈你填寫的報告內容，不會公開你的身份。",
 
     "home.hero.tagline": "香港野豬活動資訊平台 · 公開 · 唯讀",
     "home.hero.lead":
@@ -294,7 +294,7 @@ const DICT = {
       "Do not include any personal information (names, phone numbers, addresses, etc.); an approximate location is enough. Report contents are published publicly — by submitting you agree to publication (obvious phone numbers and e-mail addresses are redacted automatically). In an emergency, call 999 or the government hotline 1823 immediately — do not use this form.",
     "report.privacy.title": "Privacy",
     "report.privacy.body":
-      "The form is provided by Google Forms; submissions are handled under Google's terms of service. This website only publishes the report content you enter and never publishes your identity.",
+      "The form is provided by Google Forms; submissions are handled under Google's terms of service. Submitted content is stored in a linked Google Sheet, which is publicly readable via link (required by the automated data pipeline); the form does not collect your e-mail address. This website only publishes the report content you enter and never publishes your identity.",
 
     "home.hero.tagline": "Hong Kong Wild Boar Information Platform · Open · Read-only",
     "home.hero.lead":
